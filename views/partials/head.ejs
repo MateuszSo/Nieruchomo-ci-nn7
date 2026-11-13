@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : settings.seo?.siteTitle %></title>
+  <meta name="description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : settings.seo?.siteDescription %>">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : settings.seo?.siteTitle %>">
+  <meta property="og:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : settings.seo?.siteDescription %>">
+  <meta property="og:site_name" content="<%= settings.brandName %>">
+
+  <!-- Czcionki Google: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (CDN z lokalnym fallbackiem i własnymi stylami w style.css) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif']
+          },
+          colors: {
+            brand: {
+              dark: '#0f172a',
+              navy: '#1e293b',
+              gold: '#d97706',
+              goldLight: '#f59e0b',
+              cream: '#f8fafc'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-amber-500 selection:text-white flex flex-col min-h-screen">

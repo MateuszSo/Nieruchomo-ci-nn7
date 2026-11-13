@@ -1,0 +1,475 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "passwordHash": "$2a$10$wS6kMtz9pxFq.1kPM5zuNO6sIlFJIxcpvfKOc76ZW127zZp9aZiUC",
+      "name": "Marek Kowalski",
+      "updatedAt": "2026-11-08T11:21:29.273Z",
+      "role": "admin",
+      "active": true,
+      "title": "Właściciel Biura · Licencjonowany Pośrednik",
+      "licenseNumber": "Licencja PFRN nr 28491",
+      "phone": "+48 600 700 123",
+      "email": "kontakt@kowalskinieruchomosci.pl",
+      "avatar": "/images/demo/agent-portrait.svg",
+      "bio": "Doświadczony doradca przeprowadzający klientów bezpiecznie przez proces sprzedaży i zakupu nieruchomości."
+    },
+    {
+      "id": 2,
+      "username": "agent",
+      "passwordHash": "$2a$10$ReR2IQk.xCZvtS.AI4fhPeehR5X2xdokKG.TurgQicBGj4YKpAuye",
+      "role": "agent",
+      "active": true,
+      "name": "Karolina Nowak",
+      "title": "Starszy Doradca ds. Nieruchomości",
+      "licenseNumber": "Licencja PFRN nr 31045",
+      "phone": "+48 600 700 805",
+      "email": "k.nowak@kowalskinieruchomosci.pl",
+      "avatar": "/images/demo/agent-female.svg",
+      "bio": "Specjalistka ds. sprzedaży i wynajmu apartamentów, lokali komercyjnych oraz profesjonalnego Home Stagingu.",
+      "createdAt": "2026-03-15T10:00:00.000Z",
+      "updatedAt": "2026-11-09T15:36:11.356Z"
+    }
+  ],
+  "settings": {
+    "brandName": "NN7",
+    "agentName": "Edyta Sodja",
+    "agentRole": "Pośrednik w Obrocie Nieruchomościami",
+    "licenseNumber": "-",
+    "agentPhoto": "/images/demo/agent-portrait.svg",
+    "heroBadge": "Ekspert rynku nieruchomości premium i mieszkań",
+    "heroTitle": "Skuteczna sprzedaż i bezpieczny zakup Twojej nieruchomości",
+    "heroSubtitle": "Przeprowadzam klientów przez cały proces transakcji – od rzetelnej wyceny rynkowej, przez profesjonalny home staging i marketing, aż po bezpieczne przekazanie kluczy u notariusza.",
+    "heroImage": "/uploads/001-1794484019399-4078.webp",
+    "stats": [],
+    "about": {
+      "title": "Twój zaufany doradca na każdym etapie transakcji",
+      "subtitle": "Łączę znajomość lokalnego rynku, prawa nieruchomości i nowoczesnego marketingu, aby maksymalizować zysk i spokój moich klientów.",
+      "bioHtml": "<p>Nazywam się <strong>Marek Kowalski</strong> i od ponad 11 lat pomagam właścicielom mieszkań, domów oraz działek przejść przez proces sprzedaży i wynajmu bez stresu, ukrytych ryzyk i straty czasu.</p>\n<p>Moja praca zaczyna się na długo przed publikacją ogłoszenia. Każdą nieruchomość dokładnie weryfikuję pod kątem prawnym, przygotowuję strategię cenową opartą o rzeczywiste ceny transakcyjne (a nie wyłącznie ofertowe) oraz organizuję profesjonalny <strong>home staging, sesję fotograficzną, ujęcia z drona i wirtualny spacer</strong>.</p>\n<p>Wierzę w pełną przejrzystość: pracuję na jasnych zasadach, regularnie raportuję postępy i osobiście uczestniczę w każdej prezentacji oraz negocjacjach.</p>",
+      "values": [
+        {
+          "title": "Bezpieczeństwo prawne i finansowe",
+          "description": "Sprawdzam księgi wieczyste, podstawy nabycia, plany zagospodarowania oraz kompletuję wszystkie zaświadczenia do aktu notarialnego."
+        },
+        {
+          "title": "Marketing, który przyciąga kupujących",
+          "description": "Profesjonalna fotografia wnętrz, filmy wideo, rzuty 2D/3D, promocja na wiodących portalach i w mediach społecznościowych."
+        },
+        {
+          "title": "Skuteczne negocjacje cenowe",
+          "description": "Reprezentuję wyłącznie Twój interes przy stole negocjacyjnym, dbając o uzyskanie najwyższej możliwej ceny oraz bezpiecznych warunków płatności."
+        },
+        {
+          "title": "Oszczędność Twojego czasu",
+          "description": "Weryfikuję dzwoniących klientów, odsiewam tzw. „turystów mieszkaniowych” i organizuję prezentacje tylko ze zdecydowanymi nabywcami."
+        }
+      ],
+      "certifications": [
+        "Licencja Pośrednika w Obrocie Nieruchomościami PFRN nr 28491",
+        "Certyfikowany Specjalista Home Stagingu i Marketingu Nieruchomości",
+        "Pełne ubezpieczenie OC pośrednika na kwotę 500 000 EUR",
+        "Członek Warszawskiego Stowarzyszenia Pośredników w Obrocie Nieruchomościami"
+      ]
+    },
+    "testimonials": [
+      {
+        "id": 1,
+        "author": "Anna i Piotr Zielińscy",
+        "role": "Sprzedaż 3-pokojowego mieszkania na Mokotowie",
+        "text": "Mieszkanie sprzedało się w 3 tygodnie za cenę wyższą niż zakładaliśmy na starcie. Pan Marek zajął się absolutnie wszystkim – od przygotowania wnętrza do zdjęć po organizację aktu notarialnego."
+      },
+      {
+        "id": 2,
+        "author": "Tomasz Nowakowski",
+        "role": "Zakup domu pod Warszawą",
+        "text": "Dzięki dokładnej weryfikacji dokumentów przez Pana Marka uniknęliśmy zakupu nieruchomości z nieuregulowanym dostępem do drogi publicznej. Pełen profesjonalizm i ogromna wiedza."
+      },
+      {
+        "id": 3,
+        "author": "Karolina Wiśniewska",
+        "role": "Obsługa najmu okazjonalnego apartamentu",
+        "text": "Mieszkam za granicą i potrzebowałam kogoś, kto zajmie się wynajmem mojego apartamentu od A do Z. Świetny kontakt, sprawdzony najemca i bezpieczna umowa najmu okazjonalnego."
+      }
+    ],
+    "contact": {
+      "phone": "+48 600 700 123",
+      "email": "kontakt@kowalskinieruchomosci.pl",
+      "address": "ul. Złota 59, piętro 12",
+      "city": "00-120 Warszawa",
+      "workingHours": "Poniedziałek – Piątek: 9:00 – 19:00, Sobota: 10:00 – 15:00",
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "linkedin": "https://linkedin.com",
+      "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=20.995%2C52.225%2C21.015%2C52.235&layer=mapnik&marker=52.230%2C21.005"
+    },
+    "seo": {
+      "siteTitle": "Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości",
+      "siteDescription": "Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów oraz działek. Sprawdź aktualne oferty nieruchomości."
+    }
+  },
+  "services": [
+    {
+      "id": 1,
+      "title": "Pośrednictwo w sprzedaży nieruchomości",
+      "subtitle": "Kompleksowa sprzedaż mieszkań, domów i apartamentów w najwyższej cenie rynkowej.",
+      "icon": "home",
+      "description": "Przejmuję na siebie cały proces sprzedaży – od analizy rynku i przygotowania nieruchomości, przez szeroką promocję, aż po negocjacje i podpisanie aktu notarialnego.",
+      "features": [
+        "Rzetelna analiza porównawcza rynku i ustalenie optymalnej ceny ofertowej",
+        "Weryfikacja i regulacja stanu prawnego księgi wieczystej oraz dokumentów",
+        "Profesjonalna sesja zdjęciowa, film promocyjny i wirtualny spacer 360°",
+        "Publikacja wyróżnionych ogłoszeń na Otodom, Morizon, Gratka, OLX i w Social Media",
+        "Prezentacje nieruchomości w systemie Dni Otwartych oraz indywidualnych spotkań"
+      ],
+      "order": 1
+    },
+    {
+      "id": 2,
+      "title": "Obsługa wynajmu i najem okazjonalny",
+      "subtitle": "Bezpieczny wynajem Twojego mieszkania sprawdzonym i zweryfikowanym najemcom.",
+      "icon": "key",
+      "description": "Chronię interesy właściciela poprzez weryfikację wypłacalności najemców, przygotowanie szczelnej umowy najmu okazjonalnego oraz protokołu zdawczo-odbiorczego z dokumentacją zdjęciową.",
+      "features": [
+        "Selekcja i weryfikacja potencjalnych najemców",
+        "Przygotowanie umowy najmu okazjonalnego z rygorem egzekucji u notariusza",
+        "Szczegółowy protokół przekazania lokalu ze stanem liczników i zdjęciami",
+        "Doradztwo w zakresie ubezpieczenia OC najemcy i właściciela"
+      ],
+      "order": 2
+    },
+    {
+      "id": 3,
+      "title": "Poszukiwanie nieruchomości na zlecenie",
+      "subtitle": "Reprezentacja kupującego – znajdę dla Ciebie idealne mieszkanie, dom lub grunt.",
+      "icon": "search",
+      "description": "Nie trać dziesiątek godzin na przeglądanie nieaktualnych portali. Przeszukuję cały rynek (w tym oferty niepubliczne tzw. off-market), sprawdzam stan techniczny i prawny oraz negocjuję dla Ciebie niższą cenę zakupu.",
+      "features": [
+        "Dostęp do ofert spod lady (off-market) zanim trafią na portale ogłoszeniowe",
+        "Audyt stanu prawnego, księgi wieczystej, obciążeń i planów miejscowych (MPZP)",
+        "Twarde negocjacje ceny zakupu (często oszczędność przewyższa wynagrodzenie agenta)",
+        "Koordynacja współpracy z doradcą kredytowym, rzeczoznawcą i kancelarią notarialną"
+      ],
+      "order": 3
+    },
+    {
+      "id": 4,
+      "title": "Home Staging i przygotowanie wnętrz",
+      "subtitle": "Wydobywamy pełen potencjał wizualny nieruchomości przed pierwszą wizytą klienta.",
+      "icon": "sparkles",
+      "description": "Pierwsze wrażenie decyduje o sprzedaży w ciągu pierwszych 30 sekund. Dzięki zmianie aranżacji, doborowi oświetlenia i dodatków nieruchomości sprzedają się średnio o 40% szybciej.",
+      "features": [
+        "Konsultacja i szczegółowa lista zmian podnoszących wartość nieruchomości",
+        "Depersonalizacja, odświeżenie wnętrza i aranżacja przestrzeni",
+        "Wypożyczenie tekstyliów, dekoracji i oświetlenia na czas sesji i prezentacji",
+        "Profesjonalna fotografia architektury oraz ujęcia z drona"
+      ],
+      "order": 4
+    },
+    {
+      "id": 5,
+      "title": "Sprzedaż działek i gruntów inwestycyjnych",
+      "subtitle": "Analiza chłonności, MPZP, warunków zabudowy i uzbrojenia terenu.",
+      "icon": "map",
+      "description": "Sprzedaż gruntu wymaga wiedzy geodezyjnej i urbanistycznej. Przygotowuję kompletną teczkę inwestycyjną działki wraz z ujęciami z lotu ptaka i obrysem granic.",
+      "features": [
+        "Analiza Miejscowego Planu Zagospodarowania Przestrzennego (MPZP) lub WZ",
+        "Weryfikacja dostępu do drogi publicznej, mediów i klasyfikacji gruntów",
+        "Zdjęcia i wideo z drona z naniesionym obrysem granic działki",
+        "Dotarcie do inwestorów prywatnych oraz lokalnych deweloperów"
+      ],
+      "order": 5
+    },
+    {
+      "id": 6,
+      "title": "Wsparcie kredytowe i formalno-prawne",
+      "subtitle": "Kompletna pomoc w uzyskaniu finansowania oraz skompletowaniu dokumentów do notariusza.",
+      "icon": "shield",
+      "description": "Współpracuję z niezależnymi ekspertami kredytowymi oraz sprawdzonymi kancelariami notarialnymi, dzięki czemu cała transakcja przebiega sprawnie i bez opóźnień.",
+      "features": [
+        "Bezpłatne porównanie ofert kredytów hipotecznych z ponad 12 banków",
+        "Pomoc w uzyskaniu zaświadczeń ze spółdzielni, urzędu skarbowego i gminy",
+        "Negocjacja niższej taksy notarialnej dla moich klientów",
+        "Asysta przy końcowym wydaniu nieruchomości i przepisaniu liczników"
+      ],
+      "order": 6
+    }
+  ],
+  "properties": [
+    {
+      "id": 7,
+      "authorId": 1,
+      "title": "asdasd",
+      "slug": "asdasd",
+      "transactionType": "sprzedaz",
+      "category": "mieszkanie",
+      "status": "dostepne",
+      "featured": true,
+      "price": 11111,
+      "pricePerM2": 1010,
+      "area": 11,
+      "rooms": 3,
+      "floor": "1",
+      "buildYear": 2022,
+      "city": "Warszawa",
+      "district": "asdasd",
+      "address": "asdasd",
+      "images": [
+        "/images/demo/prop-1.svg"
+      ],
+      "amenities": [
+        "Balkon / Taras",
+        "Miejsce postojowe",
+        "Winda",
+        "Księga Wieczysta bez obciążeń"
+      ],
+      "description": "<h3>Tekst nagłowka</h3>\r\n<p>Tekst     <strong>asdasd</strong>  asdasd</p>\r\n\r\n<ul>\r\n  <li>1</li>\r\n  <li>2</li>\r\n  <li>3</li>\r\n  <li>4</li>\r\n</ul>",
+      "createdAt": "2026-11-12T11:37:41.969Z"
+    },
+    {
+      "id": 1,
+      "title": "Słoneczny apartament z tarasem i widokiem na park",
+      "slug": "sloneczny-apartament-z-tarasem-i-widokiem-na-park",
+      "transactionType": "sprzedaz",
+      "category": "mieszkanie",
+      "status": "dostepne",
+      "featured": true,
+      "price": 1190000,
+      "pricePerM2": 15256,
+      "area": 78,
+      "rooms": 3,
+      "floor": "4 / 5",
+      "buildYear": 2021,
+      "city": "Warszawa",
+      "district": "Mokotów, ul. Woronicza",
+      "address": "ul. Jana Pawła Woronicza, Mokotów",
+      "images": [
+        "/images/demo/prop-1.svg",
+        "/images/demo/prop-3.svg",
+        "/images/demo/hero-villa.svg"
+      ],
+      "amenities": [
+        "Taras 18 m²",
+        "Miejsce w garażu podziemnym",
+        "Klimatyzacja",
+        "Komórka lokatorska",
+        "Winda",
+        "Osiedle strzeżone 24/7"
+      ],
+      "description": "<p>Wyjątkowy, trójstronny apartament o powierzchni <strong>78 m²</strong> położony na 4. piętrze kameralnego budynku z 2021 roku na warszawskim Mokotowie.</p>\n<p>Wnętrze zostało zaprojektowane przez architekta z wykorzystaniem naturalnego dębu, spieków kwarcowych oraz zabudowy stolarskiej wykonywanej na wymiar. Duże, panoramiczne okna zapewniają doskonałe doświetlenie przez cały dzień.</p>\n<h3>Układ pomieszczeń:</h3>\n<ul>\n  <li>Przestronny salon z aneksem kuchennym i wyspą (32 m²) oraz wyjściem na słoneczny taras (18 m²),</li>\n  <li>Główna sypialnia master z prywatną garderobą (17 m²),</li>\n  <li>Drugi pokój idealny jako gabinet lub pokój dziecięcy (13 m²),</li>\n  <li>Łazienka z wanną wolnostojącą i strefą prysznica walk-in (8 m²),</li>\n  <li>Hol z pojemnymi szafami w zabudowie oraz pralnią (8 m²).</li>\n</ul>\n<p>Stan prawny: <strong>pełna własność z Księgą Wieczystą</strong> bez żadnych obciążeń – możliwość posiłkowania się kredytem hipotecznym.</p>",
+      "createdAt": "2026-10-15T10:00:00.000Z",
+      "authorId": 1
+    },
+    {
+      "id": 2,
+      "title": "Nowoczesny dom pod miastem z ogrodem i pompą ciepła",
+      "slug": "nowoczesny-dom-pod-miastem-z-ogrodem-i-pompa-ciepla",
+      "transactionType": "sprzedaz",
+      "category": "dom",
+      "status": "dostepne",
+      "featured": true,
+      "price": 1650000,
+      "pricePerM2": 9939,
+      "area": 166,
+      "rooms": 5,
+      "floor": "Parter + poddasze",
+      "buildYear": 2023,
+      "city": "Konstancin-Jeziorna",
+      "district": "Strefa B, blisko Lasu Kabackiego",
+      "address": "Konstancin-Jeziorna, okolice ul. Warszawskiej",
+      "images": [
+        "/images/demo/prop-2.svg",
+        "/images/demo/hero-villa.svg",
+        "/images/demo/prop-1.svg"
+      ],
+      "amenities": [
+        "Działka 850 m²",
+        "Pompa ciepła + fotowoltaika",
+        "Rekuperacja",
+        "Garaż dwustanowiskowy",
+        "Ogrzewanie podłogowe",
+        "System nawadniania ogrodu"
+      ],
+      "description": "<p>Energooszczędny dom wolnostojący w stylistyce nowoczesnej stodoły o powierzchni użytkowej <strong>166 m²</strong>, posadowiony na pięknie zagospodarowanej działce o powierzchni <strong>850 m²</strong>.</p>\n<p>Budynek wyposażony w pompę ciepła, instalację fotowoltaiczną 8 kWp oraz rekuperację, co przekłada się na minimalne koszty utrzymania przez cały rok.</p>\n<h3>Atuty nieruchomości:</h3>\n<ul>\n  <li>Ponadnormatywne przeszklenia aluminiowe HS z wyjściem na drewniany taras z pergolą,</li>\n  <li>Salon z antresolą o wysokości 5,8 m oraz kominkiem,</li>\n  <li>4 ustawne sypialnie i 2 pełne łazienki,</li>\n  <li>Garaż dwustanowiskowy w bryle budynku z ładowarką Wallbox do aut elektrycznych.</li>\n</ul>",
+      "createdAt": "2026-10-18T12:30:00.000Z",
+      "authorId": 1
+    },
+    {
+      "id": 3,
+      "title": "Dwupoziomowy penthouse z prywatnym tarasem na dachu",
+      "slug": "dwupoziomowy-penthouse-z-prywatnym-tarasem-na-dachu",
+      "transactionType": "wynajem",
+      "category": "mieszkanie",
+      "status": "dostepne",
+      "featured": true,
+      "price": 9500,
+      "pricePerM2": 86,
+      "area": 110,
+      "rooms": 4,
+      "floor": "7 / 7",
+      "buildYear": 2022,
+      "city": "Warszawa",
+      "district": "Śródmieście / Powiśle",
+      "address": "Powiśle, blisko Bulwarów Wiślanych",
+      "images": [
+        "/images/demo/prop-3.svg",
+        "/images/demo/prop-1.svg"
+      ],
+      "amenities": [
+        "Taras na dachu 45 m²",
+        "2 miejsca postojowe",
+        "Klimatyzacja w każdym pokoju",
+        "Smart Home KNX",
+        "Recepcja w budynku"
+      ],
+      "description": "<p>Do wynajęcia reprezentacyjny, w pełni umeblowany penthouse o powierzchni <strong>110 m²</strong> na zielonym Powiślu. Mieszkanie oferuje panoramiczny widok na centrum miasta oraz prywatny taras wypoczynkowy na dachu.</p>\n<p>Cena najmu: <strong>9 500 zł / mies.</strong> + czynsz administracyjny (1 450 zł). W cenie zawarte są dwa miejsca postojowe w garażu podziemnym.</p>",
+      "createdAt": "2026-10-20T09:15:00.000Z",
+      "authorId": 2
+    },
+    {
+      "id": 4,
+      "title": "Uzbrojona działka budowlana pod lasem (MPZP)",
+      "slug": "uzbrojona-dzialka-budowlana-pod-lasem-mpzp",
+      "transactionType": "sprzedaz",
+      "category": "dzialka",
+      "status": "dostepne",
+      "featured": true,
+      "price": 540000,
+      "pricePerM2": 372,
+      "area": 1450,
+      "rooms": 0,
+      "floor": "-",
+      "buildYear": 2026,
+      "city": "Józefów",
+      "district": "Michalin",
+      "address": "Józefów, rej. ul. Granicznej",
+      "images": [
+        "/images/demo/prop-4.svg"
+      ],
+      "amenities": [
+        "Aktualny MPZP (MN)",
+        "Prąd, gaz, woda, kanalizacja w drodze",
+        "Kształt: prostokąt 32x45 m",
+        "Bezpośredni dostęp do drogi gminnej"
+      ],
+      "description": "<p>Kształtna działka budowlana o powierzchni <strong>1 450 m²</strong> położona w cichej, willowej części Józefowa w otoczeniu starodrzewu sosnowego.</p>\r\n<p>Teren objęty Miejscowym Planem Zagospodarowania Przestrzennego pod zabudowę mieszkaniową jednorodzinną (symbol MN). Wszystkie media miejskie znajdują się bezpośrednio w oświetlonej drodze przy granicy działki.</p>\r\n<strong><p><ul>\r\n  <li>Tekst</li>\r\n</ul></p></strong>",
+      "createdAt": "2026-10-22T14:00:00.000Z",
+      "updatedAt": "2026-11-08T11:48:52.662Z",
+      "authorId": 1
+    },
+    {
+      "id": 5,
+      "title": "Narożny lokal użytkowy z dużymi witrynami przy głównej ulicy",
+      "slug": "narozny-lokal-uzytkowy-z-duzymi-witrynami",
+      "transactionType": "wynajem",
+      "category": "lokal",
+      "status": "zarezerwowane",
+      "featured": false,
+      "price": 7900,
+      "pricePerM2": 92,
+      "area": 86,
+      "rooms": 3,
+      "floor": "Parter (witryna)",
+      "buildYear": 2020,
+      "city": "Warszawa",
+      "district": "Wola, ul. Kasprzaka",
+      "address": "Wola, ciąg pieszy nowego osiedla",
+      "images": [
+        "/images/demo/prop-5.svg"
+      ],
+      "amenities": [
+        "Narożne witryny z 2 stron",
+        "Zgoda na sprzedaż alkoholu i gastronomię",
+        "Wentylacja mechaniczna i klimatyzacja",
+        "Wysokość lokalu 3,85 m"
+      ],
+      "description": "<p>Doskonale wyeksponowany lokal usługowo-handlowy na parterze nowoczesnego apartamentowca w sercu dynamicznie rozwijającej się Woli (w bezpośrednim sąsiedztwie ponad 3 500 mieszkań).</p>\r\n<p>Idealny pod kancelarię, gabinet medyczny/kosmetyczny, showroom lub kawiarnię.</p>",
+      "createdAt": "2026-10-25T16:40:00.000Z",
+      "authorId": 2,
+      "updatedAt": "2026-11-09T16:25:06.559Z"
+    },
+    {
+      "id": 6,
+      "title": "Klimatyczne mieszkanie w odrestaurowanej kamienicy",
+      "slug": "klimatyczne-mieszkanie-w-odrestaurowanej-kamienicy",
+      "transactionType": "sprzedaz",
+      "category": "mieszkanie",
+      "status": "sprzedane",
+      "featured": false,
+      "price": 895000,
+      "pricePerM2": 16574,
+      "area": 54,
+      "rooms": 2,
+      "floor": "2 / 4",
+      "buildYear": 1936,
+      "city": "Warszawa",
+      "district": "Stary Żoliborz",
+      "address": "Stary Żoliborz, blisko Placu Wilsona",
+      "images": [
+        "/images/demo/prop-6.svg"
+      ],
+      "amenities": [
+        "Wysokość sufitów 3,20 m",
+        "Oryginalny parkiet dębowy",
+        "Balkon francuski",
+        "3 minuty do stacji metra",
+        "Duża piwnica 9 m²"
+      ],
+      "description": "<p>Dwupokojowe mieszkanie z duszą w przedwojennej kamienicy po generalnej rewitalizacji na Starym Żoliborzu. Nieruchomość została sprzedana po pierwszym Dniu Otwartym.</p>",
+      "createdAt": "2026-10-10T08:00:00.000Z",
+      "authorId": 1
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Jak przygotować mieszkanie do sprzedaży, aby podnieść jego wartość o 10%?",
+      "slug": "jak-przygotowac-mieszkanie-do-sprzedazy-home-staging",
+      "category": "Poradnik sprzedającego",
+      "excerpt": "Sprawdź, jakie proste zabiegi z zakresu home stagingu sprawiają, że kupujący zakochują się w mieszkaniu od pierwszego wejścia i są skłonni zapłacić pełną cenę ofertową.",
+      "coverImage": "/images/demo/prop-1.svg",
+      "published": true,
+      "createdAt": "2026-10-12T10:00:00.000Z",
+      "content": "<p>Wielu właścicieli mieszkań wychodzi z założenia, że „kupujący i tak urządzi sobie wszystko po swojemu”. W praktyce jednak <strong>ponad 85% osób kupujących nieruchomość nie potrafi zwizualizować sobie potencjału zagraconego lub ciemnego wnętrza</strong>.</p>\n<h3>1. Depersonalizacja i odgracenie przestrzeni</h3>\n<p>Pierwszym krokiem przed sesją zdjęciową jest schowanie osobistych pamiątek, nadmiaru ubrań na wieszakach, magnesów z lodówki czy kosmetyków w łazience. Kupujący podczas prezentacji powinien wyobrażać sobie w tym miejscu <em>swoje przyszłe życie</em>, a nie czuć się gościem w czyimś domu.</p>\n<h3>2. Światło i jasna kolorystyka</h3>\n<p>Jasne wnętrza wydają się większe i czystsze. Przed wystawieniem oferty warto odświeżyć ściany w neutralnych barwach (złamana biel, jasny beż), umyć okna oraz zadbać o ciepłe oświetlenie punktowe w każdym pomieszczeniu.</p>\n<h3>3. Drobne naprawy techniczne</h3>\n<p>Skrzypiąca klamka, luźne gniazdko czy przepalona żarówka dają kupującemu sygnał, że nieruchomość była zaniedbana – co natychmiast staje się pretekstem do zbijania ceny o kilkanaście lub kilkadziesiąt tysięcy złotych.</p>\n<h3>4. Profesjonalna sesja fotograficzna</h3>\n<p>Nawet najlepiej przygotowane mieszkanie przepadnie w gąszczu ogłoszeń, jeśli zdjęcia zostaną zrobione telefonem pod światło. Jako agent zapewniam w ramach współpracy profesjonalną sesję szerokokątną oraz rzut 2D/3D, dzięki którym ogłoszenie generuje nawet 3-krotnie więcej zapytań.</p>",
+      "authorId": 1
+    },
+    {
+      "id": 2,
+      "title": "Umowa na wyłączność z agentem nieruchomości – dlaczego najbardziej opłaca się sprzedającemu?",
+      "slug": "umowa-na-wylacznosc-z-agentem-nieruchomosci-korzysci",
+      "category": "Rynek nieruchomości",
+      "excerpt": "Czy zgłoszenie mieszkania do dziesięciu biur naraz przyspiesza sprzedaż? Wyjaśniam, dlaczego jedna dobrze prowadzona oferta osiąga wyższą cenę transakcyjną.",
+      "coverImage": "/images/demo/prop-2.svg",
+      "published": true,
+      "createdAt": "2026-10-20T14:20:00.000Z",
+      "content": "<p>Właściciele często sądzą, że podpisanie umów otwartych z pięcioma różnymi agencjami zwiększy ich szanse na sprzedaż. W rzeczywistości efekt jest dokładnie odwrotny: <strong>ta sama oferta pojawia się na portalu wielokrotnie, z różnymi cenami, nieaktualnymi opisami i przypadkowymi zdjęciami</strong>.</p>\n<h3>Co daje Ci umowa na wyłączność?</h3>\n<ul>\n  <li><strong>Jeden odpowiedzialny opiekun oferty:</strong> wiesz dokładnie, kto odpowiada za wynik, odbiera telefony i raportuje postępy.</li>\n  <li><strong>Pełen budżet marketingowy:</strong> mając gwarancję współpracy, inwestuję w Twoją nieruchomość własne środki – sesję zdjęciową, wideo z drona, home staging i wyróżnienia na portalach.</li>\n  <li><strong>Współpraca z całym rynkiem (MLS):</strong> wyłączność nie zamyka oferty! Udostępniam ją wszystkim sprawdzonym pośrednikom w mieście, którzy przyprowadzają swoich klientów kupujących.</li>\n  <li><strong>Spójna strategia cenowa:</strong> brak chaosu informacyjnego buduje prestiż nieruchomości w oczach kupujących i chroni cenę podczas negocjacji.</li>\n</ul>",
+      "authorId": 2
+    },
+    {
+      "id": 3,
+      "title": "Zakup mieszkania z rynku wtórnego – lista dokumentów do sprawdzenia przed wizytą u notariusza",
+      "slug": "zakup-mieszkania-z-rynku-wtornego-lista-dokumentow",
+      "category": "Bezpieczeństwo prawne",
+      "excerpt": "Zanim podpiszesz umowę przedwstępną i wpłacisz zadatek, upewnij się, że stan prawny nieruchomości nie kryje niespodzianek.",
+      "coverImage": "/images/demo/blog-cover.svg",
+      "published": true,
+      "createdAt": "2026-10-28T09:00:00.000Z",
+      "content": "<p>Zakup nieruchomości to często największa decyzja finansowa w życiu. Aby transakcja była w 100% bezpieczna, konieczna jest szczegółowa weryfikacja dokumentów jeszcze przed przekazaniem zadatku.</p>\n<h3>Kluczowe dokumenty do weryfikacji:</h3>\n<ol>\n  <li><strong>Numer Księgi Wieczystej (działy I–IV):</strong> sprawdzamy nie tylko obecne wpisy, ale również tzw. wzmianki o złożonych wnioskach, służebności osobiste oraz hipoteki.</li>\n  <li><strong>Podstawa nabycia:</strong> akt notarialny zakupu, darowizny lub prawomocne postanowienie o stwierdzeniu nabycia spadku (wraz z zaświadczeniem z Urzędu Skarbowego o uregulowaniu podatku od spadków i darowizn).</li>\n  <li><strong>Zaświadczenie o braku osób zameldowanych</strong> w lokalu.</li>\n  <li><strong>Zaświadczenie ze spółdzielni lub wspólnoty mieszkaniowej</strong> o braku zaległości w opłatach eksploatacyjnych i funduszu remontowym.</li>\n</ol>",
+      "authorId": 1
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "name": "Michał Jabłoński",
+      "email": "m.jablonski@example.com",
+      "phone": "+48 501 234 567",
+      "subject": "Zapytanie o współpracę przy sprzedaży mieszkania",
+      "propertyTitle": "",
+      "message": "Dzień dobry Panie Marku, planuję sprzedaż 3-pokojowego mieszkania na Ursynowie (64 m²). Chciałbym umówić się na bezpłatną konsultację i wycenę w przyszłym tygodniu.",
+      "read": true,
+      "createdAt": "2026-11-02T11:20:00.000Z",
+      "agentId": 1
+    }
+  ]
+}

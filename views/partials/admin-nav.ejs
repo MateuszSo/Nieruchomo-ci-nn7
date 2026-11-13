@@ -1,0 +1,49 @@
+<div class="bg-slate-900 text-white border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+            <%= currentUser && currentUser.role === 'admin' ? 'System CMS Właściciela (Pełny dostęp)' : 'Panel Agenta Nieruchomości (Własne treści)' %>
+          </span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-serif font-bold text-white mt-0.5"><%= pageTitle %></h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition">
+          ← Zobacz stronę publiczną
+        </a>
+        <a href="/admin/nieruchomosci/nowa" class="px-3.5 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-semibold transition">
+          + Dodaj nieruchomość
+        </a>
+      </div>
+    </div>
+
+    <!-- Zakładki nawigacyjne panelu CMS -->
+    <nav class="flex flex-wrap gap-1.5 mt-5 pt-4 border-t border-slate-800 text-sm">
+      <%
+        const isAdmin = currentUser && currentUser.role === 'admin';
+        const adminTabs = [
+          { id: 'dashboard', href: '/admin', label: 'Kokpit główny', show: true },
+          { id: 'properties', href: '/admin/nieruchomosci', label: isAdmin ? 'Nieruchomości' : 'Moje nieruchomości', show: true },
+          { id: 'blog', href: '/admin/blog', label: isAdmin ? 'Blog (Artykuły)' : 'Moje artykuły', show: true },
+          { id: 'messages', href: '/admin/wiadomosci', label: `Wiadomości (${unreadMessagesCount})`, show: true },
+          { id: 'agents', href: '/admin/agenci', label: 'Zespół / Agenci', show: isAdmin },
+          { id: 'services', href: '/admin/oferta', label: 'Zakładka Oferta', show: isAdmin },
+          { id: 'settings', href: '/admin/tresci', label: 'O mnie / Kontakt / Wygląd', show: isAdmin },
+          { id: 'profile', href: '/admin/profil', label: 'Mój profil i hasło', show: true }
+        ];
+      %>
+      <% adminTabs.filter(t => t.show).forEach(tab => {
+        const isCurrent = (typeof activeTab !== 'undefined' && activeTab === tab.id);
+      %>
+        <a
+          href="<%= tab.href %>"
+          class="px-3.5 py-2 rounded-lg font-medium transition <%= isCurrent ? 'bg-amber-600 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' %>"
+        >
+          <%= tab.label %>
+        </a>
+      <% }) %>
+    </nav>
+  </div>
+</div>

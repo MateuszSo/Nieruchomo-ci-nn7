@@ -1,0 +1,326 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<main class="flex-1">
+  <!-- SEKCJA HERO -->
+  <section class="relative bg-slate-900 text-white overflow-hidden">
+    <!-- Tło architektoniczne z przyciemnieniem -->
+    <div class="absolute inset-0 opacity-25">
+      <img src="<%= settings.heroImage || '/images/demo/hero-villa.svg' %>" alt="" class="w-full h-full object-cover">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-900/75"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Lewa kolumna: Tekst powitalny i przyciski -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-semibold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span><%= settings.heroBadge %></span>
+          </div>
+
+          <h1 class="font-serif font-bold text-3xl sm:text-5xl lg:text-[52px] text-white leading-tight">
+            <%= settings.heroTitle %>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            <%= settings.heroSubtitle %>
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="/nieruchomosci" class="px-7 py-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm sm:text-base shadow-lg shadow-amber-600/25 transition">
+              Przeglądaj nieruchomości →
+            </a>
+            <a href="/kontakt?temat=Zlecenie%20sprzedaży%20/%20wycena%20nieruchomości" class="px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm sm:text-base backdrop-blur-sm transition">
+              Zgłoś nieruchomość do sprzedaży
+            </a>
+          </div>
+
+          <% if (currentUser && currentUser.role === 'admin') { %>
+            <div class="pt-2">
+              <a href="/admin/tresci#glowna" class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:underline">
+                ✎ Edytuj teksty i zdjęcia sekcji powitalnej
+              </a>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Prawa kolumna: Wizytówka agenta -->
+        <div class="lg:col-span-5">
+          <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700/80 rounded-3xl p-6 sm:p-7 shadow-2xl max-w-md mx-auto">
+            <div class="flex items-center gap-4">
+              <img
+                src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>"
+                alt="<%= settings.agentName %>"
+                class="w-20 h-24 rounded-2xl object-cover border-2 border-amber-500/60 shrink-0"
+              >
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-400"><%= settings.licenseNumber %></span>
+                <h2 class="font-serif font-bold text-2xl text-white mt-0.5"><%= settings.agentName %></h2>
+                <p class="text-xs text-slate-300 mt-1"><%= settings.agentRole %></p>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-slate-700/80 space-y-2.5 text-sm">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">Telefon bezpośredni:</span>
+                <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="font-bold text-white hover:text-amber-400"><%= settings.contact?.phone %></a>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-400">E-mail:</span>
+                <a href="mailto:<%= settings.contact?.email %>" class="font-medium text-amber-300 hover:underline"><%= settings.contact?.email %></a>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-3">
+              <a href="/o-mnie" class="py-2.5 px-4 rounded-xl bg-slate-700/80 hover:bg-slate-700 text-center text-xs font-semibold text-white transition">
+                Poznaj mnie bliżej
+              </a>
+              <a href="/oferta" class="py-2.5 px-4 rounded-xl bg-amber-600/20 border border-amber-500/40 hover:bg-amber-600 text-center text-xs font-semibold text-amber-300 hover:text-white transition">
+                Zobacz ofertę usług
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Szybka wyszukiwarka nieruchomości -->
+      <div class="mt-12 bg-white rounded-2xl p-4 sm:p-6 shadow-xl text-slate-800 border border-slate-200">
+        <form action="/nieruchomosci" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 items-end">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Typ transakcji</label>
+            <select name="typ" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm font-medium">
+              <option value="">Wszystkie oferty</option>
+              <option value="sprzedaz">Na sprzedaż</option>
+              <option value="wynajem">Na wynajem</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Rodzaj nieruchomości</label>
+            <select name="kategoria" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm font-medium">
+              <option value="">Wszystkie kategorie</option>
+              <option value="mieszkanie">Mieszkania i apartamenty</option>
+              <option value="dom">Domy i rezydencje</option>
+              <option value="dzialka">Działki budowlane</option>
+              <option value="lokal">Lokale użytkowe</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Lokalizacja / Słowo kluczowe</label>
+            <input
+              type="text"
+              name="szukaj"
+              placeholder="np. Mokotów, Konstancin..."
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm"
+            >
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Cena maksymalna (zł)</label>
+            <input
+              type="number"
+              name="cena_do"
+              placeholder="Bez limitu"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm"
+            >
+          </div>
+
+          <div>
+            <button type="submit" class="w-full py-2.5 px-5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-semibold text-sm shadow transition h-[42px]">
+              Szukaj ofert
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- LICZNIK OSIĄGNIĘĆ -->
+  <% if (settings.stats && settings.stats.length > 0) { %>
+    <section class="bg-white border-b border-slate-200/80 py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          <% settings.stats.forEach(st => { %>
+            <div class="p-4">
+              <span class="block font-serif font-bold text-3xl sm:text-4xl text-slate-900"><%= st.value %></span>
+              <span class="block text-xs sm:text-sm text-slate-500 mt-1 font-medium"><%= st.label %></span>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+  <% } %>
+
+  <!-- WYRÓŻNIONE NIERUCHOMOŚCI -->
+  <section class="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Sprawdzone oferty</span>
+        <h2 class="font-serif font-bold text-3xl text-slate-900 mt-1">Wyróżnione nieruchomości</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <% if (currentUser) { %>
+          <a href="/admin/nieruchomosci/nowa" class="px-4 py-2 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold hover:bg-amber-200 transition">
+            + Dodaj nową ofertę
+          </a>
+        <% } %>
+        <a href="/nieruchomosci" class="text-sm font-bold text-slate-900 hover:text-amber-600 transition">
+          Zobacz wszystkie nieruchomości →
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      <% featuredProperties.forEach(property => { %>
+        <%- include('../partials/property-card', { property }) %>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- SEKCJA O MNIE (SKRÓT) -->
+  <section class="py-16 lg:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <div class="relative max-w-md mx-auto">
+            <img
+              src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>"
+              alt="<%= settings.agentName %>"
+              class="w-full rounded-3xl shadow-xl border border-slate-200 object-cover aspect-[4/5]"
+            >
+            <div class="absolute -bottom-5 -right-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl max-w-[230px]">
+              <span class="block text-amber-400 font-serif font-bold text-lg">100% bezpieczeństwa</span>
+              <span class="text-xs text-slate-300 mt-1 block">Licencjonowany pośrednik z pełnym ubezpieczeniem OC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-5">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-600">O mnie</span>
+          <h2 class="font-serif font-bold text-3xl sm:text-4xl text-slate-900 leading-tight">
+            <%= settings.about?.title %>
+          </h2>
+          <p class="text-base text-slate-600 font-medium">
+            <%= settings.about?.subtitle %>
+          </p>
+          <div class="rich-content text-sm text-slate-600">
+            <%- settings.about?.bioHtml %>
+          </div>
+
+          <div class="pt-3 flex flex-wrap gap-4">
+            <a href="/o-mnie" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+              Więcej o moim doświadczeniu →
+            </a>
+            <a href="/kontakt" class="px-6 py-3 rounded-xl border border-slate-300 hover:border-slate-900 text-slate-800 text-sm font-semibold transition">
+              Porozmawiajmy o Twojej nieruchomości
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZAKRES USŁUG (OFERTA) -->
+  <section class="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Jak mogę Ci pomóc</span>
+        <h2 class="font-serif font-bold text-3xl text-slate-900 mt-1">Kompleksowa oferta współpracy</h2>
+      </div>
+      <a href="/oferta" class="text-sm font-bold text-slate-900 hover:text-amber-600 transition">
+        Pełny zakres usług →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+      <% services.forEach(service => { %>
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-7 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xl mb-5">
+              ✦
+            </div>
+            <h3 class="font-serif font-bold text-xl text-slate-900 mb-2"><%= service.title %></h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4"><%= service.description %></p>
+          </div>
+          <a href="/oferta" class="text-xs font-bold uppercase tracking-wider text-amber-700 hover:text-amber-600 inline-flex items-center gap-1 mt-2">
+            <span>Dowiedz się więcej</span>
+            <span>→</span>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- OPINIE KLIENTÓW -->
+  <% if (settings.testimonials && settings.testimonials.length > 0) { %>
+    <section class="py-16 bg-slate-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Rekomendacje</span>
+          <h2 class="font-serif font-bold text-3xl text-white mt-1">Co mówią klienci po sfinalizowaniu transakcji</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+          <% settings.testimonials.forEach(item => { %>
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between">
+              <div>
+                <div class="text-amber-400 text-sm mb-3">★★★★★</div>
+                <p class="text-sm text-slate-200 leading-relaxed italic">„<%= item.text %>”</p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-slate-700/80">
+                <strong class="block text-sm text-white"><%= item.author %></strong>
+                <span class="text-xs text-amber-400"><%= item.role %></span>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+  <% } %>
+
+  <!-- NAJNOWSZE WPISY Z BLOGA -->
+  <% if (latestPosts && latestPosts.length > 0) { %>
+    <section class="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Baza wiedzy</span>
+          <h2 class="font-serif font-bold text-3xl text-slate-900 mt-1">Najnowsze poradniki na blogu</h2>
+        </div>
+        <a href="/blog" class="text-sm font-bold text-slate-900 hover:text-amber-600 transition">
+          Wszystkie artykuły →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <% latestPosts.forEach(post => { %>
+          <article class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col">
+            <a href="/blog/<%= post.slug %>" class="aspect-[16/9] bg-slate-900 block overflow-hidden">
+              <img src="<%= post.coverImage || '/images/demo/blog-cover.svg' %>" alt="<%= post.title %>" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+            </a>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-xs text-slate-400 mb-2">
+                  <span class="font-semibold text-amber-700"><%= post.category %></span>
+                  <span>·</span>
+                  <span><%= helpers.readingTime(post.content) %></span>
+                </div>
+                <h3 class="font-serif font-bold text-lg text-slate-900 hover:text-amber-600 transition mb-2">
+                  <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+                </h3>
+                <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed"><%= post.excerpt %></p>
+              </div>
+              <a href="/blog/<%= post.slug %>" class="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-900 hover:text-amber-600 inline-flex items-center gap-1">
+                <span>Czytaj artykuł</span>
+                <span>→</span>
+              </a>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

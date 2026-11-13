@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="65%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="warmGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Księżyc / łuna -->
+  <circle cx="960" cy="170" r="140" fill="#f59e0b" fill-opacity="0.08"/>
+  <!-- Trawnik i basen -->
+  <rect x="0" y="610" width="1200" height="190" fill="#090d16"/>
+  <polygon points="240,660 980,660 1080,790 140,790" fill="#0ea5e9" fill-opacity="0.22" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="2"/>
+  <!-- Bryła nowoczesnej rezydencji -->
+  <rect x="160" y="340" width="520" height="270" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <rect x="460" y="210" width="560" height="400" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+  <!-- Zadaszenia tarasowe -->
+  <rect x="130" y="325" width="580" height="18" fill="#cbd5e1"/>
+  <rect x="430" y="192" width="620" height="22" fill="#f8fafc"/>
+  <!-- Przeszklenia z ciepłym światłem wnętrza -->
+  <rect x="200" y="380" width="220" height="210" fill="url(#warmGlow)" fill-opacity="0.82"/>
+  <rect x="510" y="250" width="210" height="150" fill="url(#warmGlow)" fill-opacity="0.75"/>
+  <rect x="750" y="250" width="220" height="150" fill="url(#warmGlow)" fill-opacity="0.88"/>
+  <rect x="510" y="430" width="460" height="160" fill="url(#warmGlow)" fill-opacity="0.9"/>
+  <!-- Szprosy okienne -->
+  <line x1="310" y1="380" x2="310" y2="590" stroke="#0f172a" stroke-width="6"/>
+  <line x1="660" y1="430" x2="660" y2="590" stroke="#0f172a" stroke-width="6"/>
+  <line x1="820" y1="430" x2="820" y2="590" stroke="#0f172a" stroke-width="6"/>
+  <!-- Odbicie światła w wodzie -->
+  <rect x="510" y="675" width="450" height="85" fill="url(#warmGlow)" fill-opacity="0.18"/>
+</svg>

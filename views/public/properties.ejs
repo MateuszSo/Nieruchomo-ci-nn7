@@ -1,0 +1,121 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<main class="flex-1">
+  <!-- Nagłówek -->
+  <section class="bg-slate-900 text-white py-12 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Katalog ogłoszeń</span>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1">Nieruchomości na sprzedaż i wynajem</h1>
+        <p class="text-sm text-slate-300 mt-1">Wszystkie oferty są zweryfikowane pod kątem prawnym i dostępne bezpośrednio u agenta.</p>
+      </div>
+      <% if (currentUser) { %>
+        <a href="/admin/nieruchomosci/nowa" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-bold transition self-start sm:self-auto">
+          + Dodaj nową nieruchomość
+        </a>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Rozbudowany pasek filtrów -->
+    <form action="/nieruchomosci" method="GET" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm mb-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Typ transakcji</label>
+          <select name="typ" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+            <option value="">Wszystkie (Sprzedaż i Wynajem)</option>
+            <option value="sprzedaz" <%= filters.transactionType === 'sprzedaz' ? 'selected' : '' %>>Sprzedaż</option>
+            <option value="wynajem" <%= filters.transactionType === 'wynajem' ? 'selected' : '' %>>Wynajem</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Kategoria</label>
+          <select name="kategoria" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+            <option value="">Wszystkie kategorie</option>
+            <option value="mieszkanie" <%= filters.category === 'mieszkanie' ? 'selected' : '' %>>Mieszkania i apartamenty</option>
+            <option value="dom" <%= filters.category === 'dom' ? 'selected' : '' %>>Domy</option>
+            <option value="dzialka" <%= filters.category === 'dzialka' ? 'selected' : '' %>>Działki</option>
+            <option value="lokal" <%= filters.category === 'lokal' ? 'selected' : '' %>>Lokale użytkowe</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Lokalizacja / Tytuł</label>
+          <input
+            type="text"
+            name="szukaj"
+            value="<%= filters.search %>"
+            placeholder="np. Warszawa, Mokotów..."
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm"
+          >
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Sortowanie</label>
+          <select name="sort" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+            <option value="newest" <%= filters.sort === 'newest' ? 'selected' : '' %>>Najnowsze oferty</option>
+            <option value="price_asc" <%= filters.sort === 'price_asc' ? 'selected' : '' %>>Cena: od najniższej</option>
+            <option value="price_desc" <%= filters.sort === 'price_desc' ? 'selected' : '' %>>Cena: od najwyższej</option>
+            <option value="area_desc" <%= filters.sort === 'area_desc' ? 'selected' : '' %>>Powierzchnia: największe</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Cena od (zł)</label>
+          <input type="number" name="cena_od" value="<%= filters.minPrice %>" placeholder="0" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Cena do (zł)</label>
+          <input type="number" name="cena_do" value="<%= filters.maxPrice %>" placeholder="Bez limitu" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Powierzchnia min. (m²)</label>
+          <input type="number" name="metraz_od" value="<%= filters.minArea %>" placeholder="Dowolna" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+        </div>
+
+        <% if (typeof agents !== 'undefined' && agents.length > 1) { %>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Opiekun oferty (Agent)</label>
+            <select name="agent" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+              <option value="">Wszyscy agenci</option>
+              <% agents.forEach(ag => { %>
+                <option value="<%= ag.id %>" <%= Number(filters.authorId) === Number(ag.id) ? 'selected' : '' %>><%= ag.name %></option>
+              <% }) %>
+            </select>
+          </div>
+        <% } %>
+
+        <div class="flex items-end gap-2 <%= (typeof agents !== 'undefined' && agents.length > 1) ? 'sm:col-span-2 lg:col-span-4 justify-end' : '' %>">
+          <button type="submit" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-semibold text-sm transition">
+            Filtruj oferty (<%= properties.length %>)
+          </button>
+          <a href="/nieruchomosci" class="py-2.5 px-3.5 rounded-xl border border-slate-300 hover:bg-slate-100 text-xs font-semibold text-slate-600">
+            Wyczyść
+          </a>
+        </div>
+      </div>
+    </form>
+
+    <!-- Wyniki wyszukiwania -->
+    <% if (properties.length === 0) { %>
+      <div class="bg-white rounded-3xl border border-slate-200 p-12 text-center">
+        <h2 class="font-serif font-bold text-2xl text-slate-900 mb-2">Brak ofert spełniających wybrane kryteria</h2>
+        <p class="text-sm text-slate-500 mb-6">Spróbuj zmienić filtry lub skontaktuj się ze mną – posiadam również oferty niepubliczne (off-market).</p>
+        <a href="/nieruchomosci" class="px-6 py-3 rounded-xl bg-slate-900 text-white text-sm font-semibold">Pokaż wszystkie nieruchomości</a>
+      </div>
+    <% } else { %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <% properties.forEach(property => { %>
+          <%- include('../partials/property-card', { property }) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

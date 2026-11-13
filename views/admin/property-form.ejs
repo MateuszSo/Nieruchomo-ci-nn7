@@ -1,0 +1,273 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/admin-nav') %>
+
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h2 class="font-serif font-bold text-2xl text-slate-900">
+        <%= property ? `Edycja nieruchomości: ${property.title}` : 'Dodaj nową nieruchomość' %>
+      </h2>
+      <p class="text-sm text-slate-500 mt-1">Wypełnij parametry oferty. Zdjęcia są automatycznie optymalizowane przed wysyłką na serwer.</p>
+    </div>
+    <a href="/admin/nieruchomosci" class="text-sm font-semibold text-slate-600 hover:text-slate-900">← Wróć do listy</a>
+  </div>
+
+  <form
+    id="propertyForm"
+    action="<%= property ? `/admin/nieruchomosci/${property.id}/edytuj` : '/admin/nieruchomosci/nowa' %>"
+    method="POST"
+    enctype="multipart/form-data"
+    class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6"
+  >
+    <!-- Tytuł i typ oferty -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div class="sm:col-span-3">
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tytuł ogłoszenia *</label>
+        <input
+          type="text"
+          name="title"
+          required
+          value="<%= property ? property.title : '' %>"
+          placeholder="np. Słoneczny 3-pokojowy apartament z tarasem na Mokotowie"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+        >
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Typ transakcji</label>
+        <select name="transactionType" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+          <option value="sprzedaz" <%= (!property || property.transactionType === 'sprzedaz') ? 'selected' : '' %>>Sprzedaż</option>
+          <option value="wynajem" <%= (property && property.transactionType === 'wynajem') ? 'selected' : '' %>>Wynajem</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Kategoria</label>
+        <select name="category" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+          <option value="mieszkanie" <%= (!property || property.category === 'mieszkanie') ? 'selected' : '' %>>Mieszkanie / Apartament</option>
+          <option value="dom" <%= (property && property.category === 'dom') ? 'selected' : '' %>>Dom / Rezydencja</option>
+          <option value="dzialka" <%= (property && property.category === 'dzialka') ? 'selected' : '' %>>Działka gruntowa</option>
+          <option value="lokal" <%= (property && property.category === 'lokal') ? 'selected' : '' %>>Lokal użytkowy / Biuro</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Status oferty</label>
+        <select name="status" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-sm">
+          <option value="dostepne" <%= (!property || property.status === 'dostepne') ? 'selected' : '' %>>🟢 Dostępne</option>
+          <option value="zarezerwowane" <%= (property && property.status === 'zarezerwowane') ? 'selected' : '' %>>🟡 Zarezerwowane</option>
+          <option value="sprzedane" <%= (property && property.status === 'sprzedane') ? 'selected' : '' %>>🔴 Sprzedane / Wynajęte</option>
+        </select>
+      </div>
+
+      <% if (currentUser && currentUser.role === 'admin' && typeof agents !== 'undefined') { %>
+        <div class="sm:col-span-3 pt-2">
+          <label class="block text-sm font-semibold text-slate-700 mb-1.5">Przypisany opiekun oferty (Agent)</label>
+          <select name="authorId" class="w-full sm:w-80 px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm font-semibold">
+            <% const currentAuthorId = property ? (property.authorId || 1) : currentUser.id; %>
+            <% agents.forEach(ag => { %>
+              <option value="<%= ag.id %>" <%= Number(currentAuthorId) === Number(ag.id) ? 'selected' : '' %>>
+                <%= ag.name %> (<%= ag.role === 'admin' ? 'Admin' : 'Agent' %> – <%= ag.phone %>)
+              </option>
+            <% }) %>
+          </select>
+          <span class="text-xs text-slate-400 ml-2">Dane tego agenta wyświetlą się przy ogłoszeniu.</span>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Cena i parametry liczbowe -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 pt-2 border-t border-slate-100">
+      <div class="col-span-2 sm:col-span-1">
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Cena całkowita (zł) *</label>
+        <input
+          type="number"
+          name="price"
+          required
+          value="<%= property ? property.price : '' %>"
+          placeholder="890000"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Powierzchnia (m²) *</label>
+        <input
+          type="number"
+          step="0.1"
+          name="area"
+          required
+          value="<%= property ? property.area : '' %>"
+          placeholder="65"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Liczba pokoi</label>
+        <input
+          type="number"
+          name="rooms"
+          value="<%= property ? property.rooms : 3 %>"
+          placeholder="3"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Piętro</label>
+        <input
+          type="text"
+          name="floor"
+          value="<%= property ? property.floor : '' %>"
+          placeholder="np. 3 / 5"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Rok budowy</label>
+        <input
+          type="number"
+          name="buildYear"
+          value="<%= property ? property.buildYear : 2022 %>"
+          placeholder="2022"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+    </div>
+
+    <!-- Lokalizacja -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Miasto *</label>
+        <input
+          type="text"
+          name="city"
+          required
+          value="<%= property ? property.city : 'Warszawa' %>"
+          placeholder="np. Warszawa"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Dzielnica / Osiedle</label>
+        <input
+          type="text"
+          name="district"
+          value="<%= property ? property.district : '' %>"
+          placeholder="np. Mokotów, Górny Mokotów"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Ulica / Dokładniejszy adres</label>
+        <input
+          type="text"
+          name="address"
+          value="<%= property ? property.address : '' %>"
+          placeholder="np. ul. Puławska"
+          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"
+        >
+      </div>
+    </div>
+
+    <!-- Checkbox wyróżnienia -->
+    <div class="pt-2">
+      <label class="inline-flex items-center gap-3 cursor-pointer select-none">
+        <input
+          type="checkbox"
+          name="featured"
+          <%= (!property || property.featured) ? 'checked' : '' %>
+          class="w-5 h-5 rounded border-slate-300 text-amber-600 focus:ring-amber-500"
+        >
+        <span class="text-sm font-semibold text-slate-800">Wyróżnij tę nieruchomość na Stronie Głównej</span>
+      </label>
+    </div>
+
+    <!-- Zdjęcia nieruchomości -->
+    <div class="pt-4 border-t border-slate-100 space-y-4">
+      <h3 class="font-serif font-bold text-lg text-slate-900">Galeria zdjęć nieruchomości</h3>
+
+      <% if (property && property.images && property.images.length > 0) { %>
+        <div>
+          <p class="text-xs text-slate-500 mb-2">Odznacz zdjęcie, jeśli chcesz je usunąć z oferty:</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <% property.images.forEach((imgUrl, idx) => { %>
+              <label class="relative border border-slate-200 rounded-xl p-2 bg-slate-50 flex flex-col gap-1.5 cursor-pointer">
+                <img src="<%= imgUrl %>" alt="" class="w-full h-24 object-cover rounded-lg">
+                <div class="flex items-center gap-1.5 text-xs font-medium text-slate-700">
+                  <input type="checkbox" name="existingImages" value="<%= imgUrl %>" checked class="rounded text-amber-600">
+                  <span>Zachowaj (#<%= idx + 1 %>)</span>
+                </div>
+              </label>
+            <% }) %>
+          </div>
+        </div>
+      <% } %>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Wgraj nowe zdjęcia z komputera / telefonu (JPG, PNG, WebP)</label>
+        <input
+          type="file"
+          name="images"
+          multiple
+          accept="image/*"
+          data-compress-webp="true"
+          class="w-full text-sm text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
+        >
+        <p class="text-xs text-slate-400 mt-1">Możesz zaznaczyć wiele zdjęć naraz. Zdjęcia są automatycznie pomniejszane do formatu WebP, aby oszczędzać miejsce na hostingu.</p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Opcjonalnie: zewnętrzne linki do zdjęć (po jednym w linii)</label>
+        <textarea
+          name="customImages"
+          rows="2"
+          placeholder="/images/demo/prop-1.svg"
+          class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Udogodnienia i atuty -->
+    <div class="pt-4 border-t border-slate-100">
+      <label class="block text-sm font-semibold text-slate-700 mb-1">Atuty i udogodnienia (wpisz po jednym w każdej linii)</label>
+      <textarea
+        name="amenities"
+        rows="4"
+        placeholder="Balkon / Taras&#10;Miejsce w garażu podziemnym&#10;Klimatyzacja&#10;Winda"
+        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm"
+      ><%= property && property.amenities ? property.amenities.join('\n') : 'Balkon / Taras\nMiejsce postojowe\nWinda\nKsięga Wieczysta bez obciążeń' %></textarea>
+    </div>
+
+    <!-- Pełny opis z paskiem formatowania -->
+    <div class="pt-4 border-t border-slate-100">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <label class="block text-sm font-semibold text-slate-700">Pełny opis nieruchomości *</label>
+        <div class="flex items-center gap-1 text-xs">
+          <button type="button" onclick="insertHtmlTag('propDesc', '<h3>', '</h3>')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 font-semibold">Nagłówek H3</button>
+          <button type="button" onclick="insertHtmlTag('propDesc', '<strong>', '</strong>')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 font-bold">B</button>
+          <button type="button" onclick="insertHtmlTag('propDesc', '<p>', '</p>')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200">Akapit</button>
+          <button type="button" onclick="insertHtmlTag('propDesc', '<ul>\n  <li>', '</li>\n</ul>')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200">Lista •</button>
+        </div>
+      </div>
+      <textarea
+        id="propDesc"
+        name="description"
+        rows="9"
+        required
+        class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm font-mono"
+      ><%= property ? property.description : '<p>Opis prezentowanej nieruchomości...</p>' %></textarea>
+    </div>
+
+    <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+      <a href="/admin/nieruchomosci" class="px-5 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+        Anuluj
+      </a>
+      <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold shadow transition">
+        <%= property ? 'Zapisz zmiany w ofercie' : 'Opublikuj nieruchomość' %>
+      </button>
+    </div>
+  </form>
+</main>
+
+<script src="/js/admin.js"></script>
+<%- include('../partials/footer') %>

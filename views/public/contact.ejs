@@ -1,0 +1,155 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<main class="flex-1">
+  <!-- Nagłówek -->
+  <section class="bg-slate-900 text-white py-14 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Kontakt</span>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1">Porozmawiajmy o Twojej nieruchomości</h1>
+        <p class="text-sm text-slate-300 mt-1">Zadzwoń, napisz lub zostaw wiadomość w formularzu – odpowiadam tego samego dnia.</p>
+      </div>
+      <% if (currentUser && currentUser.role === 'admin') { %>
+        <a href="/admin/tresci#kontakt" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition self-start sm:self-auto">
+          ✎ Edytuj dane kontaktowe
+        </a>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <!-- Lewa kolumna: Wizytówka i dane kontaktowe -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-white rounded-3xl border border-slate-200 p-7 shadow-sm space-y-6">
+          <div class="flex items-center gap-4 pb-5 border-b border-slate-100">
+            <img src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>" alt="<%= settings.agentName %>" class="w-16 h-20 rounded-2xl object-cover">
+            <div>
+              <h2 class="font-serif font-bold text-xl text-slate-900"><%= settings.agentName %></h2>
+              <p class="text-xs text-slate-500 mt-0.5"><%= settings.agentRole %></p>
+              <span class="inline-block mt-1 px-2.5 py-0.5 rounded bg-amber-50 text-amber-800 text-[11px] font-bold"><%= settings.licenseNumber %></span>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-sm">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Telefon bezpośredni</span>
+              <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="text-xl font-bold text-slate-900 hover:text-amber-600 mt-0.5 block">
+                <%= settings.contact?.phone %>
+              </a>
+            </div>
+
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Adres e-mail</span>
+              <a href="mailto:<%= settings.contact?.email %>" class="text-base font-semibold text-amber-700 hover:underline mt-0.5 block">
+                <%= settings.contact?.email %>
+              </a>
+            </div>
+
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Biuro / Spotkania</span>
+              <p class="text-slate-800 font-medium mt-0.5"><%= settings.contact?.address %>, <%= settings.contact?.city %></p>
+            </div>
+
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Godziny pracy</span>
+              <p class="text-slate-600 mt-0.5"><%= settings.contact?.workingHours %></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <% if (settings.contact?.mapEmbedUrl) { %>
+          <div class="bg-white rounded-3xl border border-slate-200 p-3 shadow-sm overflow-hidden">
+            <iframe
+              src="<%= settings.contact.mapEmbedUrl %>"
+              title="Mapa lokalizacji biura"
+              class="w-full h-64 rounded-2xl border-0"
+              loading="lazy"
+            ></iframe>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Prawa kolumna: Formularz kontaktowy -->
+      <div class="lg:col-span-7">
+        <div class="bg-white rounded-3xl border border-slate-200 p-7 sm:p-10 shadow-sm">
+          <h2 class="font-serif font-bold text-2xl text-slate-900 mb-2">Wyślij wiadomość lub umów bezpłatną wycenę</h2>
+          <p class="text-sm text-slate-500 mb-6">Wypełnij krótki formularz – skontaktuję się z Tobą telefonicznie lub mailowo.</p>
+
+          <form action="/kontakt" method="POST" class="space-y-5">
+            <input type="hidden" name="redirectUrl" value="/kontakt">
+            <% if (prefilledProperty) { %>
+              <input type="hidden" name="propertyTitle" value="<%= prefilledProperty %>">
+            <% } %>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Imię i nazwisko *</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Jan Kowalski"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+                >
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Numer telefonu *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  placeholder="+48 600 000 000"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+                >
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Adres e-mail</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="jan@example.com"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+                >
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1.5">Temat rozmowy</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value="<%= prefilledSubject || 'Chcę sprzedać / wycenić nieruchomość' %>"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Treść wiadomości *</label>
+              <textarea
+                name="message"
+                rows="5"
+                required
+                placeholder="Opisz krótko swoją nieruchomość lub czego poszukujesz..."
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-amber-600 outline-none text-sm"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-semibold text-sm shadow transition"
+            >
+              Wyślij wiadomość do agenta →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

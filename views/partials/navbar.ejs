@@ -1,0 +1,146 @@
+<% if (currentUser) { %>
+  <!-- Górny pasek zalogowanego użytkownika (Admin / Agent) -->
+  <div class="bg-slate-950 text-slate-200 text-xs sm:text-sm border-b border-amber-500/30 py-2 px-4 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-medium text-white"><%= currentUser.name || currentUser.username %></span>
+        <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase <%= currentUser.role === 'admin' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-sky-500/20 text-sky-300 border border-sky-500/40' %>">
+          <%= currentUser.role === 'admin' ? 'Admin' : 'Agent' %>
+        </span>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <a href="/admin" class="px-2.5 py-1 rounded bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
+          Panel CMS
+        </a>
+        <a href="/admin/nieruchomosci/nowa" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-medium transition">
+          + Dodaj nieruchomość
+        </a>
+        <a href="/admin/blog/nowy" class="hidden sm:inline-block px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-medium transition">
+          + Nowy artykuł
+        </a>
+        <% if (currentUser.role === 'admin') { %>
+          <a href="/admin/agenci" class="hidden md:inline-block px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+            Agenci
+          </a>
+        <% } %>
+        <a href="/admin/wiadomosci" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition relative">
+          Wiadomości
+          <% if (unreadMessagesCount > 0) { %>
+            <span class="ml-1 px-1.5 py-0.5 text-[11px] font-bold bg-rose-600 text-white rounded-full"><%= unreadMessagesCount %></span>
+          <% } %>
+        </a>
+        <form action="/admin/logout" method="POST" class="inline">
+          <button type="submit" class="px-2 py-1 text-slate-400 hover:text-rose-400 transition">Wyloguj</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<!-- Nawigacja główna -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo / Marka -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center text-amber-400 font-serif font-bold text-xl shadow-md group-hover:bg-amber-600 group-hover:text-white transition">
+          <%= (settings.brandName || 'KN').substring(0, 1) %>
+        </div>
+        <div>
+          <span class="block font-serif font-bold text-lg sm:text-xl text-slate-900 tracking-tight leading-none">
+            <%= settings.brandName %>
+          </span>
+          <span class="block text-xs text-slate-500 mt-1">
+            <%= settings.agentName %> · <%= settings.licenseNumber %>
+          </span>
+        </div>
+      </a>
+
+      <!-- Linki menu (Desktop) -->
+      <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+        <% const navItems = [
+          { href: '/', label: 'Strona główna', exact: true },
+          { href: '/o-mnie', label: 'O mnie', exact: false },
+          { href: '/oferta', label: 'Oferta', exact: false },
+          { href: '/nieruchomosci', label: 'Nieruchomości', exact: false },
+          { href: '/blog', label: 'Blog', exact: false },
+          { href: '/kontakt', label: 'Kontakt', exact: false }
+        ]; %>
+        <% navItems.forEach(item => {
+          const isActive = item.exact ? currentPath === item.href : currentPath.startsWith(item.href);
+        %>
+          <a
+            href="<%= item.href %>"
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold transition <%= isActive ? 'bg-amber-50 text-amber-700' : 'text-slate-700 hover:text-amber-600 hover:bg-slate-100/70' %>"
+          >
+            <%= item.label %>
+          </a>
+        <% }) %>
+      </nav>
+
+      <!-- Przycisk CTA (Desktop) -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="text-sm font-semibold text-slate-700 hover:text-amber-600 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          <span><%= settings.contact?.phone %></span>
+        </a>
+        <a href="/kontakt" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold shadow-sm transition">
+          Umów konsultację
+        </a>
+      </div>
+
+      <!-- Przycisk menu mobilnego -->
+      <button id="mobileMenuBtn" type="button" aria-label="Otwórz menu" class="lg:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu mobilne -->
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-1.5">
+    <% navItems.forEach(item => {
+      const isActive = item.exact ? currentPath === item.href : currentPath.startsWith(item.href);
+    %>
+      <a
+        href="<%= item.href %>"
+        class="block px-4 py-2.5 rounded-lg text-base font-semibold <%= isActive ? 'bg-amber-50 text-amber-700' : 'text-slate-700 hover:bg-slate-100' %>"
+      >
+        <%= item.label %>
+      </a>
+    <% }) %>
+    <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2">
+      <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="w-full py-2.5 text-center rounded-lg border border-slate-300 text-slate-800 font-semibold">
+        Zadzwoń: <%= settings.contact?.phone %>
+      </a>
+      <a href="/kontakt" class="w-full py-2.5 text-center rounded-lg bg-amber-600 text-white font-semibold">
+        Umów bezpłatną konsultację
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Komunikaty powiadomień (Flash) -->
+<% if (flash && flash.message) { %>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="p-4 rounded-xl border flex items-center justify-between gap-4 shadow-sm <%= flash.type === 'error' ? 'bg-rose-50 border-rose-200 text-rose-800' : 'bg-emerald-50 border-emerald-200 text-emerald-800' %>">
+      <div class="flex items-center gap-3 text-sm font-medium">
+        <% if (flash.type === 'error') { %>
+          <svg class="w-5 h-5 text-rose-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        <% } else { %>
+          <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        <% } %>
+        <span><%= flash.message %></span>
+      </div>
+      <button type="button" onclick="this.parentElement.remove()" class="text-xs font-semibold opacity-70 hover:opacity-100">Zamknij</button>
+    </div>
+  </div>
+<% } %>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="1000" height="680">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="win" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="680" fill="url(#g1)"/>
+  <rect x="0" y="540" width="1000" height="140" fill="#090f1a"/>
+  <!-- Nowoczesny apartamentowiec -->
+  <rect x="180" y="110" width="360" height="430" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <rect x="480" y="160" width="340" height="380" fill="#0f172a" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Okna i tarasy -->
+  <g fill="url(#win)" fill-opacity="0.85">
+    <rect x="220" y="150" width="120" height="65" rx="3"/>
+    <rect x="370" y="150" width="90" height="65" rx="3"/>
+    <rect x="220" y="245" width="120" height="65" rx="3"/>
+    <rect x="370" y="245" width="90" height="65" rx="3"/>
+    <rect x="220" y="340" width="120" height="65" rx="3"/>
+    <rect x="370" y="340" width="90" height="65" rx="3"/>
+    <rect x="220" y="435" width="240" height="75" rx="3"/>
+    <rect x="520" y="200" width="260" height="80" rx="3"/>
+    <rect x="520" y="310" width="260" height="80" rx="3"/>
+    <rect x="520" y="420" width="260" height="90" rx="3"/>
+  </g>
+  <!-- Balustrady -->
+  <rect x="505" y="260" width="290" height="8" fill="#e2e8f0"/>
+  <rect x="505" y="370" width="290" height="8" fill="#e2e8f0"/>
+</svg>

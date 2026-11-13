@@ -1,0 +1,87 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/admin-nav') %>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <div>
+      <h2 class="font-serif font-bold text-xl text-slate-900">Artykuły na blogu (<%= posts.length %>)</h2>
+      <p class="text-sm text-slate-500">Publikuj poradniki dla sprzedających i kupujących, aby budować pozycję eksperta.</p>
+    </div>
+    <a href="/admin/blog/nowy" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold shadow-sm transition text-center">
+      + Napisz nowy artykuł
+    </a>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-sm">
+        <thead>
+          <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500">
+            <th class="py-3.5 px-4">Tytuł artykułu</th>
+            <th class="py-3.5 px-4">Autor</th>
+            <th class="py-3.5 px-4">Kategoria</th>
+            <th class="py-3.5 px-4">Data publikacji</th>
+            <th class="py-3.5 px-4">Status</th>
+            <th class="py-3.5 px-4 text-right">Akcje</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <% posts.forEach(post => {
+            const postAuthor = getAuthor(post);
+          %>
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4">
+                <div class="flex items-center gap-3">
+                  <img src="<%= post.coverImage || '/images/demo/blog-cover.svg' %>" alt="" class="w-16 h-11 rounded-lg object-cover bg-slate-100 shrink-0">
+                  <div>
+                    <a href="/blog/<%= post.slug %>" target="_blank" class="font-bold text-slate-900 hover:text-amber-600 block">
+                      <%= post.title %>
+                    </a>
+                    <span class="text-xs text-slate-500 line-clamp-1"><%= post.excerpt %></span>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <div class="flex items-center gap-2">
+                  <img src="<%= postAuthor.avatar || '/images/demo/agent-portrait.svg' %>" alt="" class="w-6 h-6 rounded-full object-cover">
+                  <span class="text-xs font-semibold text-slate-700"><%= postAuthor.name %></span>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold"><%= post.category %></span>
+              </td>
+              <td class="py-4 px-4 text-xs text-slate-500">
+                <%= helpers.formatDate(post.createdAt) %>
+              </td>
+              <td class="py-4 px-4">
+                <% if (post.published) { %>
+                  <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">Opublikowany</span>
+                <% } else { %>
+                  <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">Szkic</span>
+                <% } %>
+              </td>
+              <td class="py-4 px-4 text-right whitespace-nowrap">
+                <div class="inline-flex items-center gap-2">
+                  <a href="/blog/<%= post.slug %>" target="_blank" class="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-xs font-medium text-slate-600">
+                    Podgląd
+                  </a>
+                  <a href="/admin/blog/<%= post.id %>/edytuj" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-amber-600 text-white text-xs font-semibold transition">
+                    Edytuj
+                  </a>
+                  <form action="/admin/blog/<%= post.id %>/usun" method="POST" onsubmit="return confirm('Czy na pewno usunąć ten artykuł?');" class="inline">
+                    <button type="submit" class="px-2.5 py-1.5 rounded-lg border border-rose-200 hover:bg-rose-50 text-xs font-semibold text-rose-600">
+                      Usuń
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

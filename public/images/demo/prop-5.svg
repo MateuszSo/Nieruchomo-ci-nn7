@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="1000" height="680">
+  <defs>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="680" fill="url(#g5)"/>
+  <!-- Lokal usługowy / biurowiec z witryną -->
+  <rect x="140" y="90" width="720" height="470" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <rect x="180" y="320" width="300" height="240" fill="#38bdf8" fill-opacity="0.25" stroke="#fde68a" stroke-width="3"/>
+  <rect x="520" y="320" width="300" height="240" fill="#38bdf8" fill-opacity="0.25" stroke="#fde68a" stroke-width="3"/>
+  <rect x="180" y="140" width="640" height="120" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+  <text x="500" y="212" text-anchor="middle" fill="#f8fafc" font-family="sans-serif" font-size="34" font-weight="700" letter-spacing="4">RETAIL &amp; OFFICE SPACE</text>
+</svg>

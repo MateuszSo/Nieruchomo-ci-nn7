@@ -1,0 +1,47 @@
+/* Dodatkowe style typograficzne dla opisów nieruchomości oraz artykułów blogowych */
+.rich-content p {
+  margin-bottom: 1.15rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.rich-content h2,
+.rich-content h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rich-content h2 {
+  font-size: 1.5rem;
+}
+
+.rich-content h3 {
+  font-size: 1.25rem;
+}
+
+.rich-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: #334155;
+}
+
+.rich-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: #334155;
+}
+
+.rich-content li {
+  margin-bottom: 0.45rem;
+  line-height: 1.7;
+}
+
+.rich-content strong {
+  color: #0f172a;
+  font-weight: 600;
+}

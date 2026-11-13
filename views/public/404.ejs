@@ -1,0 +1,20 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<main class="flex-1 flex items-center justify-center py-20 px-4">
+  <div class="max-w-lg text-center bg-white rounded-3xl border border-slate-200 p-10 shadow-sm">
+    <span class="font-serif font-bold text-5xl text-amber-600 block mb-3">404</span>
+    <h1 class="font-serif font-bold text-2xl text-slate-900 mb-2"><%= pageTitle %></h1>
+    <p class="text-sm text-slate-500 mb-6"><%= pageDescription %></p>
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <a href="/" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+        Wróć na stronę główną
+      </a>
+      <a href="/nieruchomosci" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50">
+        Zobacz nieruchomości
+      </a>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

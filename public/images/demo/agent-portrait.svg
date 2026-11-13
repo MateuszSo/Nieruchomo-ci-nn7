@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" width="800" height="960">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="60%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="960" fill="url(#bg)"/>
+  <!-- Subtelna siatka architektoniczna w tle -->
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="2">
+    <line x1="120" y1="0" x2="120" y2="960"/>
+    <line x1="400" y1="0" x2="400" y2="960"/>
+    <line x1="680" y1="0" x2="680" y2="960"/>
+    <line x1="0" y1="220" x2="800" y2="220"/>
+    <line x1="0" y1="520" x2="800" y2="520"/>
+  </g>
+  <!-- Złoty okrąg akcentowy -->
+  <circle cx="400" cy="360" r="210" fill="none" stroke="url(#gold)" stroke-width="3" stroke-opacity="0.45"/>
+  <circle cx="400" cy="360" r="185" fill="#1e293b"/>
+  <!-- Sylwetka garnituru i portretu -->
+  <path d="M160 960 C160 710 270 610 400 610 C530 610 640 710 640 960 Z" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+  <!-- Marynarka / koszula / krawat -->
+  <polygon points="340,615 400,790 460,615" fill="#f8fafc"/>
+  <polygon points="388,655 412,655 418,785 400,810 382,785" fill="url(#gold)"/>
+  <path d="M310 620 L400 810 L490 620" fill="none" stroke="url(#gold)" stroke-width="3" stroke-opacity="0.7"/>
+  <!-- Głowa -->
+  <circle cx="400" cy="350" r="105" fill="#cbd5e1"/>
+  <path d="M300 325 C305 240 495 240 500 325 C470 285 330 285 300 325 Z" fill="#334155"/>
+  <!-- Odznaka licencji na dole -->
+  <rect x="200" y="845" width="400" height="64" rx="32" fill="#0f172a" fill-opacity="0.9" stroke="url(#gold)" stroke-width="2"/>
+  <text x="400" y="885" text-anchor="middle" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="600" letter-spacing="2">MAREK KOWALSKI</text>
+</svg>

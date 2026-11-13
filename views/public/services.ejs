@@ -1,0 +1,100 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<main class="flex-1">
+  <!-- Nagłówek -->
+  <section class="bg-slate-900 text-white py-14 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Oferta współpracy</span>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1">Kompleksowe usługi na rynku nieruchomości</h1>
+        <p class="text-sm text-slate-300 mt-1 max-w-2xl">
+          Dopasowuję strategię działania do Twojej sytuacji – niezależnie od tego, czy sprzedajesz mieszkanie, szukasz domu dla rodziny, czy chcesz bezpiecznie wynająć lokal.
+        </p>
+      </div>
+      <% if (currentUser && currentUser.role === 'admin') { %>
+        <a href="/admin/oferta" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition self-start sm:self-auto">
+          ✎ Zarządzaj usługami w Ofercie
+        </a>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- Karty usług -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <% services.forEach((service, index) => { %>
+        <div class="bg-white rounded-3xl border border-slate-200 p-7 sm:p-8 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-4 mb-4">
+              <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider">
+                Usługa 0<%= index + 1 %>
+              </span>
+              <% if (currentUser && currentUser.role === 'admin') { %>
+                <a href="/admin/oferta?edytuj=<%= service.id %>" class="text-xs font-semibold text-slate-400 hover:text-amber-600">Edytuj</a>
+              <% } %>
+            </div>
+
+            <h2 class="font-serif font-bold text-2xl text-slate-900 mb-2"><%= service.title %></h2>
+            <% if (service.subtitle) { %>
+              <p class="text-sm font-semibold text-amber-700 mb-3"><%= service.subtitle %></p>
+            <% } %>
+            <p class="text-sm text-slate-600 leading-relaxed mb-6"><%= service.description %></p>
+
+            <% if (service.features && service.features.length > 0) { %>
+              <div class="bg-slate-50 rounded-2xl p-5 border border-slate-100 mb-6">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Co obejmuje współpraca:</h3>
+                <ul class="space-y-2 text-sm text-slate-700">
+                  <% service.features.forEach(feat => { %>
+                    <li class="flex items-start gap-2.5">
+                      <span class="text-amber-600 font-bold">✓</span>
+                      <span><%= feat %></span>
+                    </li>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } %>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <a
+              href="/kontakt?temat=<%= encodeURIComponent(service.title) %>"
+              class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-xs sm:text-sm font-semibold transition"
+            >
+              Zapytaj o tę usługę →
+            </a>
+            <span class="text-xs text-slate-400">Bezpłatna pierwsza konsultacja</span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- Jak wygląda proces współpracy krok po kroku -->
+  <section class="py-16 bg-white border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Przejrzysty proces</span>
+        <h2 class="font-serif font-bold text-3xl text-slate-900 mt-1">Jak przebiega współpraca krok po kroku?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% const steps = [
+          { num: '01', title: 'Spotkanie i wycena', desc: 'Poznaję Twoją nieruchomość, sprawdzam dokumenty i przygotowuję rzetelną analizę cen transakcyjnych.' },
+          { num: '02', title: 'Home Staging i sesja', desc: 'Przygotowujemy wnętrze, wykonujemy profesjonalną sesję zdjęciową, wideo z drona oraz wirtualny spacer.' },
+          { num: '03', title: 'Promocja i prezentacje', desc: 'Publikuję ofertę na wiodących portalach, weryfikuję dzwoniących klientów i prowadzę prezentacje.' },
+          { num: '04', title: 'Negocjacje i notariusz', desc: 'Negocjuję najlepsze warunki cenowe, kompletuję dokumenty do aktu notarialnego i asystuję przy przekazaniu kluczy.' }
+        ]; %>
+        <% steps.forEach(st => { %>
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+            <span class="font-serif font-bold text-3xl text-amber-600"><%= st.num %></span>
+            <h3 class="font-serif font-bold text-lg text-slate-900 mt-2 mb-2"><%= st.title %></h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed"><%= st.desc %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

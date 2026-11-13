@@ -1,0 +1,279 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/admin-nav') %>
+
+<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-10">
+  <!-- Szybka nawigacja po sekcjach edycji -->
+  <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap gap-2 text-xs sm:text-sm font-semibold">
+    <a href="#glowna" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">1. Strona główna i Wizytówka</a>
+    <a href="#o-mnie" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">2. Zakładka „O mnie”</a>
+    <a href="#opinie" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">3. Opinie klientów</a>
+    <a href="#kontakt" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">4. Dane kontaktowe i Mapa</a>
+    <a href="#konto" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">5. Zmiana hasła właściciela</a>
+  </div>
+
+  <!-- 1. STRONA GŁÓWNA I WIZYTÓWKA AGENTA -->
+  <section id="glowna" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">1. Strona główna, Zdjęcia i Wizytówka agenta</h2>
+    <p class="text-xs text-slate-500 mb-6">Dane widoczne w nagłówku strony, sekcji powitalnej (Hero) oraz w wyszukiwarce Google.</p>
+
+    <form action="/admin/tresci/glowna" method="POST" enctype="multipart/form-data" class="space-y-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nazwa marki / Biura</label>
+          <input type="text" name="brandName" value="<%= settings.brandName %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Imię i nazwisko agenta</label>
+          <input type="text" name="agentName" value="<%= settings.agentName %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Tytuł zawodowy / Rola</label>
+          <input type="text" name="agentRole" value="<%= settings.agentRole %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Numer licencji</label>
+          <input type="text" name="licenseNumber" value="<%= settings.licenseNumber %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+      </div>
+
+      <div class="space-y-4 pt-3 border-t border-slate-100">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nadtytuł w sekcji powitalnej (Badge)</label>
+          <input type="text" name="heroBadge" value="<%= settings.heroBadge %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Główny nagłówek na Stronie Głównej (H1)</label>
+          <input type="text" name="heroTitle" value="<%= settings.heroTitle %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Podtytuł pod nagłówkiem</label>
+          <textarea name="heroSubtitle" rows="2" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"><%= settings.heroSubtitle %></textarea>
+        </div>
+      </div>
+
+      <!-- Zdjęcie agenta i tło Hero -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-3 border-t border-slate-100">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-2">Zdjęcie profilowe agenta</label>
+          <div class="flex items-center gap-4">
+            <img src="<%= settings.agentPhoto %>" alt="" class="w-16 h-20 rounded-xl object-cover bg-slate-100 border border-slate-200">
+            <input type="file" name="agentPhotoFile" accept="image/*" data-compress-webp="true" class="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-2">Zdjęcie w tle sekcji Hero</label>
+          <div class="flex items-center gap-4">
+            <img src="<%= settings.heroImage %>" alt="" class="w-24 h-16 rounded-xl object-cover bg-slate-100 border border-slate-200">
+            <input type="file" name="heroImageFile" accept="image/*" data-compress-webp="true" class="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold">
+          </div>
+        </div>
+      </div>
+
+      <!-- Liczby i osiągnięcia -->
+      <div class="pt-3 border-t border-slate-100">
+        <label class="block text-xs font-semibold text-slate-700 mb-2">Licznik sukcesów na stronie (4 kafelki)</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <% for (let i = 0; i < 4; i++) {
+            const st = (settings.stats && settings.stats[i]) ? settings.stats[i] : { value: '', label: '' };
+          %>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <input type="text" name="stat<%= i + 1 %>Value" value="<%= st.value %>" placeholder="Wartość (np. 180+)" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-sm font-bold">
+              <input type="text" name="stat<%= i + 1 %>Label" value="<%= st.label %>" placeholder="Opis (np. Sprzedanych mieszkań)" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs">
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny tytuł w Google (SEO Title)</label>
+          <input type="text" name="siteTitle" value="<%= settings.seo?.siteTitle %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny opis w Google (Meta Description)</label>
+          <input type="text" name="siteDescription" value="<%= settings.seo?.siteDescription %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+          Zapisz ustawienia Strony Głównej
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 2. ZAKŁADKA O MNIE -->
+  <section id="o-mnie" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">2. Treść zakładki „O mnie”</h2>
+    <p class="text-xs text-slate-500 mb-6">Opowiedz swoją historię, doświadczenie oraz wartości, jakimi kierujesz się w pracy.</p>
+
+    <form action="/admin/tresci/o-mnie" method="POST" class="space-y-5">
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Nagłówek sekcji O mnie</label>
+        <input type="text" name="aboutTitle" value="<%= settings.about?.title %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Wstęp / Podtytuł (Lead)</label>
+        <textarea name="aboutSubtitle" rows="2" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"><%= settings.about?.subtitle %></textarea>
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <label class="block text-xs font-semibold text-slate-700">Pełny biogram (obsługuje akapity HTML)</label>
+          <div class="flex gap-1 text-xs">
+            <button type="button" onclick="insertHtmlTag('aboutBioArea', '<p>', '</p>')" class="px-2 py-0.5 rounded bg-slate-100">Akapit</button>
+            <button type="button" onclick="insertHtmlTag('aboutBioArea', '<strong>', '</strong>')" class="px-2 py-0.5 rounded bg-slate-100 font-bold">B</button>
+          </div>
+        </div>
+        <textarea id="aboutBioArea" name="aboutBioHtml" rows="7" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-mono"><%= settings.about?.bioHtml %></textarea>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-2">Licencje, certyfikaty i ubezpieczenie (po jednym w linii)</label>
+        <textarea name="certifications" rows="4" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"><%= (settings.about?.certifications || []).join('\n') %></textarea>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100">
+        <label class="block text-xs font-semibold text-slate-700 mb-2">Filary współpracy / Wartości (4 boxy)</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <% for (let i = 0; i < 4; i++) {
+            const val = (settings.about?.values && settings.about.values[i]) ? settings.about.values[i] : { title: '', description: '' };
+          %>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <input type="text" name="val<%= i + 1 %>Title" value="<%= val.title %>" placeholder="Tytuł wartości" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-sm font-semibold">
+              <textarea name="val<%= i + 1 %>Desc" rows="2" placeholder="Krótki opis..." class="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs"><%= val.description %></textarea>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+          Zapisz zakładkę „O mnie”
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 3. OPINIE KLIENTÓW -->
+  <section id="opinie" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">3. Opinie i referencje klientów</h2>
+    <p class="text-xs text-slate-500 mb-6">Wyświetlane na Stronie Głównej oraz w zakładce „O mnie”.</p>
+
+    <div class="space-y-3 mb-6">
+      <% (settings.testimonials || []).forEach(t => { %>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start justify-between gap-4">
+          <div>
+            <strong class="text-sm text-slate-900"><%= t.author %></strong>
+            <span class="text-xs text-amber-700 ml-2"><%= t.role %></span>
+            <p class="text-xs text-slate-600 mt-1">„<%= t.text %>”</p>
+          </div>
+          <form action="/admin/tresci/opinie/<%= t.id %>/usun" method="POST">
+            <button type="submit" class="text-xs font-semibold text-rose-600 hover:underline">Usuń</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+
+    <form action="/admin/tresci/opinie/dodaj" method="POST" class="p-4 rounded-xl border border-dashed border-slate-300 space-y-3">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Dodaj nową opinię klienta</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <input type="text" name="author" required placeholder="Imię i nazwisko klienta *" class="px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        <input type="text" name="role" placeholder="Czego dotyczyła współpraca (np. Sprzedaż domu)" class="px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+      <textarea name="text" rows="2" required placeholder="Treść opinii klienta *" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></textarea>
+      <button type="submit" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold">
+        + Dodaj opinię
+      </button>
+    </form>
+  </section>
+
+  <!-- 4. DANE KONTAKTOWE I MAPA -->
+  <section id="kontakt" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">4. Zakładka „Kontakt” i Social Media</h2>
+    <p class="text-xs text-slate-500 mb-6">Dane wyświetlane w zakładce Kontakt, w stopce oraz w nagłówku strony.</p>
+
+    <form action="/admin/tresci/kontakt" method="POST" class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Numer telefonu</label>
+          <input type="text" name="phone" value="<%= settings.contact?.phone %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Adres e-mail</label>
+          <input type="email" name="email" value="<%= settings.contact?.email %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Ulica i numer biura</label>
+          <input type="text" name="address" value="<%= settings.contact?.address %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Kod pocztowy i miasto</label>
+          <input type="text" name="city" value="<%= settings.contact?.city %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Godziny dostępności</label>
+        <input type="text" name="workingHours" value="<%= settings.contact?.workingHours %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Link Facebook</label>
+          <input type="url" name="facebook" value="<%= settings.contact?.facebook %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Link Instagram</label>
+          <input type="url" name="instagram" value="<%= settings.contact?.instagram %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Link LinkedIn</label>
+          <input type="url" name="linkedin" value="<%= settings.contact?.linkedin %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Adres URL osadzonej mapy (iframe src z Google Maps / OpenStreetMap)</label>
+        <input type="text" name="mapEmbedUrl" value="<%= settings.contact?.mapEmbedUrl %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs">
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+          Zapisz dane kontaktowe
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- 5. ZMIANA LOGINU I HASŁA WŁAŚCICIELA -->
+  <section id="konto" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">5. Bezpieczeństwo – zmiana loginu i hasła</h2>
+    <p class="text-xs text-slate-500 mb-6">Zmień domyślne dane logowania do panelu właściciela.</p>
+
+    <form action="/admin/tresci/konto" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Login właściciela</label>
+        <input type="text" name="username" required value="<%= currentUser.username %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Obecne hasło *</label>
+        <input type="password" name="currentPassword" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Nowe hasło *</label>
+        <input type="password" name="newPassword" required minlength="6" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+      </div>
+      <div class="sm:col-span-3 flex justify-end pt-2">
+        <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
+          Zaktualizuj dane logowania
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script src="/js/admin.js"></script>
+<%- include('../partials/footer') %>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="1000" height="680">
+  <defs>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="680" fill="url(#g4)"/>
+  <!-- Wzgórza i działka budowlana z obrysem geodezyjnym -->
+  <path d="M0 440 Q280 340 560 420 T1000 380 L1000 680 L0 680 Z" fill="#065f46"/>
+  <path d="M0 520 Q400 450 1000 510 L1000 680 L0 680 Z" fill="#047857"/>
+  <!-- Granice działki (złoty obrys) -->
+  <polygon points="240,470 740,430 840,595 160,615" fill="#f59e0b" fill-opacity="0.18" stroke="#fbbf24" stroke-width="4" stroke-dasharray="14,8"/>
+  <circle cx="240" cy="470" r="8" fill="#fbbf24"/>
+  <circle cx="740" cy="430" r="8" fill="#fbbf24"/>
+  <circle cx="840" cy="595" r="8" fill="#fbbf24"/>
+  <circle cx="160" cy="615" r="8" fill="#fbbf24"/>
+  <text x="500" y="535" text-anchor="middle" fill="#fef3c7" font-family="sans-serif" font-size="30" font-weight="bold">1 450 m² · MPZP</text>
+</svg>
