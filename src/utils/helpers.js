@@ -124,6 +124,24 @@ function getRoleBadge(role) {
   };
 }
 
+/**
+ * Zwraca sformatowany adres biura lub pusty ciąg, jeśli adres nie jest podany lub został ukryty
+ */
+function formatOfficeAddress(contact) {
+  if (!contact || contact.hideOffice) return '';
+  const parts = [contact.address, contact.city]
+    .map((v) => String(v || '').trim())
+    .filter((v) => v && v !== '-');
+  return parts.join(', ');
+}
+
+/**
+ * Sprawdza, czy sekcje związane z adresem biura powinny być widoczne na stronie
+ */
+function hasOfficeAddress(contact) {
+  return Boolean(formatOfficeAddress(contact));
+}
+
 module.exports = {
   createSlug,
   formatPrice,
@@ -133,5 +151,7 @@ module.exports = {
   getCategoryLabel,
   getTransactionLabel,
   canManage,
-  getRoleBadge
+  getRoleBadge,
+  formatOfficeAddress,
+  hasOfficeAddress
 };

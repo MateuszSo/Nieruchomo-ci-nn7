@@ -47,20 +47,24 @@
               </a>
             </div>
 
-            <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Biuro / Spotkania</span>
-              <p class="text-slate-800 font-medium mt-0.5"><%= settings.contact?.address %>, <%= settings.contact?.city %></p>
-            </div>
+            <% if (helpers.hasOfficeAddress(settings.contact)) { %>
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Biuro / Spotkania</span>
+                <p class="text-slate-800 font-medium mt-0.5"><%= helpers.formatOfficeAddress(settings.contact) %></p>
+              </div>
+            <% } %>
 
-            <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Godziny pracy</span>
-              <p class="text-slate-600 mt-0.5"><%= settings.contact?.workingHours %></p>
-            </div>
+            <% if (settings.contact?.workingHours) { %>
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Godziny pracy</span>
+                <p class="text-slate-600 mt-0.5"><%= settings.contact.workingHours %></p>
+              </div>
+            <% } %>
           </div>
         </div>
 
         <!-- Mapa -->
-        <% if (settings.contact?.mapEmbedUrl) { %>
+        <% if (helpers.hasOfficeAddress(settings.contact) && settings.contact?.mapEmbedUrl) { %>
           <div class="bg-white rounded-3xl border border-slate-200 p-3 shadow-sm overflow-hidden">
             <iframe
               src="<%= settings.contact.mapEmbedUrl %>"

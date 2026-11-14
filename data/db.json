@@ -64,44 +64,19 @@
           "title": "Oszczędność Twojego czasu",
           "description": "Weryfikuję dzwoniących klientów, odsiewam tzw. „turystów mieszkaniowych” i organizuję prezentacje tylko ze zdecydowanymi nabywcami."
         }
-      ],
-      "certifications": [
-        "Licencja Pośrednika w Obrocie Nieruchomościami PFRN nr 28491",
-        "Certyfikowany Specjalista Home Stagingu i Marketingu Nieruchomości",
-        "Pełne ubezpieczenie OC pośrednika na kwotę 500 000 EUR",
-        "Członek Warszawskiego Stowarzyszenia Pośredników w Obrocie Nieruchomościami"
       ]
     },
-    "testimonials": [
-      {
-        "id": 1,
-        "author": "Anna i Piotr Zielińscy",
-        "role": "Sprzedaż 3-pokojowego mieszkania na Mokotowie",
-        "text": "Mieszkanie sprzedało się w 3 tygodnie za cenę wyższą niż zakładaliśmy na starcie. Pan Marek zajął się absolutnie wszystkim – od przygotowania wnętrza do zdjęć po organizację aktu notarialnego."
-      },
-      {
-        "id": 2,
-        "author": "Tomasz Nowakowski",
-        "role": "Zakup domu pod Warszawą",
-        "text": "Dzięki dokładnej weryfikacji dokumentów przez Pana Marka uniknęliśmy zakupu nieruchomości z nieuregulowanym dostępem do drogi publicznej. Pełen profesjonalizm i ogromna wiedza."
-      },
-      {
-        "id": 3,
-        "author": "Karolina Wiśniewska",
-        "role": "Obsługa najmu okazjonalnego apartamentu",
-        "text": "Mieszkam za granicą i potrzebowałam kogoś, kto zajmie się wynajmem mojego apartamentu od A do Z. Świetny kontakt, sprawdzony najemca i bezpieczna umowa najmu okazjonalnego."
-      }
-    ],
     "contact": {
       "phone": "+48 600 700 123",
       "email": "kontakt@kowalskinieruchomosci.pl",
-      "address": "ul. Złota 59, piętro 12",
-      "city": "00-120 Warszawa",
+      "address": "ul. Złota 12",
+      "city": "Warszawa",
+      "hideOffice": true,
       "workingHours": "Poniedziałek – Piątek: 9:00 – 19:00, Sobota: 10:00 – 15:00",
       "facebook": "https://facebook.com",
       "instagram": "https://instagram.com",
       "linkedin": "https://linkedin.com",
-      "mapEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=20.995%2C52.225%2C21.015%2C52.235&layer=mapnik&marker=52.230%2C21.005"
+      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2551.3490315106433!2d19.118790376399595!3d50.24806517155417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716c5473d958dbb%3A0x665bff80ffceed4c!2sKatowicka%2C%2041-400%20Mys%C5%82owice!5e0!3m2!1spl!2spl!4v1794659000577!5m2!1spl!2spl\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin"
     },
     "seo": {
       "siteTitle": "Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości",

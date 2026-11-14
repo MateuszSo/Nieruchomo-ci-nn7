@@ -728,10 +728,6 @@ router.post(
 
 router.post('/tresci/o-mnie', requireAdmin, (req, res) => {
   const current = db.getSettings();
-  const certifications = String(req.body.certifications || '')
-    .split('\n')
-    .map((s) => s.trim())
-    .filter(Boolean);
 
   const values = [
     { title: req.body.val1Title || '', description: req.body.val1Desc || '' },
@@ -740,15 +736,17 @@ router.post('/tresci/o-mnie', requireAdmin, (req, res) => {
     { title: req.body.val4Title || '', description: req.body.val4Desc || '' }
   ].filter((v) => v.title);
 
+  const nextAbout = {
+    ...current.about,
+    title: req.body.aboutTitle || current.about?.title,
+    subtitle: req.body.aboutSubtitle || current.about?.subtitle,
+    bioHtml: req.body.aboutBioHtml || current.about?.bioHtml,
+    values: values.length > 0 ? values : current.about?.values
+  };
+  delete nextAbout.certifications;
+
   db.updateSettings({
-    about: {
-      ...current.about,
-      title: req.body.aboutTitle || current.about?.title,
-      subtitle: req.body.aboutSubtitle || current.about?.subtitle,
-      bioHtml: req.body.aboutBioHtml || current.about?.bioHtml,
-      values: values.length > 0 ? values : current.about?.values,
-      certifications
-    }
+    about: nextAbout
   });
 
   req.session.flash = {
@@ -758,44 +756,21 @@ router.post('/tresci/o-mnie', requireAdmin, (req, res) => {
   res.redirect('/admin/tresci#o-mnie');
 });
 
-router.post('/tresci/opinie/dodaj', requireAdmin, (req, res) => {
-  const current = db.getSettings();
-  const testimonials = Array.isArray(current.testimonials) ? [...current.testimonials] : [];
-  if (req.body.author && req.body.text) {
-    testimonials.push({
-      id: Date.now(),
-      author: req.body.author.trim(),
-      role: (req.body.role || '').trim(),
-      text: req.body.text.trim()
-    });
-    db.updateSettings({ testimonials });
-    req.session.flash = { type: 'success', message: 'Dodano nową opinię klienta.' };
-  }
-  res.redirect('/admin/tresci#opinie');
-});
-
-router.post('/tresci/opinie/:id/usun', requireAdmin, (req, res) => {
-  const current = db.getSettings();
-  const testimonials = (current.testimonials || []).filter((t) => Number(t.id) !== Number(req.params.id));
-  db.updateSettings({ testimonials });
-  req.session.flash = { type: 'success', message: 'Usunięto opinię klienta.' };
-  res.redirect('/admin/tresci#opinie');
-});
-
 router.post('/tresci/kontakt', requireAdmin, (req, res) => {
   const current = db.getSettings();
   db.updateSettings({
     contact: {
       ...current.contact,
-      phone: req.body.phone || '',
-      email: req.body.email || '',
-      address: req.body.address || '',
-      city: req.body.city || '',
-      workingHours: req.body.workingHours || '',
-      facebook: req.body.facebook || '',
-      instagram: req.body.instagram || '',
-      linkedin: req.body.linkedin || '',
-      mapEmbedUrl: req.body.mapEmbedUrl || ''
+      phone: (req.body.phone || '').trim(),
+      email: (req.body.email || '').trim(),
+      address: (req.body.address || '').trim(),
+      city: (req.body.city || '').trim(),
+      hideOffice: Boolean(req.body.hideOffice),
+      workingHours: (req.body.workingHours || '').trim(),
+      facebook: (req.body.facebook || '').trim(),
+      instagram: (req.body.instagram || '').trim(),
+      linkedin: (req.body.linkedin || '').trim(),
+      mapEmbedUrl: (req.body.mapEmbedUrl || '').trim()
     }
   });
 

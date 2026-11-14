@@ -72,13 +72,17 @@
             <span class="text-amber-400 font-bold">E-mail:</span>
             <a href="mailto:<%= settings.contact?.email %>" class="hover:text-amber-400 break-all"><%= settings.contact?.email %></a>
           </li>
-          <li class="flex items-start gap-2.5">
-            <span class="text-amber-400 font-bold">Biuro:</span>
-            <span><%= settings.contact?.address %>, <%= settings.contact?.city %></span>
-          </li>
-          <li class="text-xs text-slate-400 pt-1">
-            <%= settings.contact?.workingHours %>
-          </li>
+          <% if (helpers.hasOfficeAddress(settings.contact)) { %>
+            <li class="flex items-start gap-2.5">
+              <span class="text-amber-400 font-bold">Biuro:</span>
+              <span><%= helpers.formatOfficeAddress(settings.contact) %></span>
+            </li>
+          <% } %>
+          <% if (settings.contact?.workingHours) { %>
+            <li class="text-xs text-slate-400 pt-1">
+              <%= settings.contact.workingHours %>
+            </li>
+          <% } %>
         </ul>
       </div>
     </div>

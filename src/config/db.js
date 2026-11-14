@@ -91,44 +91,19 @@ function getInitialSeedData() {
             title: 'Oszczędność Twojego czasu',
             description: 'Weryfikuję dzwoniących klientów, odsiewam tzw. „turystów mieszkaniowych” i organizuję prezentacje tylko ze zdecydowanymi nabywcami.'
           }
-        ],
-        certifications: [
-          'Licencja Pośrednika w Obrocie Nieruchomościami PFRN nr 28491',
-          'Certyfikowany Specjalista Home Stagingu i Marketingu Nieruchomości',
-          'Pełne ubezpieczenie OC pośrednika na kwotę 500 000 EUR',
-          'Członek Warszawskiego Stowarzyszenia Pośredników w Obrocie Nieruchomościami'
         ]
       },
-      testimonials: [
-        {
-          id: 1,
-          author: 'Anna i Piotr Zielińscy',
-          role: 'Sprzedaż 3-pokojowego mieszkania na Mokotowie',
-          text: 'Mieszkanie sprzedało się w 3 tygodnie za cenę wyższą niż zakładaliśmy na starcie. Pan Marek zajął się absolutnie wszystkim – od przygotowania wnętrza do zdjęć po organizację aktu notarialnego.'
-        },
-        {
-          id: 2,
-          author: 'Tomasz Nowakowski',
-          role: 'Zakup domu pod Warszawą',
-          text: 'Dzięki dokładnej weryfikacji dokumentów przez Pana Marka uniknęliśmy zakupu nieruchomości z nieuregulowanym dostępem do drogi publicznej. Pełen profesjonalizm i ogromna wiedza.'
-        },
-        {
-          id: 3,
-          author: 'Karolina Wiśniewska',
-          role: 'Obsługa najmu okazjonalnego apartamentu',
-          text: 'Mieszkam za granicą i potrzebowałam kogoś, kto zajmie się wynajmem mojego apartamentu od A do Z. Świetny kontakt, sprawdzony najemca i bezpieczna umowa najmu okazjonalnego.'
-        }
-      ],
       contact: {
         phone: '+48 600 700 800',
         email: 'kontakt@kowalskinieruchomosci.pl',
-        address: 'ul. Złota 59, piętro 12',
-        city: '00-120 Warszawa',
+        address: '',
+        city: '',
+        hideOffice: false,
         workingHours: 'Poniedziałek – Piątek: 9:00 – 19:00, Sobota: 10:00 – 15:00',
         facebook: 'https://facebook.com',
         instagram: 'https://instagram.com',
         linkedin: 'https://linkedin.com',
-        mapEmbedUrl: 'https://www.openstreetmap.org/export/embed.html?bbox=20.995%2C52.225%2C21.015%2C52.235&layer=mapnik&marker=52.230%2C21.005'
+        mapEmbedUrl: ''
       },
       seo: {
         siteTitle: 'Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości',
@@ -632,6 +607,16 @@ function migrateDatabase(db) {
       changed = true;
     }
   });
+
+  if (db.settings && db.settings.testimonials !== undefined) {
+    delete db.settings.testimonials;
+    changed = true;
+  }
+
+  if (db.settings?.about && db.settings.about.certifications !== undefined) {
+    delete db.settings.about.certifications;
+    changed = true;
+  }
 
   if (changed) {
     saveDatabase(db);
