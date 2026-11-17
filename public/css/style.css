@@ -1,15 +1,15 @@
-/* Dodatkowe style typograficzne dla opisów nieruchomości oraz artykułów blogowych */
+/* Dodatkowe style typograficzne dla opisów nieruchomości oraz artykułów blogowych (paleta NN7) */
 .rich-content p {
   margin-bottom: 1.15rem;
   line-height: 1.8;
-  color: #334155;
+  color: #42597a;
 }
 
 .rich-content h2,
 .rich-content h3 {
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
-  color: #0f172a;
+  color: #223c66;
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
 }
@@ -26,14 +26,14 @@
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1.25rem;
-  color: #334155;
+  color: #42597a;
 }
 
 .rich-content ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1.25rem;
-  color: #334155;
+  color: #42597a;
 }
 
 .rich-content li {
@@ -42,6 +42,12 @@
 }
 
 .rich-content strong {
-  color: #0f172a;
+  color: #223c66;
   font-weight: 600;
+}
+
+.rich-content a {
+  color: #8f6d1b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

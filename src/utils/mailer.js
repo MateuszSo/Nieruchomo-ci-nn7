@@ -32,16 +32,16 @@ async function sendContactEmail({ name, email, phone, subject, message, property
       replyTo: email || undefined,
       subject: mailSubject,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-          <h2 style="color: #0f172a; margin-top: 0;">Nowe zapytanie ze strony internetowej</h2>
-          ${propertyTitle ? `<p style="background: #f8fafc; padding: 10px 14px; border-left: 4px solid #d97706;"><strong>Dotyczy nieruchomości:</strong> ${propertyTitle}</p>` : ''}
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #d7e1f0; border-radius: 8px;">
+          <h2 style="color: #223c66; margin-top: 0;">Nowe zapytanie ze strony internetowej</h2>
+          ${propertyTitle ? `<p style="background: #f5f7fb; padding: 10px 14px; border-left: 4px solid #caa23e;"><strong>Dotyczy nieruchomości:</strong> ${propertyTitle}</p>` : ''}
           <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
-            <tr><td style="padding: 6px 0; color: #64748b; width: 140px;">Imię i nazwisko:</td><td style="padding: 6px 0; font-weight: bold;">${name}</td></tr>
-            <tr><td style="padding: 6px 0; color: #64748b;">Telefon:</td><td style="padding: 6px 0; font-weight: bold;">${phone || 'Nie podano'}</td></tr>
-            <tr><td style="padding: 6px 0; color: #64748b;">E-mail:</td><td style="padding: 6px 0;">${email || 'Nie podano'}</td></tr>
-            <tr><td style="padding: 6px 0; color: #64748b;">Temat:</td><td style="padding: 6px 0;">${subject || 'Zapytanie ogólne'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #5b7396; width: 140px;">Imię i nazwisko:</td><td style="padding: 6px 0; font-weight: bold; color: #223c66;">${name}</td></tr>
+            <tr><td style="padding: 6px 0; color: #5b7396;">Telefon:</td><td style="padding: 6px 0; font-weight: bold; color: #223c66;">${phone || 'Nie podano'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #5b7396;">E-mail:</td><td style="padding: 6px 0;">${email || 'Nie podano'}</td></tr>
+            <tr><td style="padding: 6px 0; color: #5b7396;">Temat:</td><td style="padding: 6px 0;">${subject || 'Zapytanie ogólne'}</td></tr>
           </table>
-          <div style="background: #f8fafc; padding: 16px; border-radius: 6px; margin-top: 12px; white-space: pre-wrap;">${message}</div>
+          <div style="background: #f5f7fb; padding: 16px; border-radius: 6px; margin-top: 12px; white-space: pre-wrap;">${message}</div>
         </div>
       `
     });

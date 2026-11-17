@@ -5,13 +5,13 @@
       "username": "admin",
       "passwordHash": "$2a$10$wS6kMtz9pxFq.1kPM5zuNO6sIlFJIxcpvfKOc76ZW127zZp9aZiUC",
       "name": "Marek Kowalski",
-      "updatedAt": "2026-11-08T11:21:29.273Z",
+      "updatedAt": "2026-11-17T14:53:22.052Z",
       "role": "admin",
       "active": true,
       "title": "Właściciel Biura · Licencjonowany Pośrednik",
       "licenseNumber": "Licencja PFRN nr 28491",
       "phone": "+48 600 700 123",
-      "email": "kontakt@kowalskinieruchomosci.pl",
+      "email": "mati00923@gmail.com",
       "avatar": "/images/demo/agent-portrait.svg",
       "bio": "Doświadczony doradca przeprowadzający klientów bezpiecznie przez proces sprzedaży i zakupu nieruchomości."
     },
@@ -34,14 +34,14 @@
   ],
   "settings": {
     "brandName": "NN7",
-    "agentName": "Edyta Sodja",
+    "agentName": "Marek Kowalski",
     "agentRole": "Pośrednik w Obrocie Nieruchomościami",
     "licenseNumber": "-",
     "agentPhoto": "/images/demo/agent-portrait.svg",
     "heroBadge": "Ekspert rynku nieruchomości premium i mieszkań",
     "heroTitle": "Skuteczna sprzedaż i bezpieczny zakup Twojej nieruchomości",
     "heroSubtitle": "Przeprowadzam klientów przez cały proces transakcji – od rzetelnej wyceny rynkowej, przez profesjonalny home staging i marketing, aż po bezpieczne przekazanie kluczy u notariusza.",
-    "heroImage": "/uploads/001-1794484019399-4078.webp",
+    "heroImage": "/uploads/nowoczesna-willa-wsiroid-zieleni-1794916100774-9550.webp",
     "stats": [],
     "about": {
       "title": "Twój zaufany doradca na każdym etapie transakcji",
@@ -68,7 +68,7 @@
     },
     "contact": {
       "phone": "+48 600 700 123",
-      "email": "kontakt@kowalskinieruchomosci.pl",
+      "email": "mati00923@gmail.com",
       "address": "ul. Złota 12",
       "city": "Warszawa",
       "hideOffice": true,
@@ -81,7 +81,9 @@
     "seo": {
       "siteTitle": "Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości",
       "siteDescription": "Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów oraz działek. Sprawdź aktualne oferty nieruchomości."
-    }
+    },
+    "logoImage": "/images/logo-nn7.svg",
+    "hideNavbarText": true
   },
   "services": [
     {
@@ -434,6 +436,84 @@
     }
   ],
   "messages": [
+    {
+      "id": 7,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "asdasd",
+      "email": "asdasd@adsasd",
+      "phone": "123123123",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "asdasdasdasdasd",
+      "read": false,
+      "createdAt": "2026-11-17T14:53:46.764Z"
+    },
+    {
+      "id": 6,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "aasdasd",
+      "email": "asd@asd",
+      "phone": "123123123",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "asdasdasd",
+      "read": false,
+      "createdAt": "2026-11-17T14:51:44.378Z"
+    },
+    {
+      "id": 5,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "aaaaa",
+      "email": "aaa@aaa.pl",
+      "phone": "123123123",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "abcabcabc",
+      "read": false,
+      "createdAt": "2026-11-17T14:50:42.402Z"
+    },
+    {
+      "id": 4,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "aaa",
+      "email": "ccc@cc.pl",
+      "phone": "bbb",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "ddd",
+      "read": false,
+      "createdAt": "2026-11-17T14:45:02.585Z"
+    },
+    {
+      "id": 3,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "aaaa",
+      "email": "bb@bb.pl",
+      "phone": "123456789",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "cccc",
+      "read": false,
+      "createdAt": "2026-11-17T13:49:54.788Z"
+    },
+    {
+      "id": 2,
+      "agentId": 1,
+      "propertyId": null,
+      "name": "abc def",
+      "email": "as@qw.pl",
+      "phone": "123 456 789",
+      "subject": "Chcę sprzedać / wycenić nieruchomość",
+      "propertyTitle": "",
+      "message": "asddsczx",
+      "read": false,
+      "createdAt": "2026-11-17T13:46:40.248Z"
+    },
     {
       "id": 1,
       "name": "Michał Jabłoński",

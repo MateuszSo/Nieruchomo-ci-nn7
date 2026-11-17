@@ -53,7 +53,9 @@ function getInitialSeedData() {
       }
     ],
     settings: {
-      brandName: 'Kowalski Nieruchomości',
+      brandName: 'NN7',
+      logoImage: '/images/logo-nn7.svg',
+      hideNavbarText: false,
       agentName: 'Marek Kowalski',
       agentRole: 'Licencjonowany Pośrednik w Obrocie Nieruchomościami',
       licenseNumber: 'Licencja PFRN nr 28491',
@@ -615,6 +617,11 @@ function migrateDatabase(db) {
 
   if (db.settings?.about && db.settings.about.certifications !== undefined) {
     delete db.settings.about.certifications;
+    changed = true;
+  }
+
+  if (db.settings && db.settings.logoImage === undefined) {
+    db.settings.logoImage = '/images/logo-nn7.svg';
     changed = true;
   }
 

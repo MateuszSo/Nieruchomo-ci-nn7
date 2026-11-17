@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 250" width="680" height="250" role="img" aria-label="NN7.pl Najlepsze Nieruchomości">
+  <!-- Złoty komin i linia dachu -->
+  <path
+    fill="#caa23e"
+    d="M 3,190 L 3,18 L 75,18 L 75,66 L 94,66 L 236,168 L 236,190 L 228,190 L 88,86 L 58,86 L 58,190 L 38,190 L 38,66 L 55,66 L 55,38 L 23,38 L 23,190 Z"
+  />
+  <!-- Granatowy obrys domu (górny dach i prawa ściana) -->
+  <path
+    fill="#2c4c7e"
+    d="M 96,59 L 166,2 L 236,72 L 236,157 L 217,143 L 217,80 L 166,29 L 112,70 Z"
+  />
+  <!-- Granatowa podstawa domu (lewy dolny narożnik) -->
+  <path
+    fill="#2c4c7e"
+    d="M 69,95 L 89,95 L 89,171 L 191,171 L 218,190 L 69,190 Z"
+  />
+  <!-- Pierwsze N -->
+  <path
+    fill="#2c4c7e"
+    d="M 258,190 L 258,4 L 294,4 L 368,118 L 368,4 L 406,4 L 406,190 L 370,190 L 296,76 L 296,190 Z"
+  />
+  <!-- Drugie N (ze skróconym prawym słupkiem pod belką siódemki) -->
+  <path
+    fill="#2c4c7e"
+    d="M 420,190 L 420,4 L 456,4 L 530,118 L 530,63 L 568,63 L 568,190 L 532,190 L 458,76 L 458,190 Z"
+  />
+  <!-- Cyfra 7 -->
+  <path
+    fill="#2c4c7e"
+    d="M 530,4 L 678,4 L 678,12 L 608,190 L 568,190 L 622,51 L 530,51 Z"
+  />
+  <!-- Złote .pl -->
+  <circle cx="617" cy="183" r="6.5" fill="#caa23e"/>
+  <text
+    x="628"
+    y="189"
+    fill="#caa23e"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"
+    font-weight="800"
+    font-size="52"
+  >pl</text>
+  <!-- Dolny napis NAJLEPSZE NIERUCHOMOŚCI -->
+  <text
+    x="340"
+    y="243"
+    text-anchor="middle"
+    textLength="674"
+    lengthAdjust="spacingAndGlyphs"
+    fill="#2c4c7e"
+    font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"
+    font-weight="800"
+    font-size="34"
+  >NAJLEPSZE NIERUCHOMOŚCI</text>
+</svg>

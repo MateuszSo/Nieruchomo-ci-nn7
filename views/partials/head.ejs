@@ -11,13 +11,14 @@
   <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : settings.seo?.siteTitle %>">
   <meta property="og:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : settings.seo?.siteDescription %>">
   <meta property="og:site_name" content="<%= settings.brandName %>">
+  <meta name="theme-color" content="#223c66">
 
   <!-- Czcionki Google: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS (CDN z lokalnym fallbackiem i własnymi stylami w style.css) -->
+  <!-- Tailwind CSS (CDN z paletą dopasowaną do identyfikacji wizualnej NN7: granat #2c4c7e i złoto #caa23e) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -28,12 +29,38 @@
             serif: ['"Playfair Display"', 'Georgia', 'serif']
           },
           colors: {
+            slate: {
+              50: '#f5f7fb',
+              100: '#ebf0f8',
+              200: '#d7e1f0',
+              300: '#bccce3',
+              400: '#94accb',
+              500: '#5b7396',
+              600: '#42597a',
+              700: '#344f78',
+              800: '#2c4c7e',
+              900: '#223c66',
+              950: '#162846'
+            },
+            amber: {
+              50: '#fbf8ef',
+              100: '#f5edd6',
+              200: '#ead9a6',
+              300: '#dfc373',
+              400: '#d5b24d',
+              500: '#caa23e',
+              600: '#b58c28',
+              700: '#8f6d1b',
+              800: '#735716',
+              900: '#5e4713',
+              950: '#362809'
+            },
             brand: {
-              dark: '#0f172a',
-              navy: '#1e293b',
-              gold: '#d97706',
-              goldLight: '#f59e0b',
-              cream: '#f8fafc'
+              dark: '#162846',
+              navy: '#2c4c7e',
+              gold: '#caa23e',
+              goldLight: '#dfc373',
+              cream: '#f5f7fb'
             }
           }
         }

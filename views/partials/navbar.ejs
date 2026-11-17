@@ -44,17 +44,27 @@
     <div class="flex items-center justify-between h-20">
       <!-- Logo / Marka -->
       <a href="/" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center text-amber-400 font-serif font-bold text-xl shadow-md group-hover:bg-amber-600 group-hover:text-white transition">
-          <%= (settings.brandName || 'KN').substring(0, 1) %>
-        </div>
-        <div>
-          <span class="block font-serif font-bold text-lg sm:text-xl text-slate-900 tracking-tight leading-none">
-            <%= settings.brandName %>
-          </span>
-          <span class="block text-xs text-slate-500 mt-1">
-            <%= settings.agentName %> · <%= settings.licenseNumber %>
-          </span>
-        </div>
+        <% if (settings.logoImage) { %>
+          <img
+            src="<%= settings.logoImage %>"
+            alt="<%= settings.brandName || 'Logo' %>"
+            class="h-11 sm:h-12 w-auto max-w-[170px] sm:max-w-[210px] object-contain shrink-0 transition group-hover:opacity-90"
+          >
+        <% } else { %>
+          <div class="w-11 h-11 rounded-xl bg-slate-800 flex items-center justify-center text-amber-400 font-serif font-bold text-xl shadow-md border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-slate-950 transition shrink-0">
+            <%= (settings.brandName || 'N').substring(0, 1) %>
+          </div>
+        <% } %>
+        <% if (!settings.hideNavbarText) { %>
+          <div>
+            <span class="block font-serif font-bold text-lg sm:text-xl text-slate-800 tracking-tight leading-none">
+              <%= settings.brandName %>
+            </span>
+            <span class="block text-xs text-slate-500 mt-1">
+              <%= settings.agentName %><%= (settings.licenseNumber && settings.licenseNumber !== '-') ? ` · ${settings.licenseNumber}` : '' %>
+            </span>
+          </div>
+        <% } %>
       </a>
 
       <!-- Linki menu (Desktop) -->
@@ -87,7 +97,7 @@
           </svg>
           <span><%= settings.contact?.phone %></span>
         </a>
-        <a href="/kontakt" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold shadow-sm transition">
+        <a href="/kontakt" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-amber-600 text-white text-sm font-semibold shadow-sm transition">
           Umów konsultację
         </a>
       </div>

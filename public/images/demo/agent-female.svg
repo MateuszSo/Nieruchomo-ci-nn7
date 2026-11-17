@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" width="800" height="960">
   <defs>
     <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+      <stop offset="0%" stop-color="#2c4c7e"/>
+      <stop offset="100%" stop-color="#162846"/>
     </linearGradient>
     <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
+      <stop offset="0%" stop-color="#dfc373"/>
+      <stop offset="100%" stop-color="#caa23e"/>
     </linearGradient>
   </defs>
   <rect width="800" height="960" fill="url(#bg2)"/>
   <circle cx="400" cy="360" r="205" fill="none" stroke="url(#gold2)" stroke-width="3" stroke-opacity="0.45"/>
-  <circle cx="400" cy="360" r="180" fill="#0f172a"/>
+  <circle cx="400" cy="360" r="180" fill="#162846"/>
   <!-- Sylwetka żakietu -->
-  <path d="M175 960 C175 710 275 615 400 615 C525 615 625 710 625 960 Z" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
-  <polygon points="345,620 400,775 455,620" fill="#fef3c7"/>
+  <path d="M175 960 C175 710 275 615 400 615 C525 615 625 710 625 960 Z" fill="#223c66" stroke="#5b7396" stroke-width="2"/>
+  <polygon points="345,620 400,775 455,620" fill="#f5edd6"/>
   <!-- Włosy i głowa -->
-  <path d="M275 380 C265 210 535 210 525 380 C530 470 500 520 475 535 L325 535 C300 520 270 470 275 380 Z" fill="#475569"/>
-  <circle cx="400" cy="355" r="96" fill="#e2e8f0"/>
-  <rect x="200" y="845" width="400" height="64" rx="32" fill="#0f172a" fill-opacity="0.9" stroke="url(#gold2)" stroke-width="2"/>
+  <path d="M275 380 C265 210 535 210 525 380 C530 470 500 520 475 535 L325 535 C300 520 270 470 275 380 Z" fill="#42597a"/>
+  <circle cx="400" cy="355" r="96" fill="#ebf0f8"/>
+  <rect x="200" y="845" width="400" height="64" rx="32" fill="#162846" fill-opacity="0.9" stroke="url(#gold2)" stroke-width="2"/>
   <text x="400" y="885" text-anchor="middle" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="600" letter-spacing="2">KAROLINA NOWAK</text>
 </svg>

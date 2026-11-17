@@ -677,13 +677,23 @@ router.post(
   '/tresci/glowna',
   requireAdmin,
   upload.fields([
+    { name: 'logoImageFile', maxCount: 1 },
     { name: 'agentPhotoFile', maxCount: 1 },
     { name: 'heroImageFile', maxCount: 1 }
   ]),
   (req, res) => {
     const current = db.getSettings();
+    let logoImage = current.logoImage ?? '/images/logo-nn7.svg';
     let agentPhoto = current.agentPhoto;
     let heroImage = current.heroImage;
+
+    if (req.files && req.files.logoImageFile && req.files.logoImageFile[0]) {
+      removeUploadedFile(current.logoImage);
+      logoImage = `/uploads/${req.files.logoImageFile[0].filename}`;
+    } else if (req.body.removeLogoImage) {
+      removeUploadedFile(current.logoImage);
+      logoImage = '';
+    }
 
     if (req.files && req.files.agentPhotoFile && req.files.agentPhotoFile[0]) {
       removeUploadedFile(current.agentPhoto);
@@ -703,6 +713,8 @@ router.post(
 
     db.updateSettings({
       brandName: req.body.brandName || current.brandName,
+      logoImage,
+      hideNavbarText: Boolean(req.body.hideNavbarText),
       agentName: req.body.agentName || current.agentName,
       agentRole: req.body.agentRole || current.agentRole,
       licenseNumber: req.body.licenseNumber || current.licenseNumber,
