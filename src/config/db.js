@@ -15,7 +15,6 @@ function getInitialSeedData() {
   const initialUser = process.env.ADMIN_INITIAL_USER || 'admin';
   const initialPass = process.env.ADMIN_INITIAL_PASS || 'Admin123!';
   const passwordHash = bcrypt.hashSync(initialPass, 10);
-  const demoAgentHash = bcrypt.hashSync('Agent123!', 10);
 
   return {
     users: [
@@ -25,56 +24,32 @@ function getInitialSeedData() {
         passwordHash,
         role: 'admin',
         active: true,
-        name: 'Marek Kowalski',
-        title: 'Właściciel Biura · Licencjonowany Pośrednik',
-        licenseNumber: 'Licencja PFRN nr 28491',
-        phone: '+48 600 700 800',
-        email: 'kontakt@kowalskinieruchomosci.pl',
+        name: 'Edyta Sojda',
+        title: 'Pośrednik w Obrocie Nieruchomościami',
+        licenseNumber: '',
+        phone: '+48 733 642 990',
+        email: 'biuro@nn7.pl',
         avatar: '/images/demo/agent-portrait.svg',
-        bio: 'Założyciel biura z 11-letnim doświadczeniem w sprzedaży mieszkań, domów oraz gruntów inwestycyjnych.',
+        bio: 'Doświadczony doradca przeprowadzający klientów bezpiecznie przez proces sprzedaży, zakupu i wynajmu nieruchomości.',
         createdAt: '2026-01-10T09:00:00.000Z',
-        updatedAt: new Date().toISOString()
-      },
-      {
-        id: 2,
-        username: 'agent',
-        passwordHash: demoAgentHash,
-        role: 'agent',
-        active: true,
-        name: 'Karolina Nowak',
-        title: 'Starszy Doradca ds. Nieruchomości',
-        licenseNumber: 'Licencja PFRN nr 31045',
-        phone: '+48 600 700 805',
-        email: 'k.nowak@kowalskinieruchomosci.pl',
-        avatar: '/images/demo/agent-female.svg',
-        bio: 'Specjalistka ds. sprzedaży i wynajmu apartamentów, lokali komercyjnych oraz profesjonalnego Home Stagingu.',
-        createdAt: '2026-03-15T10:00:00.000Z',
         updatedAt: new Date().toISOString()
       }
     ],
     settings: {
-      brandName: 'NN7',
+      brandName: 'Najlepsze Nieruchomości NN7',
       logoImage: '/images/logo-nn7.svg',
-      hideNavbarText: false,
-      agentName: 'Marek Kowalski',
-      agentRole: 'Licencjonowany Pośrednik w Obrocie Nieruchomościami',
-      licenseNumber: 'Licencja PFRN nr 28491',
-      agentPhoto: '/images/demo/agent-portrait.svg',
+      hideNavbarText: true,
+      primaryAgentId: 1,
       heroBadge: 'Ekspert rynku nieruchomości premium i mieszkań',
       heroTitle: 'Skuteczna sprzedaż i bezpieczny zakup Twojej nieruchomości',
       heroSubtitle: 'Przeprowadzam klientów przez cały proces transakcji – od rzetelnej wyceny rynkowej, przez profesjonalny home staging i marketing, aż po bezpieczne przekazanie kluczy u notariusza.',
       heroImage: '/images/demo/hero-villa.svg',
-      stats: [
-        { value: '185+', label: 'Sprzedanych i wynajętych nieruchomości' },
-        { value: '11 lat', label: 'Doświadczenia na rynku nieruchomości' },
-        { value: '98%', label: 'Transakcji sfinalizowanych w cenie ofertowej' },
-        { value: '39 dni', label: 'Średni czas sprzedaży nieruchomości' }
-      ],
+      stats: [],
       about: {
         title: 'Twój zaufany doradca na każdym etapie transakcji',
         subtitle: 'Łączę znajomość lokalnego rynku, prawa nieruchomości i nowoczesnego marketingu, aby maksymalizować zysk i spokój moich klientów.',
-        bioHtml: `<p>Nazywam się <strong>Marek Kowalski</strong> i od ponad 11 lat pomagam właścicielom mieszkań, domów oraz działek przejść przez proces sprzedaży i wynajmu bez stresu, ukrytych ryzyk i straty czasu.</p>
-<p>Moja praca zaczyna się na długo przed publikacją ogłoszenia. Każdą nieruchomość dokładnie weryfikuję pod kątem prawnym, przygotowuję strategię cenową opartą o rzeczywiste ceny transakcyjne (a nie wyłącznie ofertowe) oraz organizuję profesjonalny <strong>home staging, sesję fotograficzną, ujęcia z drona i wirtualny spacer</strong>.</p>
+        bioHtml: `<p>Pomagam właścicielom mieszkań, domów oraz działek przejść przez proces sprzedaży i wynajmu bez stresu, ukrytych ryzyk i straty czasu.</p>
+<p>Każdą nieruchomość dokładnie weryfikuję pod kątem prawnym, przygotowuję strategię cenową opartą o rzeczywiste ceny transakcyjne oraz organizuję profesjonalny <strong>home staging i sesję fotograficzną</strong>.</p>
 <p>Wierzę w pełną przejrzystość: pracuję na jasnych zasadach, regularnie raportuję postępy i osobiście uczestniczę w każdej prezentacji oraz negocjacjach.</p>`,
         values: [
           {
@@ -96,20 +71,26 @@ function getInitialSeedData() {
         ]
       },
       contact: {
-        phone: '+48 600 700 800',
-        email: 'kontakt@kowalskinieruchomosci.pl',
         address: '',
         city: '',
-        hideOffice: false,
-        workingHours: 'Poniedziałek – Piątek: 9:00 – 19:00, Sobota: 10:00 – 15:00',
-        facebook: 'https://facebook.com',
-        instagram: 'https://instagram.com',
-        linkedin: 'https://linkedin.com',
+        hideOffice: true,
+        workingHours: 'Spotkania po wcześniejszym umówieniu',
+        facebook: '',
+        instagram: '',
         mapEmbedUrl: ''
       },
       seo: {
-        siteTitle: 'Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości',
-        siteDescription: 'Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów oraz działek. Sprawdź aktualne oferty nieruchomości.'
+        siteTitle: 'NAJLEPSZE NIERUCHOMOŚCI NN7 | Profesjonalne biuro nieruchomości',
+        siteDescription: 'Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów oraz działek. Sprawdź aktualne oferty nieruchomości.',
+        serviceArea: 'Częstochowa i okolice',
+        ogImage: '/images/og-nn7.png'
+      },
+      legal: {
+        companyName: 'NAJLEPSZE NIERUCHOMOŚCI NN7 – Edyta Sojda',
+        nip: '',
+        regon: '',
+        registeredAddress: '',
+        customNotes: ''
       }
     },
     services: [
@@ -464,19 +445,7 @@ function getInitialSeedData() {
 </ol>`
       }
     ],
-    messages: [
-      {
-        id: 1,
-        name: 'Michał Jabłoński',
-        email: 'm.jablonski@example.com',
-        phone: '+48 501 234 567',
-        subject: 'Zapytanie o współpracę przy sprzedaży mieszkania',
-        propertyTitle: '',
-        message: 'Dzień dobry Panie Marku, planuję sprzedaż 3-pokojowego mieszkania na Ursynowie (64 m²). Chciałbym umówić się na bezpłatną konsultację i wycenę w przyszłym tygodniu.',
-        read: false,
-        createdAt: '2026-11-02T11:20:00.000Z'
-      }
-    ]
+    messages: []
   };
 }
 
@@ -529,30 +498,30 @@ function migrateDatabase(db) {
       changed = true;
     }
     if (!u.name || u.name === 'Właściciel strony') {
-      u.name = db.settings?.agentName || 'Marek Kowalski';
+      u.name = db.settings?.agentName || 'Agent nieruchomości';
       changed = true;
     }
     if (!u.title) {
       u.title = u.role === 'admin'
-        ? 'Właściciel Biura · Licencjonowany Pośrednik'
+        ? 'Pośrednik w Obrocie Nieruchomościami'
         : 'Doradca ds. Nieruchomości';
       changed = true;
     }
-    if (u.licenseNumber === undefined) {
-      u.licenseNumber = u.role === 'admin' ? (db.settings?.licenseNumber || 'Licencja PFRN nr 28491') : '';
+    if (u.licenseNumber === undefined || u.licenseNumber === '-') {
+      u.licenseNumber = '';
       changed = true;
     }
     if (u.phone === undefined) {
-      u.phone = u.role === 'admin' ? (db.settings?.contact?.phone || '+48 600 700 800') : '';
+      u.phone = '';
       changed = true;
     }
     if (u.email === undefined) {
-      u.email = u.role === 'admin' ? (db.settings?.contact?.email || 'kontakt@kowalskinieruchomosci.pl') : '';
+      u.email = '';
       changed = true;
     }
     if (!u.avatar) {
       u.avatar = u.role === 'admin'
-        ? (db.settings?.agentPhoto || '/images/demo/agent-portrait.svg')
+        ? '/images/demo/agent-portrait.svg'
         : '/images/demo/agent-female.svg';
       changed = true;
     }
@@ -562,50 +531,69 @@ function migrateDatabase(db) {
     }
   });
 
-  // Jeśli w bazie był tylko 1 domyślny użytkownik i żadna oferta nie miała jeszcze authorId, dodaj przykładowego agenta
-  const hadAuthorIds = (db.properties || []).some((p) => p.authorId !== undefined);
-  if (db.users.length === 1 && !hadAuthorIds) {
-    db.users.push({
-      id: 2,
-      username: 'agent',
-      passwordHash: bcrypt.hashSync('Agent123!', 10),
-      role: 'agent',
-      active: true,
-      name: 'Karolina Nowak',
-      title: 'Starszy Doradca ds. Nieruchomości',
-      licenseNumber: 'Licencja PFRN nr 31045',
-      phone: '+48 600 700 805',
-      email: 'k.nowak@kowalskinieruchomosci.pl',
-      avatar: '/images/demo/agent-female.svg',
-      bio: 'Specjalistka ds. sprzedaży i wynajmu apartamentów, lokali komercyjnych oraz profesjonalnego Home Stagingu.',
-      createdAt: '2026-03-15T10:00:00.000Z',
-      updatedAt: new Date().toISOString()
-    });
-    changed = true;
+  // Migracja dawnych zduplikowanych danych agenta/kontaktu z settings bezpośrednio do głównego konta właściciela
+  const mainAdmin = db.users.find((u) => u.role === 'admin') || db.users[0];
+  if (db.settings && mainAdmin) {
+    if (db.settings.agentName !== undefined) {
+      if (db.settings.agentName) mainAdmin.name = db.settings.agentName;
+      delete db.settings.agentName;
+      changed = true;
+    }
+    if (db.settings.agentRole !== undefined) {
+      if (db.settings.agentRole) mainAdmin.title = db.settings.agentRole;
+      delete db.settings.agentRole;
+      changed = true;
+    }
+    if (db.settings.licenseNumber !== undefined) {
+      mainAdmin.licenseNumber = db.settings.licenseNumber === '-' ? '' : db.settings.licenseNumber;
+      delete db.settings.licenseNumber;
+      changed = true;
+    }
+    if (db.settings.agentPhoto !== undefined) {
+      if (db.settings.agentPhoto && (!mainAdmin.avatar || mainAdmin.avatar === '/images/demo/agent-portrait.svg')) {
+        mainAdmin.avatar = db.settings.agentPhoto;
+      }
+      delete db.settings.agentPhoto;
+      changed = true;
+    }
+    if (db.settings.contact?.phone !== undefined) {
+      if (db.settings.contact.phone) mainAdmin.phone = db.settings.contact.phone;
+      delete db.settings.contact.phone;
+      changed = true;
+    }
+    if (db.settings.contact?.email !== undefined) {
+      if (db.settings.contact.email) mainAdmin.email = db.settings.contact.email;
+      delete db.settings.contact.email;
+      changed = true;
+    }
+    if (!db.settings.primaryAgentId || !db.users.some((u) => Number(u.id) === Number(db.settings.primaryAgentId))) {
+      db.settings.primaryAgentId = mainAdmin.id;
+      changed = true;
+    }
   }
 
-  // Przypisz authorId do nieruchomości (oferty #3 i #5 do agenta #2 jeśli istnieje)
+  const defaultAuthorId = mainAdmin ? mainAdmin.id : 1;
+
+  // Przypisz authorId do nieruchomości
   (db.properties || []).forEach((p) => {
-    if (!p.authorId) {
-      const hasAgent2 = db.users.some((u) => Number(u.id) === 2);
-      p.authorId = hasAgent2 && (Number(p.id) === 3 || Number(p.id) === 5) ? 2 : 1;
+    if (!p.authorId || !db.users.some((u) => Number(u.id) === Number(p.authorId))) {
+      p.authorId = defaultAuthorId;
       changed = true;
     }
   });
 
   // Przypisz authorId do wpisów na blogu
   (db.posts || []).forEach((post) => {
-    if (!post.authorId) {
-      const hasAgent2 = db.users.some((u) => Number(u.id) === 2);
-      post.authorId = hasAgent2 && Number(post.id) === 2 ? 2 : 1;
+    if (!post.authorId || !db.users.some((u) => Number(u.id) === Number(post.authorId))) {
+      post.authorId = defaultAuthorId;
       changed = true;
     }
   });
 
   // Przypisz agentId do wiadomości
   (db.messages || []).forEach((msg) => {
-    if (msg.agentId === undefined) {
-      msg.agentId = 1;
+    if (msg.agentId === undefined || !db.users.some((u) => Number(u.id) === Number(msg.agentId))) {
+      msg.agentId = defaultAuthorId;
       changed = true;
     }
   });
@@ -623,6 +611,36 @@ function migrateDatabase(db) {
   if (db.settings && db.settings.logoImage === undefined) {
     db.settings.logoImage = '/images/logo-nn7.svg';
     changed = true;
+  }
+
+  if (db.settings?.contact && db.settings.contact.linkedin !== undefined) {
+    delete db.settings.contact.linkedin;
+    changed = true;
+  }
+
+  if (db.settings) {
+    if (!db.settings.seo) {
+      db.settings.seo = {};
+      changed = true;
+    }
+    if (!db.settings.seo.ogImage) {
+      db.settings.seo.ogImage = '/images/og-nn7.png';
+      changed = true;
+    }
+    if (db.settings.seo.serviceArea === undefined) {
+      db.settings.seo.serviceArea = 'Częstochowa i okolice';
+      changed = true;
+    }
+    if (!db.settings.legal) {
+      db.settings.legal = {
+        companyName: `${db.settings.brandName || 'Najlepsze Nieruchomości NN7'}${mainAdmin?.name ? ` – ${mainAdmin.name}` : ''}`,
+        nip: '',
+        regon: '',
+        registeredAddress: '',
+        customNotes: ''
+      };
+      changed = true;
+    }
   }
 
   if (changed) {
@@ -681,21 +699,38 @@ function findUserById(id) {
   return db.users.find((u) => Number(u.id) === Number(id));
 }
 
-function getAuthorForResource(resource) {
+function getPrimaryAgent() {
   const db = getDb();
-  const authorId = resource && resource.authorId ? Number(resource.authorId) : 1;
-  const found = db.users.find((u) => Number(u.id) === authorId);
-  if (found) return found;
-  return db.users[0] || {
+  const preferredId = Number(db.settings?.primaryAgentId || 1);
+  const preferred = (db.users || []).find((u) => Number(u.id) === preferredId && u.active !== false);
+  if (preferred) return preferred;
+
+  const firstAdmin = (db.users || []).find((u) => u.role === 'admin' && u.active !== false);
+  if (firstAdmin) return firstAdmin;
+
+  const firstActive = (db.users || []).find((u) => u.active !== false);
+  if (firstActive) return firstActive;
+
+  return (db.users && db.users[0]) || {
     id: 1,
-    name: db.settings?.agentName || 'Agent nieruchomości',
-    title: db.settings?.agentRole || 'Pośrednik nieruchomości',
-    licenseNumber: db.settings?.licenseNumber || '',
-    phone: db.settings?.contact?.phone || '',
-    email: db.settings?.contact?.email || '',
-    avatar: db.settings?.agentPhoto || '/images/demo/agent-portrait.svg',
+    name: 'Agent nieruchomości',
+    title: 'Pośrednik w Obrocie Nieruchomościami',
+    licenseNumber: '',
+    phone: '',
+    email: '',
+    avatar: '/images/demo/agent-portrait.svg',
     bio: ''
   };
+}
+
+function getAuthorForResource(resource) {
+  const db = getDb();
+  const authorId = resource && resource.authorId ? Number(resource.authorId) : null;
+  if (authorId) {
+    const found = db.users.find((u) => Number(u.id) === authorId);
+    if (found) return found;
+  }
+  return getPrimaryAgent();
 }
 
 function createUser(data) {
@@ -717,7 +752,7 @@ function createUser(data) {
     active: data.active !== undefined ? Boolean(data.active) : true,
     name: (data.name || username).trim(),
     title: (data.title || (data.role === 'admin' ? 'Właściciel · Pośrednik' : 'Doradca ds. Nieruchomości')).trim(),
-    licenseNumber: (data.licenseNumber || '').trim(),
+    licenseNumber: (data.licenseNumber || '').trim() === '-' ? '' : (data.licenseNumber || '').trim(),
     phone: (data.phone || '').trim(),
     email: (data.email || '').trim(),
     avatar: data.avatar || '/images/demo/agent-female.svg',
@@ -770,19 +805,16 @@ function updateUser(userId, data) {
 
   if (data.name !== undefined) user.name = data.name.trim();
   if (data.title !== undefined) user.title = data.title.trim();
-  if (data.licenseNumber !== undefined) user.licenseNumber = data.licenseNumber.trim();
+  if (data.licenseNumber !== undefined) {
+    const cleanLic = data.licenseNumber.trim();
+    user.licenseNumber = cleanLic === '-' ? '' : cleanLic;
+  }
   if (data.phone !== undefined) user.phone = data.phone.trim();
   if (data.email !== undefined) user.email = data.email.trim();
   if (data.avatar) user.avatar = data.avatar;
   if (data.bio !== undefined) user.bio = data.bio.trim();
 
   user.updatedAt = new Date().toISOString();
-
-  // Jeśli edytowany jest główny właściciel (id === 1), zsynchronizuj też podstawową wizytówkę w settings
-  if (Number(user.id) === 1 && db.settings) {
-    db.settings.agentName = user.name || db.settings.agentName;
-    if (user.avatar) db.settings.agentPhoto = user.avatar;
-  }
 
   saveDatabase(db);
   return user;
@@ -822,6 +854,10 @@ function deleteUser(userId, fallbackUserId = 1) {
       msg.agentId = safeFallbackId;
     }
   });
+
+  if (db.settings && Number(db.settings.primaryAgentId) === Number(userId)) {
+    db.settings.primaryAgentId = safeFallbackId;
+  }
 
   db.users = db.users.filter((u) => Number(u.id) !== Number(userId));
   saveDatabase(db);
@@ -1194,6 +1230,7 @@ module.exports = {
   getUsers,
   findUserByUsername,
   findUserById,
+  getPrimaryAgent,
   getAuthorForResource,
   createUser,
   updateUser,

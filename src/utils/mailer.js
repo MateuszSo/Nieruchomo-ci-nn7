@@ -20,7 +20,7 @@ async function sendContactEmail({ name, email, phone, subject, message, property
       auth: { user, pass }
     });
 
-    const defaultReceiver = process.env.CONTACT_RECEIVER_EMAIL || (settings && settings.contact && settings.contact.email) || user;
+    const defaultReceiver = process.env.CONTACT_RECEIVER_EMAIL || user;
     const receiver = agentEmail || defaultReceiver;
     const mailSubject = propertyTitle
       ? `Zapytanie o ofertę: ${propertyTitle} (od ${name})`

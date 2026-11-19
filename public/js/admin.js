@@ -83,4 +83,37 @@ document.addEventListener('DOMContentLoaded', () => {
       input.files = dt.files;
     });
   });
+
+  // Podgląd wizytówki Social Media (Open Graph) na żywo podczas edycji w ustawieniach
+  const seoTitleInput = document.getElementById('seoTitleInput');
+  const seoDescInput = document.getElementById('seoDescInput');
+  const ogImageInput = document.getElementById('ogImageInput');
+  const ogPreviewTitle = document.getElementById('ogPreviewTitle');
+  const ogPreviewDesc = document.getElementById('ogPreviewDesc');
+  const ogPreviewImg = document.getElementById('ogPreviewImg');
+
+  if (seoTitleInput && ogPreviewTitle) {
+    seoTitleInput.addEventListener('input', () => {
+      ogPreviewTitle.textContent = seoTitleInput.value || 'NAJLEPSZE NIERUCHOMOŚCI NN7';
+    });
+  }
+  if (seoDescInput && ogPreviewDesc) {
+    seoDescInput.addEventListener('input', () => {
+      ogPreviewDesc.textContent = seoDescInput.value || '';
+    });
+  }
+  if (ogImageInput && ogPreviewImg) {
+    ogImageInput.addEventListener('change', () => {
+      const file = ogImageInput.files && ogImageInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          if (ev.target && ev.target.result) {
+            ogPreviewImg.src = ev.target.result;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
 });

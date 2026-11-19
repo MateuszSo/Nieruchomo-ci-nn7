@@ -28,10 +28,10 @@
           { id: 'properties', href: '/admin/nieruchomosci', label: isAdmin ? 'Nieruchomości' : 'Moje nieruchomości', show: true },
           { id: 'blog', href: '/admin/blog', label: isAdmin ? 'Blog (Artykuły)' : 'Moje artykuły', show: true },
           { id: 'messages', href: '/admin/wiadomosci', label: `Wiadomości (${unreadMessagesCount})`, show: true },
-          { id: 'agents', href: '/admin/agenci', label: 'Zespół / Agenci', show: isAdmin },
+          { id: 'agents', href: '/admin/agenci', label: 'Zespół / Agenci (Dane i kontakt)', show: isAdmin },
           { id: 'services', href: '/admin/oferta', label: 'Zakładka Oferta', show: isAdmin },
-          { id: 'settings', href: '/admin/tresci', label: 'O mnie / Kontakt / Wygląd', show: isAdmin },
-          { id: 'profile', href: '/admin/profil', label: 'Mój profil i hasło', show: true }
+          { id: 'settings', href: '/admin/tresci', label: 'Wygląd / O mnie / Social Media', show: isAdmin },
+          { id: 'profile', href: '/admin/profil', label: 'Mój profil i hasło', show: !isAdmin }
         ];
       %>
       <% adminTabs.filter(t => t.show).forEach(tab => {

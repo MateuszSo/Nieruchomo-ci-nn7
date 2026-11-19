@@ -211,6 +211,9 @@ router.post('/agenci/:id/edytuj', requireAdmin, upload.single('avatarFile'), (re
   if (req.file) {
     removeUploadedFile(target.avatar);
     avatar = `/uploads/${req.file.filename}`;
+  } else if (req.body.removeAvatar) {
+    removeUploadedFile(target.avatar);
+    avatar = target.role === 'admin' ? '/images/demo/agent-portrait.svg' : '/images/demo/agent-female.svg';
   }
 
   try {
@@ -238,6 +241,24 @@ router.post('/agenci/:id/edytuj', requireAdmin, upload.single('avatarFile'), (re
     };
   }
   res.redirect('/admin/agenci');
+});
+
+router.post('/agenci/:id/glowny', requireAdmin, (req, res) => {
+  const target = db.findUserById(req.params.id);
+  if (!target || target.active === false) {
+    req.session.flash = {
+      type: 'error',
+      message: 'Tylko aktywne konto może pełnić rolę głównej wizytówki strony.'
+    };
+    return res.redirect('/admin/agenci');
+  }
+
+  db.updateSettings({ primaryAgentId: target.id });
+  req.session.flash = {
+    type: 'success',
+    message: `Ustawiono „${target.name}” jako główną wizytówkę na Stronie Głównej, pasku górnym i w stopce.`
+  };
+  return res.redirect('/admin/agenci');
 });
 
 router.post('/agenci/:id/usun', requireAdmin, (req, res) => {
@@ -666,10 +687,12 @@ router.post('/blog/:id/usun', (req, res) => {
 // ==================== EDYCJA TREŚCI STRON (HOME, O MNIE, KONTAKT – TYLKO ADMIN) ====================
 router.get('/tresci', requireAdmin, (req, res) => {
   const settings = db.getSettings();
+  const activeUsers = db.getUsers({ activeOnly: true });
   res.render('admin/settings', {
-    pageTitle: 'Edycja treści zakładek (O mnie, Kontakt, Strona główna) | Panel CMS',
+    pageTitle: 'Wygląd i treści zakładek (Strona główna, O mnie, Biuro i Social Media) | Panel CMS',
     activeTab: 'settings',
-    settings
+    settings,
+    activeUsers
   });
 });
 
@@ -678,14 +701,14 @@ router.post(
   requireAdmin,
   upload.fields([
     { name: 'logoImageFile', maxCount: 1 },
-    { name: 'agentPhotoFile', maxCount: 1 },
-    { name: 'heroImageFile', maxCount: 1 }
+    { name: 'heroImageFile', maxCount: 1 },
+    { name: 'ogImageFile', maxCount: 1 }
   ]),
   (req, res) => {
     const current = db.getSettings();
     let logoImage = current.logoImage ?? '/images/logo-nn7.svg';
-    let agentPhoto = current.agentPhoto;
     let heroImage = current.heroImage;
+    let ogImage = current.seo?.ogImage || '/images/og-nn7.png';
 
     if (req.files && req.files.logoImageFile && req.files.logoImageFile[0]) {
       removeUploadedFile(current.logoImage);
@@ -695,13 +718,17 @@ router.post(
       logoImage = '';
     }
 
-    if (req.files && req.files.agentPhotoFile && req.files.agentPhotoFile[0]) {
-      removeUploadedFile(current.agentPhoto);
-      agentPhoto = `/uploads/${req.files.agentPhotoFile[0].filename}`;
-    }
     if (req.files && req.files.heroImageFile && req.files.heroImageFile[0]) {
       removeUploadedFile(current.heroImage);
       heroImage = `/uploads/${req.files.heroImageFile[0].filename}`;
+    }
+
+    if (req.files && req.files.ogImageFile && req.files.ogImageFile[0]) {
+      removeUploadedFile(current.seo?.ogImage);
+      ogImage = `/uploads/${req.files.ogImageFile[0].filename}`;
+    } else if (req.body.resetOgImage) {
+      removeUploadedFile(current.seo?.ogImage);
+      ogImage = '/images/og-nn7.png';
     }
 
     const stats = [
@@ -711,28 +738,32 @@ router.post(
       { value: req.body.stat4Value || '', label: req.body.stat4Label || '' }
     ].filter((s) => s.value || s.label);
 
+    const primaryAgentId = req.body.primaryAgentId
+      ? Number(req.body.primaryAgentId)
+      : (current.primaryAgentId || 1);
+
     db.updateSettings({
       brandName: req.body.brandName || current.brandName,
       logoImage,
       hideNavbarText: Boolean(req.body.hideNavbarText),
-      agentName: req.body.agentName || current.agentName,
-      agentRole: req.body.agentRole || current.agentRole,
-      licenseNumber: req.body.licenseNumber || current.licenseNumber,
+      primaryAgentId,
       heroBadge: req.body.heroBadge || current.heroBadge,
       heroTitle: req.body.heroTitle || current.heroTitle,
       heroSubtitle: req.body.heroSubtitle || current.heroSubtitle,
-      agentPhoto,
       heroImage,
       stats,
       seo: {
+        ...current.seo,
         siteTitle: req.body.siteTitle || current.seo?.siteTitle,
-        siteDescription: req.body.siteDescription || current.seo?.siteDescription
+        siteDescription: req.body.siteDescription || current.seo?.siteDescription,
+        serviceArea: req.body.serviceArea !== undefined ? req.body.serviceArea.trim() : (current.seo?.serviceArea || ''),
+        ogImage
       }
     });
 
     req.session.flash = {
       type: 'success',
-      message: 'Zapisano zmiany na Stronie Głównej oraz w wizytówce głównej.'
+      message: 'Zapisano zmiany w wyglądzie, wizytówce Social Media oraz SEO.'
     };
     res.redirect('/admin/tresci#glowna');
   }
@@ -770,58 +801,49 @@ router.post('/tresci/o-mnie', requireAdmin, (req, res) => {
 
 router.post('/tresci/kontakt', requireAdmin, (req, res) => {
   const current = db.getSettings();
+  const nextContact = {
+    ...current.contact,
+    address: (req.body.address || '').trim(),
+    city: (req.body.city || '').trim(),
+    hideOffice: Boolean(req.body.hideOffice),
+    workingHours: (req.body.workingHours || '').trim(),
+    facebook: (req.body.facebook || '').trim(),
+    instagram: (req.body.instagram || '').trim(),
+    mapEmbedUrl: (req.body.mapEmbedUrl || '').trim()
+  };
+  delete nextContact.phone;
+  delete nextContact.email;
+  delete nextContact.linkedin;
+
   db.updateSettings({
-    contact: {
-      ...current.contact,
-      phone: (req.body.phone || '').trim(),
-      email: (req.body.email || '').trim(),
-      address: (req.body.address || '').trim(),
-      city: (req.body.city || '').trim(),
-      hideOffice: Boolean(req.body.hideOffice),
-      workingHours: (req.body.workingHours || '').trim(),
-      facebook: (req.body.facebook || '').trim(),
-      instagram: (req.body.instagram || '').trim(),
-      linkedin: (req.body.linkedin || '').trim(),
-      mapEmbedUrl: (req.body.mapEmbedUrl || '').trim()
+    contact: nextContact
+  });
+
+  req.session.flash = {
+    type: 'success',
+    message: 'Zaktualizowano ustawienia biura, mapy i linków społecznościowych.'
+  };
+  res.redirect('/admin/tresci#kontakt');
+});
+
+router.post('/tresci/prywatnosc', requireAdmin, (req, res) => {
+  const current = db.getSettings();
+  db.updateSettings({
+    legal: {
+      ...current.legal,
+      companyName: (req.body.companyName || '').trim(),
+      nip: (req.body.nip || '').trim(),
+      regon: (req.body.regon || '').trim(),
+      registeredAddress: (req.body.registeredAddress || '').trim(),
+      customNotes: (req.body.customNotes || '').trim()
     }
   });
 
   req.session.flash = {
     type: 'success',
-    message: 'Zaktualizowano dane kontaktowe i linki społecznościowe.'
+    message: 'Zapisano dane Administratora Danych oraz ustawienia Polityki Prywatności.'
   };
-  res.redirect('/admin/tresci#kontakt');
-});
-
-router.post('/tresci/konto', requireAdmin, (req, res) => {
-  const { username, currentPassword, newPassword } = req.body;
-  const user = db.findUserById(req.session.user.id);
-
-  if (!user || !bcrypt.compareSync(String(currentPassword || ''), user.passwordHash)) {
-    req.session.flash = {
-      type: 'error',
-      message: 'Obecne hasło jest nieprawidłowe.'
-    };
-    return res.redirect('/admin/tresci#konto');
-  }
-
-  try {
-    const updated = db.updateUserCredentials(user.id, {
-      username,
-      newPassword
-    });
-    req.session.user.username = updated.username;
-    req.session.flash = {
-      type: 'success',
-      message: 'Dane logowania zostały zaktualizowane.'
-    };
-  } catch (err) {
-    req.session.flash = {
-      type: 'error',
-      message: err.message
-    };
-  }
-  res.redirect('/admin/tresci#konto');
+  res.redirect('/admin/tresci#prywatnosc');
 });
 
 // ==================== WIADOMOŚCI Z FORMULARZA ====================

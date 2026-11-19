@@ -1,9 +1,0 @@
-Usunąć:
-- rekomendacje/recenzje
-- uprawnienia, licnecje
-- Opinie moich klientów\
-- biuro
-
-Zmienić:
-- kolorystyka tak jak logo
-- prześwit zdjęcia Hero

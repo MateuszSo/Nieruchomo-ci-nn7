@@ -4,83 +4,70 @@
       "id": 1,
       "username": "admin",
       "passwordHash": "$2a$10$wS6kMtz9pxFq.1kPM5zuNO6sIlFJIxcpvfKOc76ZW127zZp9aZiUC",
-      "name": "Marek Kowalski",
-      "updatedAt": "2026-11-17T14:53:22.052Z",
+      "name": "Edyta Sojda",
+      "updatedAt": "2026-11-18T18:13:08.850Z",
       "role": "admin",
       "active": true,
-      "title": "Właściciel Biura · Licencjonowany Pośrednik",
-      "licenseNumber": "Licencja PFRN nr 28491",
-      "phone": "+48 600 700 123",
-      "email": "mati00923@gmail.com",
-      "avatar": "/images/demo/agent-portrait.svg",
+      "title": "Właściciel Biura · Pośrednik",
+      "licenseNumber": "",
+      "phone": "+48 733 642 990",
+      "email": "biuro@nn7.pl",
+      "avatar": "/uploads/img2026111818280944-1795025588848-6927.webp",
       "bio": "Doświadczony doradca przeprowadzający klientów bezpiecznie przez proces sprzedaży i zakupu nieruchomości."
-    },
-    {
-      "id": 2,
-      "username": "agent",
-      "passwordHash": "$2a$10$ReR2IQk.xCZvtS.AI4fhPeehR5X2xdokKG.TurgQicBGj4YKpAuye",
-      "role": "agent",
-      "active": true,
-      "name": "Karolina Nowak",
-      "title": "Starszy Doradca ds. Nieruchomości",
-      "licenseNumber": "Licencja PFRN nr 31045",
-      "phone": "+48 600 700 805",
-      "email": "k.nowak@kowalskinieruchomosci.pl",
-      "avatar": "/images/demo/agent-female.svg",
-      "bio": "Specjalistka ds. sprzedaży i wynajmu apartamentów, lokali komercyjnych oraz profesjonalnego Home Stagingu.",
-      "createdAt": "2026-03-15T10:00:00.000Z",
-      "updatedAt": "2026-11-09T15:36:11.356Z"
     }
   ],
   "settings": {
-    "brandName": "NN7",
-    "agentName": "Marek Kowalski",
-    "agentRole": "Pośrednik w Obrocie Nieruchomościami",
-    "licenseNumber": "-",
-    "agentPhoto": "/images/demo/agent-portrait.svg",
-    "heroBadge": "Ekspert rynku nieruchomości premium i mieszkań",
-    "heroTitle": "Skuteczna sprzedaż i bezpieczny zakup Twojej nieruchomości",
-    "heroSubtitle": "Przeprowadzam klientów przez cały proces transakcji – od rzetelnej wyceny rynkowej, przez profesjonalny home staging i marketing, aż po bezpieczne przekazanie kluczy u notariusza.",
-    "heroImage": "/uploads/nowoczesna-willa-wsiroid-zieleni-1794916100774-9550.webp",
+    "brandName": "Najlepsze Nieruchomości NN7",
+    "primaryAgentId": 1,
+    "heroBadge": "PROFESJONALNE POŚREDNICTWO | SPRZEDAŻ • ZAKUP • WYNAJEM",
+    "heroTitle": "Nieruchomości zasługują na najlepszą oprawę. Ty – na profesjonalne wsparcie.",
+    "heroSubtitle": "Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów, działek oraz apartamentów. Łączę doświadczenie, znajomość rynku i indywidualne podejście, aby każda transakcja była dobrze przemyślaną decyzją.",
+    "heroImage": "/uploads/luksusowy-salon-z-kominkiem-i-zieleniai-1795026309562-3515.webp",
     "stats": [],
     "about": {
-      "title": "Twój zaufany doradca na każdym etapie transakcji",
-      "subtitle": "Łączę znajomość lokalnego rynku, prawa nieruchomości i nowoczesnego marketingu, aby maksymalizować zysk i spokój moich klientów.",
-      "bioHtml": "<p>Nazywam się <strong>Marek Kowalski</strong> i od ponad 11 lat pomagam właścicielom mieszkań, domów oraz działek przejść przez proces sprzedaży i wynajmu bez stresu, ukrytych ryzyk i straty czasu.</p>\n<p>Moja praca zaczyna się na długo przed publikacją ogłoszenia. Każdą nieruchomość dokładnie weryfikuję pod kątem prawnym, przygotowuję strategię cenową opartą o rzeczywiste ceny transakcyjne (a nie wyłącznie ofertowe) oraz organizuję profesjonalny <strong>home staging, sesję fotograficzną, ujęcia z drona i wirtualny spacer</strong>.</p>\n<p>Wierzę w pełną przejrzystość: pracuję na jasnych zasadach, regularnie raportuję postępy i osobiście uczestniczę w każdej prezentacji oraz negocjacjach.</p>",
+      "title": "Twój zaufany partner na każdym etapie transakcji",
+      "subtitle": "Profesjonalizm, zaangażowanie i indywidualne podejście.",
+      "bioHtml": "<p>Nazywam się <strong>Edyta Sojda</strong> i jestem właścicielką marki <strong>NAJLEPSZE NIERUCHOMOŚCI NN7</strong>.</p>\r\n<p>Rynek nieruchomości to moja przestrzeń działania, w której łączę profesjonalne podejście, znajomość rynku i zaangażowanie w realizację celów moich klientów. </p>\r\n<p>Wierzę, że skuteczne pośrednictwo to znacznie więcej niż kojarzenie stron transakcji. To przede wszystkim zrozumienie potrzeb, umiejętność doradzania, dbałość o szczegóły i odpowiedzialność za każdy etap współpracy.</p>\r\n<p>W <strong>NN7</strong> zapewniam kompleksową obsługę w zakresie sprzedaży, zakupu i wynajmu mieszkań, domów, działek oraz apartamentów. Każdą nieruchomość i każdego klienta traktuję indywidualnie, dobierając rozwiązania do konkretnych oczekiwań i możliwości. </p>\r\n<p>Stawiam na wysoką jakość prezentacji ofert, przemyślaną strategię działania, skuteczną promocję oraz bezpieczeństwo formalne transakcji. </p>\r\n<p>Zależy mi, aby współpraca ze mną była dla Ciebie nie tylko profesjonalna, ale również komfortowa i oparta na wzajemnym zaufaniu. </p>\r\n<p>Moim priorytetem jest Twój interes, a miarą dobrze wykonanej pracy – Twoje zadowolenie i poczucie, że jesteś w dobrych rękach.</p>\r\n<p><strong>NAJLEPSZE NIERUCHOMOŚCI NN7</strong></p>\r\n<p>Dobre decyzje zaczynają się od właściwego partnera. </p>",
       "values": [
         {
-          "title": "Bezpieczeństwo prawne i finansowe",
-          "description": "Sprawdzam księgi wieczyste, podstawy nabycia, plany zagospodarowania oraz kompletuję wszystkie zaświadczenia do aktu notarialnego."
+          "title": "Indywidualne podejście",
+          "description": "Każdy klient i każda nieruchomość zasługują na indywidualną strategię działania."
         },
         {
-          "title": "Marketing, który przyciąga kupujących",
-          "description": "Profesjonalna fotografia wnętrz, filmy wideo, rzuty 2D/3D, promocja na wiodących portalach i w mediach społecznościowych."
+          "title": "Bezpieczeństwo transakcji",
+          "description": "Dbałość o formalności, dokumentację i interesy klienta na każdym etapie współpracy."
         },
         {
-          "title": "Skuteczne negocjacje cenowe",
-          "description": "Reprezentuję wyłącznie Twój interes przy stole negocjacyjnym, dbając o uzyskanie najwyższej możliwej ceny oraz bezpiecznych warunków płatności."
+          "title": "Standard premium",
+          "description": "Wysoka jakość obsługi, profesjonalna prezentacja ofert i dbałość o każdy szczegół."
         },
         {
-          "title": "Oszczędność Twojego czasu",
-          "description": "Weryfikuję dzwoniących klientów, odsiewam tzw. „turystów mieszkaniowych” i organizuję prezentacje tylko ze zdecydowanymi nabywcami."
+          "title": "Skuteczność działania",
+          "description": "Przemyślane strategie, zaangażowanie i konsekwencja w realizacji celów."
         }
       ]
     },
     "contact": {
-      "phone": "+48 600 700 123",
-      "email": "mati00923@gmail.com",
-      "address": "ul. Złota 12",
-      "city": "Warszawa",
+      "address": "",
+      "city": "",
       "hideOffice": true,
-      "workingHours": "Poniedziałek – Piątek: 9:00 – 19:00, Sobota: 10:00 – 15:00",
-      "facebook": "https://facebook.com",
-      "instagram": "https://instagram.com",
-      "linkedin": "https://linkedin.com",
-      "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2551.3490315106433!2d19.118790376399595!3d50.24806517155417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716c5473d958dbb%3A0x665bff80ffceed4c!2sKatowicka%2C%2041-400%20Mys%C5%82owice!5e0!3m2!1spl!2spl!4v1794659000577!5m2!1spl!2spl\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin"
+      "workingHours": "Spotkania po wcześniejszym umówieniu",
+      "facebook": "https://www.facebook.com/edyta.sojda.2025",
+      "instagram": "https://www.instagram.com/najlepsze_nieruchomosci_nn7",
+      "mapEmbedUrl": ""
     },
     "seo": {
-      "siteTitle": "Kowalski Nieruchomości – Licencjonowany Agent Nieruchomości",
-      "siteDescription": "Profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów oraz działek. Sprawdź aktualne oferty nieruchomości."
+      "siteTitle": "NAJLEPSZE NIERUCHOMOŚCI NN7 | Profesjonalne biuro nieruchomości",
+      "siteDescription": "NAJLEPSZE NIERUCHOMOŚCI NN7 – profesjonalne pośrednictwo w sprzedaży, zakupie i wynajmie mieszkań, domów, działek i apartamentów. Indywidualne podejście, kompleksowa obsługa i wysoki standard współpracy. Częstochowa i okolice.",
+      "serviceArea": "Częstochowa i okolice",
+      "ogImage": "/images/og-nn7.png"
+    },
+    "legal": {
+      "companyName": "NAJLEPSZE NIERUCHOMOŚCI NN7 – Edyta Sojda",
+      "nip": "",
+      "regon": "",
+      "registeredAddress": "",
+      "customNotes": ""
     },
     "logoImage": "/images/logo-nn7.svg",
     "hideNavbarText": true
@@ -89,57 +76,61 @@
     {
       "id": 1,
       "title": "Pośrednictwo w sprzedaży nieruchomości",
-      "subtitle": "Kompleksowa sprzedaż mieszkań, domów i apartamentów w najwyższej cenie rynkowej.",
+      "subtitle": "Skuteczna sprzedaż mieszkań, domów i apartamentów na najlepszych możliwych warunkach.",
       "icon": "home",
-      "description": "Przejmuję na siebie cały proces sprzedaży – od analizy rynku i przygotowania nieruchomości, przez szeroką promocję, aż po negocjacje i podpisanie aktu notarialnego.",
+      "description": "Kompleksowo przeprowadzam Cię przez cały proces sprzedaży nieruchomości – od profesjonalnej wyceny i przygotowania oferty, przez skuteczną promocję i prezentacje, aż po negocjacje oraz finalizację transakcji.",
       "features": [
-        "Rzetelna analiza porównawcza rynku i ustalenie optymalnej ceny ofertowej",
-        "Weryfikacja i regulacja stanu prawnego księgi wieczystej oraz dokumentów",
-        "Profesjonalna sesja zdjęciowa, film promocyjny i wirtualny spacer 360°",
-        "Publikacja wyróżnionych ogłoszeń na Otodom, Morizon, Gratka, OLX i w Social Media",
-        "Prezentacje nieruchomości w systemie Dni Otwartych oraz indywidualnych spotkań"
+        "Indywidualna analiza rynku i ustalenie optymalnej ceny ofertowej",
+        "Weryfikacja stanu prawnego nieruchomości i niezbędnej dokumentacji",
+        "Profesjonalna sesja zdjęciowa oraz film promocyjny",
+        "Promocja ofert na najpopularniejszych portalach nieruchomościowych i w mediach społecznościowych",
+        "Prowadzenie negocjacji i kompleksowe wsparcie aż do podpisania aktu notarialnego"
       ],
       "order": 1
     },
     {
       "id": 2,
-      "title": "Obsługa wynajmu i najem okazjonalny",
-      "subtitle": "Bezpieczny wynajem Twojego mieszkania sprawdzonym i zweryfikowanym najemcom.",
+      "title": "Pośrednictwo w wynajmie nieruchomości",
+      "subtitle": "Bezpieczny i sprawny wynajem Twojej nieruchomości odpowiednim najemcom",
       "icon": "key",
-      "description": "Chronię interesy właściciela poprzez weryfikację wypłacalności najemców, przygotowanie szczelnej umowy najmu okazjonalnego oraz protokołu zdawczo-odbiorczego z dokumentacją zdjęciową.",
+      "description": "Zadbam o sprawny proces wynajmu Twojej nieruchomości – od przygotowania atrakcyjnej oferty i znalezienia odpowiednich najemców, po weryfikację kandydatów i dopilnowanie formalności związanych z zawarciem umowy.",
       "features": [
-        "Selekcja i weryfikacja potencjalnych najemców",
-        "Przygotowanie umowy najmu okazjonalnego z rygorem egzekucji u notariusza",
-        "Szczegółowy protokół przekazania lokalu ze stanem liczników i zdjęciami",
-        "Doradztwo w zakresie ubezpieczenia OC najemcy i właściciela"
+        "Przygotowanie i profesjonalna prezentacja oferty najmu",
+        "Poszukiwanie oraz weryfikacja potencjalnych najemców",
+        "Organizacja prezentacji nieruchomości i kontakt z zainteresowanymi",
+        "Wsparcie w przygotowaniu umowy najmu",
+        "Przygotowanie protokołu zdawczo-odbiorczego wraz z dokumentacją fotograficzną",
+        "Doradztwo i wsparcie na każdym etapie procesu wynajmu"
       ],
       "order": 2
     },
     {
       "id": 3,
       "title": "Poszukiwanie nieruchomości na zlecenie",
-      "subtitle": "Reprezentacja kupującego – znajdę dla Ciebie idealne mieszkanie, dom lub grunt.",
+      "subtitle": "Reprezentuję kupującego – znajduję nieruchomość idealnie dopasowaną do Twoich potrzeb.",
       "icon": "search",
-      "description": "Nie trać dziesiątek godzin na przeglądanie nieaktualnych portali. Przeszukuję cały rynek (w tym oferty niepubliczne tzw. off-market), sprawdzam stan techniczny i prawny oraz negocjuję dla Ciebie niższą cenę zakupu.",
+      "description": "Oszczędzam Twój czas i pomagam znaleźć nieruchomość, która spełni Twoje oczekiwania. Analizuję dostępne oferty, docieram do nieruchomości spoza otwartego rynku (off-market), weryfikuję dokumentację i wspieram Cię w negocjacjach, aby zakup był przemyślaną i bezpieczną decyzją.",
       "features": [
-        "Dostęp do ofert spod lady (off-market) zanim trafią na portale ogłoszeniowe",
-        "Audyt stanu prawnego, księgi wieczystej, obciążeń i planów miejscowych (MPZP)",
-        "Twarde negocjacje ceny zakupu (często oszczędność przewyższa wynagrodzenie agenta)",
-        "Koordynacja współpracy z doradcą kredytowym, rzeczoznawcą i kancelarią notarialną"
+        "Analiza potrzeb i określenie kryteriów poszukiwań",
+        "Dostęp do ofert z rynku otwartego oraz nieruchomości off-market",
+        "Selekcja i weryfikacja wybranych nieruchomości",
+        "Wstępna analiza stanu prawnego, księgi wieczystej i planów miejscowych",
+        "Negocjowanie najkorzystniejszych warunków zakupu",
+        "Koordynacja procesu zakupu i wsparcie aż do finalizacji transakcji"
       ],
       "order": 3
     },
     {
       "id": 4,
-      "title": "Home Staging i przygotowanie wnętrz",
-      "subtitle": "Wydobywamy pełen potencjał wizualny nieruchomości przed pierwszą wizytą klienta.",
+      "title": "Kompleksowa obsługa i doradztwo na rynku nieruchomości",
+      "subtitle": "Profesjonalne wsparcie i indywidualne podejście na każdym etapie Twojej transakcji.",
       "icon": "sparkles",
-      "description": "Pierwsze wrażenie decyduje o sprzedaży w ciągu pierwszych 30 sekund. Dzięki zmianie aranżacji, doborowi oświetlenia i dodatków nieruchomości sprzedają się średnio o 40% szybciej.",
+      "description": "Zapewniam kompleksową obsługę zarówno sprzedających, jak i kupujących. Pomagam podejmować świadome decyzje, koordynuję poszczególne etapy transakcji i dbam o to, aby cały proces przebiegał sprawnie, bezpiecznie i na korzystnych warunkach.",
       "features": [
-        "Konsultacja i szczegółowa lista zmian podnoszących wartość nieruchomości",
-        "Depersonalizacja, odświeżenie wnętrza i aranżacja przestrzeni",
-        "Wypożyczenie tekstyliów, dekoracji i oświetlenia na czas sesji i prezentacji",
-        "Profesjonalna fotografia architektury oraz ujęcia z drona"
+        "Indywidualne konsultacje i analiza potrzeb klienta",
+        "Doradztwo przy wyborze najlepszych rozwiązań",
+        "Wsparcie w przygotowaniu i kompletowaniu dokumentacji",
+        "Opieka i wsparcie aż do finalizacji transakcji"
       ],
       "order": 4
     },
@@ -152,7 +143,7 @@
       "features": [
         "Analiza Miejscowego Planu Zagospodarowania Przestrzennego (MPZP) lub WZ",
         "Weryfikacja dostępu do drogi publicznej, mediów i klasyfikacji gruntów",
-        "Zdjęcia i wideo z drona z naniesionym obrysem granic działki",
+        "Zdjęcia i wideo z naniesionym obrysem granic działki",
         "Dotarcie do inwestorów prywatnych oraz lokalnych deweloperów"
       ],
       "order": 5
@@ -164,7 +155,7 @@
       "icon": "shield",
       "description": "Współpracuję z niezależnymi ekspertami kredytowymi oraz sprawdzonymi kancelariami notarialnymi, dzięki czemu cała transakcja przebiega sprawnie i bez opóźnień.",
       "features": [
-        "Bezpłatne porównanie ofert kredytów hipotecznych z ponad 12 banków",
+        "Bezpłatne porównanie ofert kredytów hipotecznych",
         "Pomoc w uzyskaniu zaświadczeń ze spółdzielni, urzędu skarbowego i gminy",
         "Negocjacja niższej taksy notarialnej dla moich klientów",
         "Asysta przy końcowym wydaniu nieruchomości i przepisaniu liczników"
@@ -174,7 +165,7 @@
   ],
   "properties": [
     {
-      "id": 7,
+      "id": 1,
       "authorId": 1,
       "title": "asdasd",
       "slug": "asdasd",
@@ -182,17 +173,20 @@
       "category": "mieszkanie",
       "status": "dostepne",
       "featured": true,
-      "price": 11111,
-      "pricePerM2": 1010,
-      "area": 11,
+      "price": 111,
+      "pricePerM2": 1,
+      "area": 111,
       "rooms": 3,
-      "floor": "1",
+      "floor": "-",
       "buildYear": 2022,
       "city": "Warszawa",
-      "district": "asdasd",
-      "address": "asdasd",
+      "district": "asd",
+      "address": "asd",
       "images": [
-        "/images/demo/prop-1.svg"
+        "/uploads/nowoczesna-willa-wsiroid-zieleni-1795036971730-9905.webp",
+        "/uploads/img202611181910113-1795037002258-2398.webp",
+        "/uploads/img2026111818280944-1795037002259-643.webp",
+        "/uploads/luksusowy-salon-z-kominkiem-i-zieleniai-1795037002260-8230.webp"
       ],
       "amenities": [
         "Balkon / Taras",
@@ -200,201 +194,9 @@
         "Winda",
         "Księga Wieczysta bez obciążeń"
       ],
-      "description": "<h3>Tekst nagłowka</h3>\r\n<p>Tekst     <strong>asdasd</strong>  asdasd</p>\r\n\r\n<ul>\r\n  <li>1</li>\r\n  <li>2</li>\r\n  <li>3</li>\r\n  <li>4</li>\r\n</ul>",
-      "createdAt": "2026-11-12T11:37:41.969Z"
-    },
-    {
-      "id": 1,
-      "title": "Słoneczny apartament z tarasem i widokiem na park",
-      "slug": "sloneczny-apartament-z-tarasem-i-widokiem-na-park",
-      "transactionType": "sprzedaz",
-      "category": "mieszkanie",
-      "status": "dostepne",
-      "featured": true,
-      "price": 1190000,
-      "pricePerM2": 15256,
-      "area": 78,
-      "rooms": 3,
-      "floor": "4 / 5",
-      "buildYear": 2021,
-      "city": "Warszawa",
-      "district": "Mokotów, ul. Woronicza",
-      "address": "ul. Jana Pawła Woronicza, Mokotów",
-      "images": [
-        "/images/demo/prop-1.svg",
-        "/images/demo/prop-3.svg",
-        "/images/demo/hero-villa.svg"
-      ],
-      "amenities": [
-        "Taras 18 m²",
-        "Miejsce w garażu podziemnym",
-        "Klimatyzacja",
-        "Komórka lokatorska",
-        "Winda",
-        "Osiedle strzeżone 24/7"
-      ],
-      "description": "<p>Wyjątkowy, trójstronny apartament o powierzchni <strong>78 m²</strong> położony na 4. piętrze kameralnego budynku z 2021 roku na warszawskim Mokotowie.</p>\n<p>Wnętrze zostało zaprojektowane przez architekta z wykorzystaniem naturalnego dębu, spieków kwarcowych oraz zabudowy stolarskiej wykonywanej na wymiar. Duże, panoramiczne okna zapewniają doskonałe doświetlenie przez cały dzień.</p>\n<h3>Układ pomieszczeń:</h3>\n<ul>\n  <li>Przestronny salon z aneksem kuchennym i wyspą (32 m²) oraz wyjściem na słoneczny taras (18 m²),</li>\n  <li>Główna sypialnia master z prywatną garderobą (17 m²),</li>\n  <li>Drugi pokój idealny jako gabinet lub pokój dziecięcy (13 m²),</li>\n  <li>Łazienka z wanną wolnostojącą i strefą prysznica walk-in (8 m²),</li>\n  <li>Hol z pojemnymi szafami w zabudowie oraz pralnią (8 m²).</li>\n</ul>\n<p>Stan prawny: <strong>pełna własność z Księgą Wieczystą</strong> bez żadnych obciążeń – możliwość posiłkowania się kredytem hipotecznym.</p>",
-      "createdAt": "2026-10-15T10:00:00.000Z",
-      "authorId": 1
-    },
-    {
-      "id": 2,
-      "title": "Nowoczesny dom pod miastem z ogrodem i pompą ciepła",
-      "slug": "nowoczesny-dom-pod-miastem-z-ogrodem-i-pompa-ciepla",
-      "transactionType": "sprzedaz",
-      "category": "dom",
-      "status": "dostepne",
-      "featured": true,
-      "price": 1650000,
-      "pricePerM2": 9939,
-      "area": 166,
-      "rooms": 5,
-      "floor": "Parter + poddasze",
-      "buildYear": 2023,
-      "city": "Konstancin-Jeziorna",
-      "district": "Strefa B, blisko Lasu Kabackiego",
-      "address": "Konstancin-Jeziorna, okolice ul. Warszawskiej",
-      "images": [
-        "/images/demo/prop-2.svg",
-        "/images/demo/hero-villa.svg",
-        "/images/demo/prop-1.svg"
-      ],
-      "amenities": [
-        "Działka 850 m²",
-        "Pompa ciepła + fotowoltaika",
-        "Rekuperacja",
-        "Garaż dwustanowiskowy",
-        "Ogrzewanie podłogowe",
-        "System nawadniania ogrodu"
-      ],
-      "description": "<p>Energooszczędny dom wolnostojący w stylistyce nowoczesnej stodoły o powierzchni użytkowej <strong>166 m²</strong>, posadowiony na pięknie zagospodarowanej działce o powierzchni <strong>850 m²</strong>.</p>\n<p>Budynek wyposażony w pompę ciepła, instalację fotowoltaiczną 8 kWp oraz rekuperację, co przekłada się na minimalne koszty utrzymania przez cały rok.</p>\n<h3>Atuty nieruchomości:</h3>\n<ul>\n  <li>Ponadnormatywne przeszklenia aluminiowe HS z wyjściem na drewniany taras z pergolą,</li>\n  <li>Salon z antresolą o wysokości 5,8 m oraz kominkiem,</li>\n  <li>4 ustawne sypialnie i 2 pełne łazienki,</li>\n  <li>Garaż dwustanowiskowy w bryle budynku z ładowarką Wallbox do aut elektrycznych.</li>\n</ul>",
-      "createdAt": "2026-10-18T12:30:00.000Z",
-      "authorId": 1
-    },
-    {
-      "id": 3,
-      "title": "Dwupoziomowy penthouse z prywatnym tarasem na dachu",
-      "slug": "dwupoziomowy-penthouse-z-prywatnym-tarasem-na-dachu",
-      "transactionType": "wynajem",
-      "category": "mieszkanie",
-      "status": "dostepne",
-      "featured": true,
-      "price": 9500,
-      "pricePerM2": 86,
-      "area": 110,
-      "rooms": 4,
-      "floor": "7 / 7",
-      "buildYear": 2022,
-      "city": "Warszawa",
-      "district": "Śródmieście / Powiśle",
-      "address": "Powiśle, blisko Bulwarów Wiślanych",
-      "images": [
-        "/images/demo/prop-3.svg",
-        "/images/demo/prop-1.svg"
-      ],
-      "amenities": [
-        "Taras na dachu 45 m²",
-        "2 miejsca postojowe",
-        "Klimatyzacja w każdym pokoju",
-        "Smart Home KNX",
-        "Recepcja w budynku"
-      ],
-      "description": "<p>Do wynajęcia reprezentacyjny, w pełni umeblowany penthouse o powierzchni <strong>110 m²</strong> na zielonym Powiślu. Mieszkanie oferuje panoramiczny widok na centrum miasta oraz prywatny taras wypoczynkowy na dachu.</p>\n<p>Cena najmu: <strong>9 500 zł / mies.</strong> + czynsz administracyjny (1 450 zł). W cenie zawarte są dwa miejsca postojowe w garażu podziemnym.</p>",
-      "createdAt": "2026-10-20T09:15:00.000Z",
-      "authorId": 2
-    },
-    {
-      "id": 4,
-      "title": "Uzbrojona działka budowlana pod lasem (MPZP)",
-      "slug": "uzbrojona-dzialka-budowlana-pod-lasem-mpzp",
-      "transactionType": "sprzedaz",
-      "category": "dzialka",
-      "status": "dostepne",
-      "featured": true,
-      "price": 540000,
-      "pricePerM2": 372,
-      "area": 1450,
-      "rooms": 0,
-      "floor": "-",
-      "buildYear": 2026,
-      "city": "Józefów",
-      "district": "Michalin",
-      "address": "Józefów, rej. ul. Granicznej",
-      "images": [
-        "/images/demo/prop-4.svg"
-      ],
-      "amenities": [
-        "Aktualny MPZP (MN)",
-        "Prąd, gaz, woda, kanalizacja w drodze",
-        "Kształt: prostokąt 32x45 m",
-        "Bezpośredni dostęp do drogi gminnej"
-      ],
-      "description": "<p>Kształtna działka budowlana o powierzchni <strong>1 450 m²</strong> położona w cichej, willowej części Józefowa w otoczeniu starodrzewu sosnowego.</p>\r\n<p>Teren objęty Miejscowym Planem Zagospodarowania Przestrzennego pod zabudowę mieszkaniową jednorodzinną (symbol MN). Wszystkie media miejskie znajdują się bezpośrednio w oświetlonej drodze przy granicy działki.</p>\r\n<strong><p><ul>\r\n  <li>Tekst</li>\r\n</ul></p></strong>",
-      "createdAt": "2026-10-22T14:00:00.000Z",
-      "updatedAt": "2026-11-08T11:48:52.662Z",
-      "authorId": 1
-    },
-    {
-      "id": 5,
-      "title": "Narożny lokal użytkowy z dużymi witrynami przy głównej ulicy",
-      "slug": "narozny-lokal-uzytkowy-z-duzymi-witrynami",
-      "transactionType": "wynajem",
-      "category": "lokal",
-      "status": "zarezerwowane",
-      "featured": false,
-      "price": 7900,
-      "pricePerM2": 92,
-      "area": 86,
-      "rooms": 3,
-      "floor": "Parter (witryna)",
-      "buildYear": 2020,
-      "city": "Warszawa",
-      "district": "Wola, ul. Kasprzaka",
-      "address": "Wola, ciąg pieszy nowego osiedla",
-      "images": [
-        "/images/demo/prop-5.svg"
-      ],
-      "amenities": [
-        "Narożne witryny z 2 stron",
-        "Zgoda na sprzedaż alkoholu i gastronomię",
-        "Wentylacja mechaniczna i klimatyzacja",
-        "Wysokość lokalu 3,85 m"
-      ],
-      "description": "<p>Doskonale wyeksponowany lokal usługowo-handlowy na parterze nowoczesnego apartamentowca w sercu dynamicznie rozwijającej się Woli (w bezpośrednim sąsiedztwie ponad 3 500 mieszkań).</p>\r\n<p>Idealny pod kancelarię, gabinet medyczny/kosmetyczny, showroom lub kawiarnię.</p>",
-      "createdAt": "2026-10-25T16:40:00.000Z",
-      "authorId": 2,
-      "updatedAt": "2026-11-09T16:25:06.559Z"
-    },
-    {
-      "id": 6,
-      "title": "Klimatyczne mieszkanie w odrestaurowanej kamienicy",
-      "slug": "klimatyczne-mieszkanie-w-odrestaurowanej-kamienicy",
-      "transactionType": "sprzedaz",
-      "category": "mieszkanie",
-      "status": "sprzedane",
-      "featured": false,
-      "price": 895000,
-      "pricePerM2": 16574,
-      "area": 54,
-      "rooms": 2,
-      "floor": "2 / 4",
-      "buildYear": 1936,
-      "city": "Warszawa",
-      "district": "Stary Żoliborz",
-      "address": "Stary Żoliborz, blisko Placu Wilsona",
-      "images": [
-        "/images/demo/prop-6.svg"
-      ],
-      "amenities": [
-        "Wysokość sufitów 3,20 m",
-        "Oryginalny parkiet dębowy",
-        "Balkon francuski",
-        "3 minuty do stacji metra",
-        "Duża piwnica 9 m²"
-      ],
-      "description": "<p>Dwupokojowe mieszkanie z duszą w przedwojennej kamienicy po generalnej rewitalizacji na Starym Żoliborzu. Nieruchomość została sprzedana po pierwszym Dniu Otwartym.</p>",
-      "createdAt": "2026-10-10T08:00:00.000Z",
-      "authorId": 1
+      "description": "<p>Opis prezentowanej nieruchomości...</p>",
+      "createdAt": "2026-11-18T21:22:51.735Z",
+      "updatedAt": "2026-11-18T21:23:22.263Z"
     }
   ],
   "posts": [
@@ -420,7 +222,7 @@
       "published": true,
       "createdAt": "2026-10-20T14:20:00.000Z",
       "content": "<p>Właściciele często sądzą, że podpisanie umów otwartych z pięcioma różnymi agencjami zwiększy ich szanse na sprzedaż. W rzeczywistości efekt jest dokładnie odwrotny: <strong>ta sama oferta pojawia się na portalu wielokrotnie, z różnymi cenami, nieaktualnymi opisami i przypadkowymi zdjęciami</strong>.</p>\n<h3>Co daje Ci umowa na wyłączność?</h3>\n<ul>\n  <li><strong>Jeden odpowiedzialny opiekun oferty:</strong> wiesz dokładnie, kto odpowiada za wynik, odbiera telefony i raportuje postępy.</li>\n  <li><strong>Pełen budżet marketingowy:</strong> mając gwarancję współpracy, inwestuję w Twoją nieruchomość własne środki – sesję zdjęciową, wideo z drona, home staging i wyróżnienia na portalach.</li>\n  <li><strong>Współpraca z całym rynkiem (MLS):</strong> wyłączność nie zamyka oferty! Udostępniam ją wszystkim sprawdzonym pośrednikom w mieście, którzy przyprowadzają swoich klientów kupujących.</li>\n  <li><strong>Spójna strategia cenowa:</strong> brak chaosu informacyjnego buduje prestiż nieruchomości w oczach kupujących i chroni cenę podczas negocjacji.</li>\n</ul>",
-      "authorId": 2
+      "authorId": 1
     },
     {
       "id": 3,
@@ -435,96 +237,5 @@
       "authorId": 1
     }
   ],
-  "messages": [
-    {
-      "id": 7,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "asdasd",
-      "email": "asdasd@adsasd",
-      "phone": "123123123",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "asdasdasdasdasd",
-      "read": false,
-      "createdAt": "2026-11-17T14:53:46.764Z"
-    },
-    {
-      "id": 6,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "aasdasd",
-      "email": "asd@asd",
-      "phone": "123123123",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "asdasdasd",
-      "read": false,
-      "createdAt": "2026-11-17T14:51:44.378Z"
-    },
-    {
-      "id": 5,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "aaaaa",
-      "email": "aaa@aaa.pl",
-      "phone": "123123123",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "abcabcabc",
-      "read": false,
-      "createdAt": "2026-11-17T14:50:42.402Z"
-    },
-    {
-      "id": 4,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "aaa",
-      "email": "ccc@cc.pl",
-      "phone": "bbb",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "ddd",
-      "read": false,
-      "createdAt": "2026-11-17T14:45:02.585Z"
-    },
-    {
-      "id": 3,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "aaaa",
-      "email": "bb@bb.pl",
-      "phone": "123456789",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "cccc",
-      "read": false,
-      "createdAt": "2026-11-17T13:49:54.788Z"
-    },
-    {
-      "id": 2,
-      "agentId": 1,
-      "propertyId": null,
-      "name": "abc def",
-      "email": "as@qw.pl",
-      "phone": "123 456 789",
-      "subject": "Chcę sprzedać / wycenić nieruchomość",
-      "propertyTitle": "",
-      "message": "asddsczx",
-      "read": false,
-      "createdAt": "2026-11-17T13:46:40.248Z"
-    },
-    {
-      "id": 1,
-      "name": "Michał Jabłoński",
-      "email": "m.jablonski@example.com",
-      "phone": "+48 501 234 567",
-      "subject": "Zapytanie o współpracę przy sprzedaży mieszkania",
-      "propertyTitle": "",
-      "message": "Dzień dobry Panie Marku, planuję sprzedaż 3-pokojowego mieszkania na Ursynowie (64 m²). Chciałbym umówić się na bezpłatną konsultację i wycenę w przyszłym tygodniu.",
-      "read": true,
-      "createdAt": "2026-11-02T11:20:00.000Z",
-      "agentId": 1
-    }
-  ]
+  "messages": []
 }

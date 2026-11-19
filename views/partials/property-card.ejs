@@ -5,7 +5,7 @@
     <a href="/nieruchomosci/<%= property.slug %>" class="block w-full h-full">
       <img
         src="<%= (property.images && property.images[0]) ? property.images[0] : '/images/demo/prop-1.svg' %>"
-        alt="<%= property.title %>"
+        alt="<%= property.title %> – <%= helpers.getCategoryLabel(property.category).toLowerCase() %> (<%= helpers.getTransactionLabel(property.transactionType).toLowerCase() %>)<%= property.city ? `, ${property.city}` : '' %>"
         loading="lazy"
         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
       >

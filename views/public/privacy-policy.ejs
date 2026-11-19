@@ -1,0 +1,97 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+<%
+  const adminCompany = settings.legal?.companyName || `${settings.brandName}${primaryAgent?.name ? ` – ${primaryAgent.name}` : ''}`;
+  const adminAddress = settings.legal?.registeredAddress || helpers.formatOfficeAddress(settings.contact);
+  const adminNip = settings.legal?.nip;
+  const adminRegon = settings.legal?.regon;
+  const adminEmail = primaryAgent?.email;
+  const adminPhone = primaryAgent?.phone;
+%>
+
+<main class="flex-1">
+  <!-- Nagłówek -->
+  <section class="bg-slate-900 text-white py-14 border-b border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Dokumenty prawne i RODO</span>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1">Polityka Prywatności i plików Cookies</h1>
+        <p class="text-sm text-slate-300 mt-1">Zasady przetwarzania danych osobowych w serwisie <%= settings.brandName %>.</p>
+      </div>
+      <% if (currentUser && currentUser.role === 'admin') { %>
+        <a href="/admin/tresci#prywatnosc" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition self-start sm:self-auto shrink-0">
+          ✎ Edytuj dane firmy (RODO)
+        </a>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- Treść dokumentu -->
+  <section class="py-14 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-3xl border border-slate-200 p-7 sm:p-12 shadow-sm rich-content text-sm sm:text-base">
+      <h2>1. Administrator Danych Osobowych</h2>
+      <p>
+        Administratorem danych osobowych zbieranych za pośrednictwem strony internetowej jest
+        <strong><%= adminCompany %></strong><% if (adminAddress) { %>, adres: <%= adminAddress %><% } %><% if (adminNip) { %>, NIP: <%= adminNip %><% } %><% if (adminRegon) { %>, REGON: <%= adminRegon %><% } %>
+        (dalej: „Administrator”).
+      </p>
+      <p>
+        W sprawach związanych z ochroną danych osobowych można skontaktować się bezpośrednio z Administratorem:
+        <% if (adminEmail) { %>adres e-mail: <a href="mailto:<%= adminEmail %>"><%= adminEmail %></a><% } %><% if (adminEmail && adminPhone) { %>, <% } %><% if (adminPhone) { %>telefon: <a href="tel:<%= adminPhone.replace(/\s+/g, '') %>"><%= adminPhone %></a><% } %>.
+      </p>
+
+      <h2>2. Cele i podstawy prawne przetwarzania danych</h2>
+      <p>Dane osobowe przekazywane przez użytkowników za pośrednictwem formularzy kontaktowych, wiadomości e-mail lub kontaktu telefonicznego są przetwarzane zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO) w następujących celach:</p>
+      <ul>
+        <li><strong>Obsługa zapytań z formularza kontaktowego i kart nieruchomości</strong> – udzielenie odpowiedzi na przesłaną wiadomość, przedstawienie oferty lub umówienie spotkania/prezentacji (art. 6 ust. 1 lit. b oraz lit. f RODO – prawnie uzasadniony interes Administratora polegający na komunikacji z klientami).</li>
+        <li><strong>Świadczenie usług pośrednictwa w obrocie nieruchomościami</strong> – podjęcie działań przed zawarciem umowy pośrednictwa oraz jej realizacja (art. 6 ust. 1 lit. b RODO).</li>
+        <li><strong>Wypełnienie obowiązków prawnych ciążących na Administratorze</strong> – m.in. wynikających z przepisów podatkowych, rachunkowych oraz ustawy o gospodarce nieruchomościami (art. 6 ust. 1 lit. c RODO).</li>
+        <li><strong>Ustalenie, dochodzenie lub obrona przed ewentualnymi roszczeniami</strong> – w ramach prawnie uzasadnionego interesu Administratora (art. 6 ust. 1 lit. f RODO).</li>
+      </ul>
+
+      <h2>3. Zakres zbieranych danych i dobrowolność ich podania</h2>
+      <p>
+        W formularzach kontaktowych zbierane są dane niezbędne do nawiązania kontaktu: imię i nazwisko, numer telefonu, opcjonalnie adres e-mail oraz treść zapytania (w tym wskazanie oferty nieruchomości, której dotyczy wiadomość). Podanie danych jest dobrowolne, jednak niezbędne do udzielenia odpowiedzi na przesłane zapytanie.
+      </p>
+
+      <h2>4. Okres przechowywania danych</h2>
+      <p>
+        Dane pochodzące z korespondencji i formularzy kontaktowych przetwarzane są przez okres niezbędny do udzielenia pełnej odpowiedzi i prowadzenia rozmów ofertowych, a w przypadku zawarcia umowy pośrednictwa – przez okres jej trwania oraz wymagany przepisami prawa okres archiwizacji dokumentacji i przedawnienia ewentualnych roszczeń.
+      </p>
+
+      <h2>5. Odbiorcy danych</h2>
+      <p>
+        Dane osobowe mogą być powierzane wyłącznie sprawdzonym podmiotom wspierającym techniczne funkcjonowanie strony internetowej oraz biura (w szczególności dostawcy usług hostingowych i poczty elektronicznej), wyłącznie na podstawie stosownych umów powierzenia przetwarzania danych. Dane nie są sprzedawane ani udostępniane nieuprawnionym podmiotom trzecim i nie są przekazywane poza Europejski Obszar Gospodarczy.
+      </p>
+
+      <h2>6. Prawa osób, których dane dotyczą</h2>
+      <p>Każdej osobie, której dane są przetwarzane przez Administratora, przysługuje prawo do:</p>
+      <ul>
+        <li>dostępu do swoich danych osobowych oraz otrzymania ich kopii,</li>
+        <li>sprostowania (poprawiania) swoich danych,</li>
+        <li>usunięcia danych lub ograniczenia ich przetwarzania (w przypadkach przewidzianych w RODO),</li>
+        <li>wniesienia sprzeciwu wobec przetwarzania danych opartego na uzasadnionym interesie Administratora,</li>
+        <li>przenoszenia danych,</li>
+        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa), w przypadku uznania, że przetwarzanie narusza przepisy RODO.</li>
+      </ul>
+
+      <h2>7. Pliki Cookies i logi serwera</h2>
+      <p>
+        Strona internetowa korzysta wyłącznie z niezbędnych, technicznych plików cookies (tzw. ciasteczek sesyjnych), które służą do prawidłowego działania serwisu, obsługi komunikatów formularza oraz bezpiecznego uwierzytelniania w panelu administracyjnym. Serwis nie wykorzystuje inwazyjnych plików śledzących ani reklamowych bez wiedzy użytkownika.
+      </p>
+      <p>
+        Użytkownik może w każdej chwili zmienić ustawienia dotyczące plików cookies bezpośrednio w swojej przeglądarce internetowej (zablokować ich zapisywanie lub usunąć zapisane pliki). Korzystanie ze strony wiąże się również ze standardowym zapisywaniem zapytań w logach serwera (adres IP, czas zapytania, informacje o przeglądarce) wyłącznie w celach technicznych i bezpieczeństwa serwera.
+      </p>
+      <p>
+        Na stronie znajdują się odnośniki prowadzące do zewnętrznych serwisów społecznościowych (Facebook, Instagram) oraz opcjonalnie osadzona mapa lokalizacji – korzystanie z tych zewnętrznych platform podlega politykom prywatności ich dostawców.
+      </p>
+
+      <% if (settings.legal?.customNotes) { %>
+        <h2>8. Informacje dodatkowe</h2>
+        <p style="white-space: pre-line;"><%= settings.legal.customNotes %></p>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

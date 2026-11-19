@@ -4,36 +4,62 @@
 
 <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-10">
   <!-- Szybka nawigacja po sekcjach edycji -->
-  <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap gap-2 text-xs sm:text-sm font-semibold">
-    <a href="#glowna" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">1. Strona główna i Wizytówka</a>
-    <a href="#o-mnie" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">2. Zakładka „O mnie”</a>
-    <a href="#kontakt" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">3. Dane kontaktowe i Mapa</a>
-    <a href="#konto" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">4. Zmiana hasła właściciela</a>
+  <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-semibold">
+    <div class="flex flex-wrap gap-2">
+      <a href="#glowna" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">1. Strona główna i SEO</a>
+      <a href="#o-mnie" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">2. Zakładka „O mnie”</a>
+      <a href="#kontakt" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">3. Biuro i Social Media</a>
+      <a href="#prywatnosc" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-700">4. RODO i Polityka Prywatności</a>
+    </div>
+    <a href="/admin/agenci" class="px-3.5 py-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 transition">
+      Dane, zdjęcia i telefony agentów →
+    </a>
   </div>
 
-  <!-- 1. STRONA GŁÓWNA I WIZYTÓWKA AGENTA -->
+  <!-- 1. STRONA GŁÓWNA, LOGO I MARKA -->
   <section id="glowna" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">1. Strona główna, Zdjęcia i Wizytówka agenta</h2>
-    <p class="text-xs text-slate-500 mb-6">Dane widoczne w nagłówku strony, sekcji powitalnej (Hero) oraz w wyszukiwarce Google.</p>
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">1. Strona główna, Logo i SEO</h2>
+    <p class="text-xs text-slate-500 mb-6">Identyfikacja wizualna biura, sekcja powitalna (Hero) oraz ustawienia dla wyszukiwarki Google.</p>
+
+    <!-- Informacja o wizytówce głównego agenta -->
+    <div class="mb-6 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img
+          src="<%= primaryAgent.avatar || '/images/demo/agent-portrait.svg' %>"
+          alt="<%= primaryAgent.name %>"
+          class="w-11 h-14 rounded-lg object-cover border border-amber-300 shrink-0"
+        >
+        <div class="text-xs">
+          <span class="font-bold text-slate-900 block">Główna wizytówka i kontakt strony: <%= primaryAgent.name %></span>
+          <span class="text-slate-600 block mt-0.5"><%= primaryAgent.phone %> · <%= primaryAgent.email %></span>
+        </div>
+      </div>
+      <a
+        href="/admin/agenci?edytuj=<%= primaryAgent.id %>"
+        class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-amber-600 text-white text-xs font-semibold text-center shrink-0 transition"
+      >
+        Edytuj zdjęcie, telefon i e-mail w Zespole →
+      </a>
+    </div>
 
     <form action="/admin/tresci/glowna" method="POST" enctype="multipart/form-data" class="space-y-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 <%= (typeof activeUsers !== 'undefined' && activeUsers.length > 1) ? 'sm:grid-cols-2' : '' %> gap-4">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Nazwa marki / Biura</label>
           <input type="text" name="brandName" value="<%= settings.brandName %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Imię i nazwisko agenta</label>
-          <input type="text" name="agentName" value="<%= settings.agentName %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Tytuł zawodowy / Rola</label>
-          <input type="text" name="agentRole" value="<%= settings.agentRole %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Numer licencji</label>
-          <input type="text" name="licenseNumber" value="<%= settings.licenseNumber %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
+        <% if (typeof activeUsers !== 'undefined' && activeUsers.length > 1) { %>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Główna wizytówka (Strona główna / Pasek / Stopka)</label>
+            <select name="primaryAgentId" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-sm">
+              <% activeUsers.forEach(u => { %>
+                <option value="<%= u.id %>" <%= Number(u.id) === Number(primaryAgent.id) ? 'selected' : '' %>>
+                  <%= u.name %> (<%= u.phone %>)
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        <% } %>
       </div>
 
       <div class="space-y-4 pt-3 border-t border-slate-100">
@@ -46,18 +72,18 @@
           <input type="text" name="heroTitle" value="<%= settings.heroTitle %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Podtytuł pod nagłówkiem</label>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Podtytuł pod nagłówkiem (oraz krótki opis w stopce)</label>
           <textarea name="heroSubtitle" rows="2" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"><%= settings.heroSubtitle %></textarea>
         </div>
       </div>
 
-      <!-- Logo na pasku górnym, zdjęcie agenta i tło Hero -->
+      <!-- Logo firmy i tło Hero -->
       <div class="pt-3 border-t border-slate-100 space-y-5">
         <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Logo na pasku górnym</label>
-              <p class="text-[11px] text-slate-500 mt-0.5">Wyświetlane w lewym górnym rogu strony (obsługuje pliki PNG z przezroczystością, SVG, WebP, JPG).</p>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Logo firmy (pasek górny i stopka)</label>
+              <p class="text-[11px] text-slate-500 mt-0.5">Wyświetlane na pasku górnym oraz w stopce strony (obsługuje pliki PNG z przezroczystością, SVG, WebP, JPG).</p>
             </div>
             <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200 cursor-pointer shrink-0">
               <input
@@ -94,27 +120,18 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-2">Zdjęcie profilowe agenta</label>
-            <div class="flex items-center gap-4">
-              <img src="<%= settings.agentPhoto %>" alt="" class="w-16 h-20 rounded-xl object-cover bg-slate-100 border border-slate-200">
-              <input type="file" name="agentPhotoFile" accept="image/*" data-compress-webp="true" class="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold">
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-2">Zdjęcie w tle sekcji Hero</label>
-            <div class="flex items-center gap-4">
-              <img src="<%= settings.heroImage %>" alt="" class="w-24 h-16 rounded-xl object-cover bg-slate-100 border border-slate-200">
-              <input type="file" name="heroImageFile" accept="image/*" data-compress-webp="true" class="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold">
-            </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-2">Zdjęcie w tle sekcji powitalnej (Hero)</label>
+          <div class="flex flex-wrap items-center gap-4">
+            <img src="<%= settings.heroImage %>" alt="" class="w-28 h-18 rounded-xl object-cover bg-slate-100 border border-slate-200">
+            <input type="file" name="heroImageFile" accept="image/*" data-compress-webp="true" class="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold">
           </div>
         </div>
       </div>
 
       <!-- Liczby i osiągnięcia -->
       <div class="pt-3 border-t border-slate-100">
-        <label class="block text-xs font-semibold text-slate-700 mb-2">Licznik sukcesów na stronie (4 kafelki)</label>
+        <label class="block text-xs font-semibold text-slate-700 mb-2">Licznik sukcesów na stronie (opcjonalnie – 4 kafelki)</label>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <% for (let i = 0; i < 4; i++) {
             const st = (settings.stats && settings.stats[i]) ? settings.stats[i] : { value: '', label: '' };
@@ -127,15 +144,76 @@
         </div>
       </div>
 
-      <!-- SEO -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
+      <!-- SEO i Wizytówka Social Media (Open Graph w stylu MetaTags) -->
+      <div class="pt-4 border-t border-slate-100 space-y-5">
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny tytuł w Google (SEO Title)</label>
-          <input type="text" name="siteTitle" value="<%= settings.seo?.siteTitle %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+          <h3 class="font-serif font-bold text-lg text-slate-900">Pozycjonowanie Google (SEO) i Wizytówka Social Media (Open Graph)</h3>
+          <p class="text-xs text-slate-500 mt-0.5">Ustaw wygląd strony w wyszukiwarce Google oraz kartę podglądu po wklejeniu linku na Messengerze, Facebooku lub WhatsAppie. Podstrony nieruchomości automatycznie używają głównego zdjęcia danej oferty.</p>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny opis w Google (Meta Description)</label>
-          <input type="text" name="siteDescription" value="<%= settings.seo?.siteDescription %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Pola edycji SEO & OG -->
+          <div class="lg:col-span-7 space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny tytuł w Google i na wizytówce (SEO Title)</label>
+              <input id="seoTitleInput" type="text" name="siteTitle" value="<%= settings.seo?.siteTitle %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Domyślny opis w Google i na wizytówce (Meta Description)</label>
+              <textarea id="seoDescInput" name="siteDescription" rows="3" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"><%= settings.seo?.siteDescription %></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Obszar działania (Lokalne SEO / Schema.org)</label>
+              <input type="text" name="serviceArea" value="<%= settings.seo?.serviceArea || 'Częstochowa i okolice' %>" placeholder="np. Częstochowa, powiat częstochowski, Śląsk" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+              <span class="text-[11px] text-slate-400 block mt-1">Przekazywany robotom Google w danych strukturalnych lokalnego biura nieruchomości.</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">Grafika wizytówki Social Media (rekomendowane 1200×630 px)</label>
+              <input id="ogImageInput" type="file" name="ogImageFile" accept="image/png,image/jpeg,image/webp" data-compress-webp="true" class="block w-full text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold cursor-pointer">
+              <% if (settings.seo?.ogImage && settings.seo.ogImage !== '/images/og-nn7.png') { %>
+                <label class="inline-flex items-center gap-1.5 text-xs text-slate-500 cursor-pointer pt-1">
+                  <input type="checkbox" name="resetOgImage" value="1" class="rounded border-slate-300 text-rose-600">
+                  <span>Usuń własną grafikę i przywróć domyślną wizytówkę NN7</span>
+                </label>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Podgląd na żywo (MetaTags Preview) -->
+          <div class="lg:col-span-5 space-y-4">
+            <!-- Podgląd karty Facebook / Messenger -->
+            <div class="rounded-2xl border border-slate-200 overflow-hidden bg-slate-100 shadow-sm">
+              <div class="px-3 py-1.5 bg-slate-800 text-[11px] font-bold uppercase tracking-wider text-amber-300 flex items-center justify-between">
+                <span>Podgląd na żywo: Facebook / Messenger</span>
+                <span class="text-slate-400 font-normal">1200×630</span>
+              </div>
+              <div class="aspect-[1.91/1] bg-slate-900 overflow-hidden">
+                <img
+                  id="ogPreviewImg"
+                  src="<%= settings.seo?.ogImage || '/images/og-nn7.png' %>"
+                  alt="Podgląd wizytówki Open Graph"
+                  class="w-full h-full object-cover"
+                >
+              </div>
+              <div class="p-3.5 bg-white border-t border-slate-200 space-y-1">
+                <span class="text-[11px] uppercase tracking-wider text-slate-400 block"><%= (typeof baseUrl !== 'undefined' ? baseUrl : '').replace(/^https?:\/\//, '') || 'nn7.pl' %></span>
+                <strong id="ogPreviewTitle" class="text-sm font-bold text-slate-900 line-clamp-1 block"><%= settings.seo?.siteTitle %></strong>
+                <p id="ogPreviewDesc" class="text-xs text-slate-500 line-clamp-2 leading-relaxed"><%= settings.seo?.siteDescription %></p>
+              </div>
+            </div>
+
+            <!-- Szybkie linki techniczne SEO -->
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs text-slate-600">
+              <span>Techniczne SEO dla Google:</span>
+              <div class="flex items-center gap-3 font-semibold text-amber-700">
+                <a href="/sitemap.xml" target="_blank" class="hover:underline">sitemap.xml ↗</a>
+                <a href="/robots.txt" target="_blank" class="hover:underline">robots.txt ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -150,7 +228,7 @@
   <!-- 2. ZAKŁADKA O MNIE -->
   <section id="o-mnie" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
     <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">2. Treść zakładki „O mnie”</h2>
-    <p class="text-xs text-slate-500 mb-6">Opowiedz swoją historię, doświadczenie oraz wartości, jakimi kierujesz się w pracy.</p>
+    <p class="text-xs text-slate-500 mb-6">Opowiedz historię marki, doświadczenie oraz wartości, jakimi kierujesz się w pracy.</p>
 
     <form action="/admin/tresci/o-mnie" method="POST" class="space-y-5">
       <div>
@@ -163,7 +241,7 @@
       </div>
       <div>
         <div class="flex items-center justify-between mb-1">
-          <label class="block text-xs font-semibold text-slate-700">Pełny biogram (obsługuje akapity HTML)</label>
+          <label class="block text-xs font-semibold text-slate-700">Pełny opis / biogram (obsługuje akapity HTML)</label>
           <div class="flex gap-1 text-xs">
             <button type="button" onclick="insertHtmlTag('aboutBioArea', '<p>', '</p>')" class="px-2 py-0.5 rounded bg-slate-100">Akapit</button>
             <button type="button" onclick="insertHtmlTag('aboutBioArea', '<strong>', '</strong>')" class="px-2 py-0.5 rounded bg-slate-100 font-bold">B</button>
@@ -194,25 +272,21 @@
     </form>
   </section>
 
-  <!-- 3. DANE KONTAKTOWE I MAPA -->
+  <!-- 3. BIURO, MAPA I SOCIAL MEDIA -->
   <section id="kontakt" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">3. Zakładka „Kontakt” i Social Media</h2>
-    <p class="text-xs text-slate-500 mb-6">Dane wyświetlane w zakładce Kontakt, w stopce oraz w nagłówku strony.</p>
+    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">3. Godziny pracy, Biuro i Social Media</h2>
+    <p class="text-xs text-slate-500 mb-5">Godziny spotkań, opcjonalny adres stacjonarnego biura z mapą oraz odnośniki do mediów społecznościowych na pasku górnym i w stopce.</p>
+
+    <div class="mb-5 p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-600">
+      <span>
+        Numery telefonów i adresy e-mail (główny: <strong class="text-slate-900"><%= primaryAgent.phone %></strong>, <strong class="text-slate-900"><%= primaryAgent.email %></strong>) są pobierane bezpośrednio z kont w zakładce <strong>Zespół / Agenci</strong>.
+      </span>
+      <a href="/admin/agenci" class="font-bold text-amber-700 hover:underline shrink-0">Przejdź do Zespołu →</a>
+    </div>
 
     <form action="/admin/tresci/kontakt" method="POST" class="space-y-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Numer telefonu</label>
-          <input type="text" name="phone" value="<%= settings.contact?.phone %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Adres e-mail</label>
-          <input type="email" name="email" value="<%= settings.contact?.email %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
-      </div>
-
       <div>
-        <label class="block text-xs font-semibold text-slate-700 mb-1">Godziny dostępności</label>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Godziny dostępności / spotkań</label>
         <input type="text" name="workingHours" value="<%= settings.contact?.workingHours %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
       </div>
 
@@ -241,7 +315,7 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Kod pocztowy i miasto</label>
-            <input type="text" name="city" value="<%= settings.contact?.city %>" placeholder="np. 00-120 Warszawa" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-sm">
+            <input type="text" name="city" value="<%= settings.contact?.city %>" placeholder="np. 42-200 Częstochowa" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-sm">
           </div>
         </div>
 
@@ -251,7 +325,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Link Facebook</label>
           <input type="url" name="facebook" value="<%= settings.contact?.facebook %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
@@ -260,41 +334,76 @@
           <label class="block text-xs font-semibold text-slate-700 mb-1">Link Instagram</label>
           <input type="url" name="instagram" value="<%= settings.contact?.instagram %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Link LinkedIn</label>
-          <input type="url" name="linkedin" value="<%= settings.contact?.linkedin %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-        </div>
       </div>
 
       <div class="flex justify-end">
         <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
-          Zapisz dane kontaktowe
+          Zapisz ustawienia biura i Social Media
         </button>
       </div>
     </form>
   </section>
 
-  <!-- 4. ZMIANA LOGINU I HASŁA WŁAŚCICIELA -->
-  <section id="konto" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-    <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">4. Bezpieczeństwo – zmiana loginu i hasła</h2>
-    <p class="text-xs text-slate-500 mb-6">Zmień domyślne dane logowania do panelu właściciela.</p>
+  <!-- 4. DANE FIRMY I POLITYKA PRYWATNOŚCI (RODO) -->
+  <section id="prywatnosc" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+      <div>
+        <h2 class="font-serif font-bold text-xl text-slate-900 mb-1">4. Dane firmy i Polityka Prywatności (RODO)</h2>
+        <p class="text-xs text-slate-500">Dane Administratora Danych Osobowych podstawiane automatycznie w dokumencie Polityki Prywatności oraz w klauzulach pod formularzami.</p>
+      </div>
+      <a href="/polityka-prywatnosci" target="_blank" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-amber-50 text-xs font-semibold text-slate-700 hover:text-amber-800 shrink-0 transition">
+        Zobacz Politykę Prywatności ↗
+      </a>
+    </div>
 
-    <form action="/admin/tresci/konto" method="POST" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 mb-1">Login właściciela</label>
-        <input type="text" name="username" required value="<%= currentUser.username %>" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+    <form action="/admin/tresci/prywatnosc" method="POST" class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Pełna nazwa firmy / Administratora Danych Osobowych</label>
+          <input
+            type="text"
+            name="companyName"
+            value="<%= settings.legal?.companyName || `${settings.brandName} – ${primaryAgent.name}` %>"
+            placeholder="np. NAJLEPSZE NIERUCHOMOŚCI NN7 Edyta Sojda"
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"
+          >
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">NIP (opcjonalnie)</label>
+          <input type="text" name="nip" value="<%= settings.legal?.nip %>" placeholder="np. 573-000-00-00" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">REGON (opcjonalnie)</label>
+          <input type="text" name="regon" value="<%= settings.legal?.regon %>" placeholder="np. 123456789" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Adres rejestrowy / korespondencyjny Administratora do RODO (opcjonalnie)</label>
+          <input
+            type="text"
+            name="registeredAddress"
+            value="<%= settings.legal?.registeredAddress %>"
+            placeholder="np. ul. Przykładowa 10, 42-200 Częstochowa (widoczny tylko w Polityce Prywatności)"
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"
+          >
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Dodatkowe zapisy / postanowienia na końcu Polityki Prywatności (opcjonalnie)</label>
+          <textarea
+            name="customNotes"
+            rows="3"
+            placeholder="Zostaw puste, jeśli standardowy dokument RODO i Cookies jest wystarczający..."
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"
+          ><%= settings.legal?.customNotes %></textarea>
+        </div>
       </div>
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 mb-1">Obecne hasło *</label>
-        <input type="password" name="currentPassword" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 mb-1">Nowe hasło *</label>
-        <input type="password" name="newPassword" required minlength="6" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-      </div>
-      <div class="sm:col-span-3 flex justify-end pt-2">
+
+      <div class="flex justify-end">
         <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-sm font-semibold transition">
-          Zaktualizuj dane logowania
+          Zapisz dane RODO i Polityki Prywatności
         </button>
       </div>
     </form>

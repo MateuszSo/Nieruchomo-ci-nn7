@@ -13,7 +13,7 @@
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <!-- Lewa kolumna: Tekst powitalny i przyciski -->
-        <div class="lg:col-span-7 space-y-6">
+        <div class="lg:col-span-11 space-y-6">
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-semibold tracking-wide">
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
             <span><%= settings.heroBadge %></span>
@@ -37,39 +37,50 @@
           </div>
 
           <% if (currentUser && currentUser.role === 'admin') { %>
-            <div class="pt-2">
+            <div class="pt-2 flex flex-wrap items-center gap-4">
               <a href="/admin/tresci#glowna" class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:underline">
-                ✎ Edytuj teksty i zdjęcia sekcji powitalnej
+                ✎ Edytuj teksty i tło sekcji powitalnej
+              </a>
+              <a href="/admin/agenci?edytuj=<%= primaryAgent.id %>" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-amber-300 hover:underline">
+                ✎ Edytuj wizytówkę i zdjęcie agenta
               </a>
             </div>
           <% } %>
         </div>
 
         <!-- Prawa kolumna: Wizytówka agenta -->
+        <!-- po odkomentowaniu zmienić szerokość kolumny lewej na lg:col-span-7 -->
+        <!--
         <div class="lg:col-span-5">
           <div class="bg-slate-900/85 backdrop-blur-md border border-amber-500/30 rounded-3xl p-6 sm:p-7 shadow-2xl max-w-md mx-auto">
             <div class="flex items-center gap-4">
               <img
-                src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>"
-                alt="<%= settings.agentName %>"
+                src="<%= primaryAgent.avatar || '/images/demo/agent-portrait.svg' %>"
+                alt="<%= primaryAgent.name %>"
                 class="w-20 h-24 rounded-2xl object-cover border-2 border-amber-500/60 shrink-0"
               >
               <div>
-                <span class="text-xs font-bold uppercase tracking-wider text-amber-400"><%= settings.licenseNumber %></span>
-                <h2 class="font-serif font-bold text-2xl text-white mt-0.5"><%= settings.agentName %></h2>
-                <p class="text-xs text-slate-300 mt-1"><%= settings.agentRole %></p>
+                <% if (primaryAgent.licenseNumber && primaryAgent.licenseNumber !== '-') { %>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-400"><%= primaryAgent.licenseNumber %></span>
+                <% } %>
+                <h2 class="font-serif font-bold text-2xl text-white mt-0.5"><%= primaryAgent.name %></h2>
+                <p class="text-xs text-slate-300 mt-1"><%= primaryAgent.title %></p>
               </div>
             </div>
 
             <div class="mt-6 pt-5 border-t border-slate-700/80 space-y-2.5 text-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">Telefon bezpośredni:</span>
-                <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="font-bold text-white hover:text-amber-400"><%= settings.contact?.phone %></a>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">E-mail:</span>
-                <a href="mailto:<%= settings.contact?.email %>" class="font-medium text-amber-300 hover:underline"><%= settings.contact?.email %></a>
-              </div>
+              <% if (primaryAgent.phone) { %>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Telefon bezpośredni:</span>
+                  <a href="tel:<%= primaryAgent.phone.replace(/\s+/g, '') %>" class="font-bold text-white hover:text-amber-400"><%= primaryAgent.phone %></a>
+                </div>
+              <% } %>
+              <% if (primaryAgent.email) { %>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">E-mail:</span>
+                  <a href="mailto:<%= primaryAgent.email %>" class="font-medium text-amber-300 hover:underline"><%= primaryAgent.email %></a>
+                </div>
+              <% } %>
             </div>
 
             <div class="mt-6 grid grid-cols-2 gap-3">
@@ -82,6 +93,7 @@
             </div>
           </div>
         </div>
+        -->
       </div>
 
       <!-- Szybka wyszukiwarka nieruchomości -->
@@ -112,7 +124,7 @@
             <input
               type="text"
               name="szukaj"
-              placeholder="np. Mokotów, Konstancin..."
+              placeholder="np. Częstochowa, Parkitka..."
               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm"
             >
           </div>
@@ -186,13 +198,13 @@
         <div class="lg:col-span-5">
           <div class="relative max-w-md mx-auto">
             <img
-              src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>"
-              alt="<%= settings.agentName %>"
+              src="<%= primaryAgent.avatar || '/images/demo/agent-portrait.svg' %>"
+              alt="<%= primaryAgent.name %>"
               class="w-full rounded-3xl shadow-xl border border-slate-200 object-cover aspect-[4/5]"
             >
             <div class="absolute -bottom-5 -right-4 bg-slate-900 text-white p-5 rounded-2xl shadow-xl max-w-[230px]">
-              <span class="block text-amber-400 font-serif font-bold text-lg">100% bezpieczeństwa</span>
-              <span class="text-xs text-slate-300 mt-1 block">Licencjonowany pośrednik z pełnym ubezpieczeniem OC</span>
+              <span class="block text-amber-400 font-serif font-bold text-lg">Twoje interesy są moim priorytetem</span>
+              <span class="text-xs text-slate-300 mt-1 block">Pośrednik w obrocie nieruchomościami z pełnym ubezpieczeniem OC</span>
             </div>
           </div>
         </div>

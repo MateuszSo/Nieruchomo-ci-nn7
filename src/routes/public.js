@@ -1,7 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const seo = require('../utils/seo');
 const { sendContactEmail } = require('../utils/mailer');
+
+// Techniczne SEO: robots.txt oraz dynamiczna mapa strony sitemap.xml
+router.get('/robots.txt', (req, res) => {
+  const settings = db.getSettings();
+  const baseUrl = seo.getBaseUrl(req, settings);
+  const content = [
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /admin',
+    'Disallow: /admin/',
+    '',
+    `Sitemap: ${baseUrl}/sitemap.xml`
+  ].join('\n');
+
+  res.type('text/plain; charset=utf-8').send(content);
+});
+
+router.get('/sitemap.xml', (req, res) => {
+  const settings = db.getSettings();
+  const baseUrl = seo.getBaseUrl(req, settings);
+  const properties = db.getProperties();
+  const posts = db.getPosts({ publishedOnly: true });
+  const xml = seo.buildSitemapXml({ baseUrl, properties, posts });
+
+  res.type('application/xml; charset=utf-8').send(xml);
+});
 
 // Strona główna (Home)
 router.get('/', (req, res) => {
@@ -25,14 +52,21 @@ router.get('/', (req, res) => {
 // Zakładka: O mnie
 router.get('/o-mnie', (req, res) => {
   const settings = db.getSettings();
+  const primaryAgent = db.getPrimaryAgent();
   const allProperties = db.getProperties();
-  const teamAgents = db.getUsers({ activeOnly: true }).map((u) => ({
-    ...u,
-    propertiesCount: allProperties.filter((p) => Number(p.authorId || 1) === Number(u.id)).length
-  }));
+  const teamAgents = db.getUsers({ activeOnly: true })
+    .sort((a, b) => {
+      if (Number(a.id) === Number(primaryAgent.id)) return -1;
+      if (Number(b.id) === Number(primaryAgent.id)) return 1;
+      return Number(a.id) - Number(b.id);
+    })
+    .map((u) => ({
+      ...u,
+      propertiesCount: allProperties.filter((p) => Number(p.authorId || primaryAgent.id) === Number(u.id)).length
+    }));
 
   res.render('public/about', {
-    pageTitle: `O mnie i nasz zespół – ${settings.agentName} | ${settings.brandName}`,
+    pageTitle: `O mnie i nasz zespół – ${primaryAgent.name} | ${settings.brandName}`,
     pageDescription: settings.about?.subtitle || `Poznaj doświadczenie i zespół biura nieruchomości ${settings.brandName}.`,
     teamAgents
   });
@@ -85,7 +119,8 @@ router.get('/nieruchomosci/:slug', (req, res) => {
   if (!property) {
     return res.status(404).render('public/404', {
       pageTitle: 'Oferta nie została znaleziona',
-      pageDescription: 'Szukana nieruchomość została usunięta lub zmieniła adres.'
+      pageDescription: 'Szukana nieruchomość została usunięta lub zmieniła adres.',
+      robotsMeta: 'noindex, nofollow'
     });
   }
 
@@ -94,9 +129,18 @@ router.get('/nieruchomosci/:slug', (req, res) => {
     .filter((p) => p.id !== property.id)
     .slice(0, 3);
 
+  const baseUrl = res.locals.baseUrl || seo.getBaseUrl(req, settings);
+  const author = db.getAuthorForResource(property);
+  const txLabel = property.transactionType === 'wynajem' ? 'Wynajem' : 'Sprzedaż';
+
   res.render('public/property-detail', {
-    pageTitle: `${property.title} – ${property.city} | ${settings.brandName}`,
-    pageDescription: `${property.title}, ${property.area} m², ${property.city} (${property.district}). Sprawdź szczegóły oferty.`,
+    pageTitle: `${property.title} – ${property.city} (${txLabel}) | ${settings.brandName}`,
+    pageDescription: `${property.title}${property.area ? `, ${property.area} m²` : ''}${property.city ? `, ${property.city}` : ''}${property.district ? ` (${property.district})` : ''}. Sprawdź cenę, zdjęcia i szczegóły oferty w biurze ${settings.brandName}.`,
+    ogImage: seo.pickOgImage(baseUrl, settings, property.images?.[0]),
+    jsonLdSchemas: [
+      ...(res.locals.jsonLdSchemas || []),
+      seo.buildPropertySchema({ baseUrl, property, author })
+    ],
     property,
     similarProperties
   });
@@ -122,7 +166,8 @@ router.get('/blog/:slug', (req, res) => {
   if (!post || (!post.published && !req.session.user)) {
     return res.status(404).render('public/404', {
       pageTitle: 'Artykuł nie został znaleziony',
-      pageDescription: 'Szukany wpis na blogu nie istnieje.'
+      pageDescription: 'Szukany wpis na blogu nie istnieje.',
+      robotsMeta: 'noindex, nofollow'
     });
   }
 
@@ -132,24 +177,43 @@ router.get('/blog/:slug', (req, res) => {
     .slice(0, 2);
   const featuredProperties = db.getProperties().slice(0, 2);
 
+  const baseUrl = res.locals.baseUrl || seo.getBaseUrl(req, settings);
+  const author = db.getAuthorForResource(post);
+
   res.render('public/blog-post', {
     pageTitle: `${post.title} | Blog ${settings.brandName}`,
     pageDescription: post.excerpt || post.title,
+    ogType: 'article',
+    ogImage: seo.pickOgImage(baseUrl, settings, post.coverImage),
+    jsonLdSchemas: [
+      ...(res.locals.jsonLdSchemas || []),
+      seo.buildBlogPostSchema({ baseUrl, post, author, settings })
+    ],
     post,
     otherPosts,
     featuredProperties
   });
 });
 
+// Polityka prywatności i plików cookies (RODO)
+router.get('/polityka-prywatnosci', (req, res) => {
+  const settings = db.getSettings();
+  res.render('public/privacy-policy', {
+    pageTitle: `Polityka Prywatności i RODO | ${settings.brandName}`,
+    pageDescription: `Zasady przetwarzania danych osobowych (RODO) oraz wykorzystywania plików cookies w serwisie ${settings.brandName}.`
+  });
+});
+
 // Zakładka: Kontakt
 router.get('/kontakt', (req, res) => {
   const settings = db.getSettings();
+  const primaryAgent = db.getPrimaryAgent();
   const prefilledSubject = req.query.temat || '';
   const prefilledProperty = req.query.oferta || '';
 
   res.render('public/contact', {
     pageTitle: `Kontakt – Umów bezpłatną konsultację | ${settings.brandName}`,
-    pageDescription: `Skontaktuj się z agentem nieruchomości: ${settings.contact?.phone}, ${settings.contact?.email}.`,
+    pageDescription: `Skontaktuj się z biurem nieruchomości ${settings.brandName}: ${primaryAgent.phone}, ${primaryAgent.email}.`,
     prefilledSubject,
     prefilledProperty
   });
@@ -168,11 +232,12 @@ router.post('/kontakt', async (req, res) => {
     return res.redirect(targetRedirect);
   }
 
-  const targetAgentId = agentId ? Number(agentId) : 1;
-  const assignedAgent = db.findUserById(targetAgentId);
+  const primaryAgent = db.getPrimaryAgent();
+  const targetAgentId = agentId ? Number(agentId) : primaryAgent.id;
+  const assignedAgent = db.findUserById(targetAgentId) || primaryAgent;
 
   const savedMsg = db.createMessage({
-    agentId: targetAgentId,
+    agentId: assignedAgent.id,
     propertyId: propertyId ? Number(propertyId) : null,
     name: name.trim(),
     email: (email || '').trim(),
@@ -182,9 +247,9 @@ router.post('/kontakt', async (req, res) => {
     message: message.trim()
   });
 
-  // Próba wysyłki powiadomienia e-mail przez SMTP (bezpośrednio do opiekuna oferty lub na główny adres biura)
+  // Próba wysyłki powiadomienia e-mail przez SMTP (bezpośrednio do opiekuna oferty lub głównego agenta)
   const settings = db.getSettings();
-  await sendContactEmail(savedMsg, settings, assignedAgent?.email || null);
+  await sendContactEmail(savedMsg, settings, assignedAgent?.email || primaryAgent?.email || null);
 
   req.session.flash = {
     type: 'success',

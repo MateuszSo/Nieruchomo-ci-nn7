@@ -7,13 +7,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
         <span class="text-xs font-bold uppercase tracking-widest text-amber-400">O mnie</span>
-        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1"><%= settings.agentName %></h1>
-        <p class="text-sm text-slate-300 mt-1"><%= settings.agentRole %> · <%= settings.licenseNumber %></p>
+        <h1 class="font-serif font-bold text-3xl sm:text-4xl text-white mt-1"><%= primaryAgent.name %></h1>
+        <p class="text-sm text-slate-300 mt-1">
+          <%= primaryAgent.title %><%= (primaryAgent.licenseNumber && primaryAgent.licenseNumber !== '-') ? ` · ${primaryAgent.licenseNumber}` : '' %>
+        </p>
       </div>
       <% if (currentUser && currentUser.role === 'admin') { %>
         <div class="flex items-center gap-2 self-start sm:self-auto">
           <a href="/admin/agenci" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold transition">
-            + Zarządzaj agentami
+            ✎ Zespół i wizytówki
           </a>
           <a href="/admin/tresci#o-mnie" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition">
             ✎ Edytuj treść zakładki
@@ -29,16 +31,23 @@
       <div class="lg:col-span-5">
         <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-md">
           <img
-            src="<%= settings.agentPhoto || '/images/demo/agent-portrait.svg' %>"
-            alt="<%= settings.agentName %>"
+            src="<%= primaryAgent.avatar || '/images/demo/agent-portrait.svg' %>"
+            alt="<%= primaryAgent.name %>"
             class="w-full rounded-2xl object-cover aspect-[4/5]"
           >
           <div class="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-sm">
-            <div class="font-serif font-bold text-lg text-slate-900"><%= settings.agentName %></div>
-            <div class="text-xs text-amber-700 font-semibold"><%= settings.licenseNumber %></div>
+            <div class="font-serif font-bold text-lg text-slate-900"><%= primaryAgent.name %></div>
+            <div class="text-xs text-slate-500"><%= primaryAgent.title %></div>
+            <% if (primaryAgent.licenseNumber && primaryAgent.licenseNumber !== '-') { %>
+              <div class="text-xs text-amber-700 font-semibold"><%= primaryAgent.licenseNumber %></div>
+            <% } %>
             <div class="pt-2 border-t border-slate-200/80 text-xs text-slate-600 space-y-1">
-              <div>Tel: <a href="tel:<%= (settings.contact?.phone || '').replace(/\s+/g, '') %>" class="font-bold text-slate-900"><%= settings.contact?.phone %></a></div>
-              <div>E-mail: <a href="mailto:<%= settings.contact?.email %>" class="font-semibold text-amber-700"><%= settings.contact?.email %></a></div>
+              <% if (primaryAgent.phone) { %>
+                <div>Tel: <a href="tel:<%= primaryAgent.phone.replace(/\s+/g, '') %>" class="font-bold text-slate-900"><%= primaryAgent.phone %></a></div>
+              <% } %>
+              <% if (primaryAgent.email) { %>
+                <div>E-mail: <a href="mailto:<%= primaryAgent.email %>" class="font-semibold text-amber-700"><%= primaryAgent.email %></a></div>
+              <% } %>
             </div>
           </div>
         </div>
@@ -85,8 +94,8 @@
     </section>
   <% } %>
 
-  <!-- Zespół agentów (jeśli w systemie są aktywni agenci) -->
-  <% if (typeof teamAgents !== 'undefined' && teamAgents.length > 0) { %>
+  <!-- Zespół agentów (widoczny gdy w biurze działa więcej niż 1 aktywny doradca) -->
+  <% if (typeof teamAgents !== 'undefined' && teamAgents.length > 1) { %>
     <section id="zespol" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Poznaj nasz zespół</span>

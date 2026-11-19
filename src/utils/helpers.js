@@ -142,11 +142,17 @@ function hasOfficeAddress(contact) {
   return Boolean(formatOfficeAddress(contact));
 }
 
+function stripHtml(html) {
+  if (!html) return '';
+  return String(html).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 module.exports = {
   createSlug,
   formatPrice,
   formatDate,
   readingTime,
+  stripHtml,
   getStatusBadge,
   getCategoryLabel,
   getTransactionLabel,

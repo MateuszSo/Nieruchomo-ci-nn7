@@ -7,6 +7,7 @@ const compression = require('compression');
 
 const db = require('./src/config/db');
 const helpers = require('./src/utils/helpers');
+const seo = require('./src/utils/seo');
 const publicRoutes = require('./src/routes/public');
 const adminRoutes = require('./src/routes/admin');
 
@@ -69,12 +70,35 @@ app.use((req, res, next) => {
     }
   }
 
+  const primaryAgent = db.getPrimaryAgent();
+  const activeAgents = db.getUsers({ activeOnly: true }).sort((a, b) => {
+    if (Number(a.id) === Number(primaryAgent.id)) return -1;
+    if (Number(b.id) === Number(primaryAgent.id)) return 1;
+    return Number(a.id) - Number(b.id);
+  });
+
+  const settings = db.getSettings();
+  const baseUrl = seo.getBaseUrl(req, settings);
+  const cleanPath = req.path === '/' ? '/' : req.path.replace(/\/+$/, '');
+  const isAdminRoute = cleanPath.startsWith('/admin');
+
   res.locals.currentUser = activeUser;
   res.locals.currentPath = req.path;
-  res.locals.settings = db.getSettings();
+  res.locals.settings = settings;
+  res.locals.primaryAgent = primaryAgent;
+  res.locals.teamAgents = activeAgents;
   res.locals.unreadMessagesCount = activeUser ? db.getUnreadMessagesCount(activeUser) : 0;
   res.locals.helpers = helpers;
+  res.locals.seo = seo;
   res.locals.getAuthor = db.getAuthorForResource;
+
+  // Domyślne dane SEO / Open Graph dla każdego widoku
+  res.locals.baseUrl = baseUrl;
+  res.locals.canonicalUrl = `${baseUrl}${cleanPath}`;
+  res.locals.ogType = 'website';
+  res.locals.ogImage = seo.pickOgImage(baseUrl, settings, null);
+  res.locals.robotsMeta = isAdminRoute ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
+  res.locals.jsonLdSchemas = isAdminRoute ? [] : [seo.buildAgencySchema({ baseUrl, settings, primaryAgent })];
 
   // Komunikaty flash (sukces / błąd)
   res.locals.flash = req.session.flash || null;
@@ -91,7 +115,8 @@ app.use('/', publicRoutes);
 app.use((req, res) => {
   res.status(404).render('public/404', {
     pageTitle: 'Strona nie została znaleziona (404)',
-    pageDescription: 'Przepraszamy, szukana strona nie istnieje.'
+    pageDescription: 'Przepraszamy, szukana strona nie istnieje.',
+    robotsMeta: 'noindex, nofollow'
   });
 });
 
@@ -100,7 +125,8 @@ app.use((err, req, res, next) => {
   console.error('[Błąd aplikacji]:', err);
   res.status(500).render('public/404', {
     pageTitle: 'Wystąpił błąd serwera (500)',
-    pageDescription: 'Przepraszamy, wystąpił nieoczekiwany błąd. Spróbuj ponownie za chwilę.'
+    pageDescription: 'Przepraszamy, wystąpił nieoczekiwany błąd. Spróbuj ponownie za chwilę.',
+    robotsMeta: 'noindex, nofollow'
   });
 });
 

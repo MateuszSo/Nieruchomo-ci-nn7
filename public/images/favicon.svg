@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="NN7">
+  <rect width="256" height="256" rx="52" fill="#162846"/>
+  <rect x="6" y="6" width="244" height="244" rx="46" fill="none" stroke="#caa23e" stroke-opacity="0.35" stroke-width="4"/>
+  <g transform="translate(11.5, 34)">
+    <!-- Złoty komin i linia dachu -->
+    <path
+      fill="#caa23e"
+      d="M 3,190 L 3,18 L 75,18 L 75,66 L 94,66 L 236,168 L 236,190 L 228,190 L 88,86 L 58,86 L 58,190 L 38,190 L 38,66 L 55,66 L 55,38 L 23,38 L 23,190 Z"
+    />
+    <!-- Biały obrys domu -->
+    <path
+      fill="#ffffff"
+      d="M 96,59 L 166,2 L 236,72 L 236,157 L 217,143 L 217,80 L 166,29 L 112,70 Z"
+    />
+    <!-- Biała podstawa domu -->
+    <path
+      fill="#ffffff"
+      d="M 69,95 L 89,95 L 89,171 L 191,171 L 218,190 L 69,190 Z"
+    />
+  </g>
+</svg>

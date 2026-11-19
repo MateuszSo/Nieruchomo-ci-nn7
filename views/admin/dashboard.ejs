@@ -77,12 +77,12 @@
       </a>
       <% if (currentUser && currentUser.role === 'admin') { %>
         <a href="/admin/agenci" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 transition group">
-          <span class="block font-bold text-slate-900 group-hover:text-amber-700">Zarządzaj agentami (Zespół)</span>
-          <span class="text-xs text-slate-500 mt-1 block">Twórz konta dla agentów i wybieraj ich uprawnienia (Admin / Agent)</span>
+          <span class="block font-bold text-slate-900 group-hover:text-amber-700">Zespół i dane kontaktowe</span>
+          <span class="text-xs text-slate-500 mt-1 block">Zdjęcia, telefony, e-maile, loginy i hasła właściciela oraz agentów</span>
         </a>
-        <a href="/admin/tresci#o-mnie" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 transition group">
-          <span class="block font-bold text-slate-900 group-hover:text-amber-700">Edytuj zakładki i kontakt</span>
-          <span class="text-xs text-slate-500 mt-1 block">Zmień teksty O mnie, Stronę główną, Oferty i dane kontaktowe</span>
+        <a href="/admin/tresci#glowna" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 transition group">
+          <span class="block font-bold text-slate-900 group-hover:text-amber-700">Wygląd, O mnie i Social Media</span>
+          <span class="text-xs text-slate-500 mt-1 block">Logo, Strona główna, treść O mnie, godziny pracy, mapa i Social Media</span>
         </a>
       <% } else { %>
         <a href="/admin/profil" class="p-4 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 transition group">

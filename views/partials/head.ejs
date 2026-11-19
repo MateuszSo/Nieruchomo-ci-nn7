@@ -3,15 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : settings.seo?.siteTitle %></title>
-  <meta name="description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : settings.seo?.siteDescription %>">
+  <%
+    const resolvedTitle = typeof pageTitle !== 'undefined' && pageTitle ? pageTitle : (settings.seo?.siteTitle || settings.brandName);
+    const resolvedDesc = typeof pageDescription !== 'undefined' && pageDescription ? pageDescription : (settings.seo?.siteDescription || settings.heroSubtitle || '');
+    const resolvedRobots = typeof robotsMeta !== 'undefined' && robotsMeta ? robotsMeta : 'index, follow, max-image-preview:large';
+    const resolvedOgType = typeof ogType !== 'undefined' && ogType ? ogType : 'website';
+    const resolvedCanonical = typeof canonicalUrl !== 'undefined' ? canonicalUrl : '';
+    const resolvedOgImg = typeof ogImage !== 'undefined' && ogImage ? ogImage : '/images/og-nn7.png';
+  %>
+  <title><%= resolvedTitle %></title>
+  <meta name="description" content="<%= resolvedDesc %>">
+  <meta name="robots" content="<%= resolvedRobots %>">
+  <% if (resolvedCanonical) { %>
+    <link rel="canonical" href="<%= resolvedCanonical %>">
+  <% } %>
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : settings.seo?.siteTitle %>">
-  <meta property="og:description" content="<%= typeof pageDescription !== 'undefined' ? pageDescription : settings.seo?.siteDescription %>">
-  <meta property="og:site_name" content="<%= settings.brandName %>">
+  <!-- Favicon i ikona marki -->
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
   <meta name="theme-color" content="#223c66">
+
+  <!-- Open Graph / Wizytówka Social Media (Facebook, Messenger, WhatsApp, LinkedIn) -->
+  <meta property="og:type" content="<%= resolvedOgType %>">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="<%= settings.brandName %>">
+  <% if (resolvedCanonical) { %>
+    <meta property="og:url" content="<%= resolvedCanonical %>">
+  <% } %>
+  <meta property="og:title" content="<%= resolvedTitle %>">
+  <meta property="og:description" content="<%= resolvedDesc %>">
+  <meta property="og:image" content="<%= resolvedOgImg %>">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="<%= settings.brandName %>">
+
+  <!-- Twitter / X Large Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= resolvedTitle %>">
+  <meta name="twitter:description" content="<%= resolvedDesc %>">
+  <meta name="twitter:image" content="<%= resolvedOgImg %>">
+
+  <!-- Dane strukturalne Schema.org (JSON-LD dla Google) -->
+  <% if (typeof jsonLdSchemas !== 'undefined' && Array.isArray(jsonLdSchemas) && typeof seo !== 'undefined') { %>
+    <% jsonLdSchemas.forEach(schemaObj => { %>
+      <script type="application/ld+json"><%- seo.serializeJsonLd(schemaObj) %></script>
+    <% }) %>
+  <% } %>
 
   <!-- Czcionki Google: Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
