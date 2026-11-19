@@ -48,6 +48,9 @@
           <img
             src="<%= settings.logoImage %>"
             alt="<%= settings.brandName || 'Logo' %>"
+            width="136"
+            height="50"
+            decoding="async"
             class="h-11 sm:h-12 w-auto max-w-[170px] sm:max-w-[210px] object-contain shrink-0 transition group-hover:opacity-90"
           >
         <% } else { %>
@@ -166,7 +169,7 @@
             </svg>
           </a>
         <% } %>
-        <button id="mobileMenuBtn" type="button" aria-label="Otwórz menu" class="p-2.5 rounded-lg text-slate-700 hover:bg-slate-100">
+        <button id="mobileMenuBtn" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu" class="p-2.5 rounded-lg text-slate-700 hover:bg-slate-100">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
@@ -193,7 +196,7 @@
           Zadzwoń: <%= primaryAgent.phone %>
         </a>
       <% } %>
-      <a href="/kontakt" class="w-full py-2.5 text-center rounded-lg bg-amber-600 text-white font-semibold">
+      <a href="/kontakt" class="w-full py-2.5 text-center rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold">
         Umów bezpłatną konsultację
       </a>
       <% if (settings.contact?.facebook || settings.contact?.instagram) { %>

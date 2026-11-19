@@ -11,7 +11,7 @@
         <p class="text-sm text-slate-300 mt-1">Wszystkie oferty są zweryfikowane pod kątem prawnym i dostępne bezpośrednio u agenta.</p>
       </div>
       <% if (currentUser) { %>
-        <a href="/admin/nieruchomosci/nowa" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs sm:text-sm font-bold transition self-start sm:self-auto">
+        <a href="/admin/nieruchomosci/nowa" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-bold transition self-start sm:self-auto">
           + Dodaj nową nieruchomość
         </a>
       <% } %>
@@ -23,8 +23,8 @@
     <form action="/nieruchomosci" method="GET" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm mb-10">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Typ transakcji</label>
-          <select name="typ" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-typ" class="block text-xs font-bold uppercase text-slate-600 mb-1">Typ transakcji</label>
+          <select id="prop-filter-typ" name="typ" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
             <option value="">Wszystkie (Sprzedaż i Wynajem)</option>
             <option value="sprzedaz" <%= filters.transactionType === 'sprzedaz' ? 'selected' : '' %>>Sprzedaż</option>
             <option value="wynajem" <%= filters.transactionType === 'wynajem' ? 'selected' : '' %>>Wynajem</option>
@@ -32,8 +32,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Kategoria</label>
-          <select name="kategoria" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-kategoria" class="block text-xs font-bold uppercase text-slate-600 mb-1">Kategoria</label>
+          <select id="prop-filter-kategoria" name="kategoria" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
             <option value="">Wszystkie kategorie</option>
             <option value="mieszkanie" <%= filters.category === 'mieszkanie' ? 'selected' : '' %>>Mieszkania i apartamenty</option>
             <option value="dom" <%= filters.category === 'dom' ? 'selected' : '' %>>Domy</option>
@@ -43,8 +43,9 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Lokalizacja / Tytuł</label>
+          <label for="prop-filter-szukaj" class="block text-xs font-bold uppercase text-slate-600 mb-1">Lokalizacja / Tytuł</label>
           <input
+            id="prop-filter-szukaj"
             type="text"
             name="szukaj"
             value="<%= filters.search %>"
@@ -54,8 +55,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Sortowanie</label>
-          <select name="sort" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-sort" class="block text-xs font-bold uppercase text-slate-600 mb-1">Sortowanie</label>
+          <select id="prop-filter-sort" name="sort" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 text-sm">
             <option value="newest" <%= filters.sort === 'newest' ? 'selected' : '' %>>Najnowsze oferty</option>
             <option value="price_asc" <%= filters.sort === 'price_asc' ? 'selected' : '' %>>Cena: od najniższej</option>
             <option value="price_desc" <%= filters.sort === 'price_desc' ? 'selected' : '' %>>Cena: od najwyższej</option>
@@ -64,24 +65,24 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Cena od (zł)</label>
-          <input type="number" name="cena_od" value="<%= filters.minPrice %>" placeholder="0" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-cena-od" class="block text-xs font-bold uppercase text-slate-600 mb-1">Cena od (zł)</label>
+          <input id="prop-filter-cena-od" type="number" name="cena_od" value="<%= filters.minPrice %>" placeholder="0" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Cena do (zł)</label>
-          <input type="number" name="cena_do" value="<%= filters.maxPrice %>" placeholder="Bez limitu" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-cena-do" class="block text-xs font-bold uppercase text-slate-600 mb-1">Cena do (zł)</label>
+          <input id="prop-filter-cena-do" type="number" name="cena_do" value="<%= filters.maxPrice %>" placeholder="Bez limitu" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Powierzchnia min. (m²)</label>
-          <input type="number" name="metraz_od" value="<%= filters.minArea %>" placeholder="Dowolna" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+          <label for="prop-filter-metraz-od" class="block text-xs font-bold uppercase text-slate-600 mb-1">Powierzchnia min. (m²)</label>
+          <input id="prop-filter-metraz-od" type="number" name="metraz_od" value="<%= filters.minArea %>" placeholder="Dowolna" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
         </div>
 
         <% if (typeof agents !== 'undefined' && agents.length > 1) { %>
           <div>
-            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Opiekun oferty (Agent)</label>
-            <select name="agent" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
+            <label for="prop-filter-agent" class="block text-xs font-bold uppercase text-slate-600 mb-1">Opiekun oferty (Agent)</label>
+            <select id="prop-filter-agent" name="agent" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 bg-slate-50 text-sm">
               <option value="">Wszyscy agenci</option>
               <% agents.forEach(ag => { %>
                 <option value="<%= ag.id %>" <%= Number(filters.authorId) === Number(ag.id) ? 'selected' : '' %>><%= ag.name %></option>
@@ -105,13 +106,14 @@
     <% if (properties.length === 0) { %>
       <div class="bg-white rounded-3xl border border-slate-200 p-12 text-center">
         <h2 class="font-serif font-bold text-2xl text-slate-900 mb-2">Brak ofert spełniających wybrane kryteria</h2>
-        <p class="text-sm text-slate-500 mb-6">Spróbuj zmienić filtry lub skontaktuj się ze mną – posiadam również oferty niepubliczne (off-market).</p>
+        <p class="text-sm text-slate-600 mb-6">Spróbuj zmienić filtry lub skontaktuj się ze mną – posiadam również oferty niepubliczne (off-market).</p>
         <a href="/nieruchomosci" class="px-6 py-3 rounded-xl bg-slate-900 text-white text-sm font-semibold">Pokaż wszystkie nieruchomości</a>
       </div>
     <% } else { %>
+      <h2 class="sr-only">Lista dostępnych ofert nieruchomości</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-        <% properties.forEach(property => { %>
-          <%- include('../partials/property-card', { property }) %>
+        <% properties.forEach((property, idx) => { %>
+          <%- include('../partials/property-card', { property, eagerLoad: idx === 0 }) %>
         <% }) %>
       </div>
     <% } %>

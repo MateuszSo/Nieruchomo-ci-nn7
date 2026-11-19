@@ -50,6 +50,7 @@
             name="avatarFile"
             accept="image/*"
             data-compress-webp="true"
+            data-max-width="640"
             class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3.5 file:rounded-xl file:border-0 file:bg-amber-50 file:text-amber-700 file:font-semibold"
           >
         </div>
@@ -90,5 +91,5 @@
   </div>
 </main>
 
-<script src="/js/admin.js"></script>
+<script src="/js/admin.js?v=<%= typeof assetVersion !== 'undefined' ? assetVersion : '2.0' %>" defer></script>
 <%- include('../partials/footer') %>

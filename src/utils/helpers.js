@@ -1,4 +1,8 @@
+const fs = require('fs');
+const path = require('path');
 const slugify = require('slugify');
+
+const UPLOADS_DIR = path.join(__dirname, '..', '..', 'public', 'uploads');
 
 /**
  * Tworzy przyjazny dla SEO adres URL (slug) z obsługą polskich znaków
@@ -50,30 +54,61 @@ function readingTime(htmlContent) {
 }
 
 /**
- * Zwraca etykietę i kolory dla statusu nieruchomości
+ * Zwraca etykietę i kolory o wysokim kontraście (WCAG AA >= 4.5:1) dla statusu nieruchomości
  */
 function getStatusBadge(status) {
   switch (status) {
     case 'zarezerwowane':
       return {
         label: 'Zarezerwowane',
-        bgClass: 'bg-amber-500 text-white',
-        dotClass: 'bg-amber-300'
+        bgClass: 'bg-amber-500 text-slate-950',
+        dotClass: 'bg-slate-950'
       };
     case 'sprzedane':
       return {
         label: 'Sprzedane / Wynajęte',
-        bgClass: 'bg-rose-600 text-white',
-        dotClass: 'bg-rose-300'
+        bgClass: 'bg-rose-700 text-white',
+        dotClass: 'bg-rose-200'
       };
     case 'dostepne':
     default:
       return {
         label: 'Dostępne',
-        bgClass: 'bg-emerald-600 text-white',
-        dotClass: 'bg-emerald-300'
+        bgClass: 'bg-emerald-700 text-white',
+        dotClass: 'bg-emerald-200'
       };
   }
+}
+
+/**
+ * Zwraca ścieżkę do lżejszej miniatury (-sm), jeśli istnieje na dysku
+ */
+function getSmallImage(publicUrlPath) {
+  if (!publicUrlPath || !String(publicUrlPath).startsWith('/uploads/')) {
+    return publicUrlPath || '';
+  }
+  const safeFilename = path.basename(publicUrlPath);
+  const ext = path.extname(safeFilename);
+  const base = path.basename(safeFilename, ext);
+  const candidates = [`${base}-sm${ext}`, `${base}-sm.webp`, `${base}-sm.jpg`];
+
+  for (const cand of candidates) {
+    if (fs.existsSync(path.join(UPLOADS_DIR, cand))) {
+      return `/uploads/${cand}`;
+    }
+  }
+  return publicUrlPath;
+}
+
+/**
+ * Generuje wartość atrybutu srcset dla obrazów z /uploads/, jeśli dostępny jest wariant mobilny (-sm)
+ */
+function getResponsiveSrcSet(publicUrlPath) {
+  const smallUrl = getSmallImage(publicUrlPath);
+  if (!smallUrl || smallUrl === publicUrlPath) {
+    return '';
+  }
+  return `${smallUrl} 720w, ${publicUrlPath} 1440w`;
 }
 
 /**
@@ -154,6 +189,8 @@ module.exports = {
   readingTime,
   stripHtml,
   getStatusBadge,
+  getSmallImage,
+  getResponsiveSrcSet,
   getCategoryLabel,
   getTransactionLabel,
   canManage,

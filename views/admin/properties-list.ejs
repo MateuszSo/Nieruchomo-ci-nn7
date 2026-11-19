@@ -13,7 +13,7 @@
     <div class="flex flex-wrap items-center gap-3">
       <% if (currentUser.role === 'admin' && typeof agents !== 'undefined') { %>
         <form action="/admin/nieruchomosci" method="GET" class="flex items-center gap-2">
-          <select name="agent" onchange="this.form.submit()" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs font-semibold">
+          <select name="agent" aria-label="Filtruj według opiekuna oferty" onchange="this.form.submit()" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white text-xs font-semibold">
             <option value="">Wszyscy agenci</option>
             <% agents.forEach(ag => { %>
               <option value="<%= ag.id %>" <%= Number(selectedAgent) === Number(ag.id) ? 'selected' : '' %>>
@@ -83,6 +83,7 @@
                 <form action="/admin/nieruchomosci/<%= prop.id %>/status" method="POST" class="inline-flex items-center gap-1.5">
                   <select
                     name="status"
+                    aria-label="Status nieruchomości: <%= prop.title %>"
                     onchange="this.form.submit()"
                     class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-semibold bg-white focus:border-amber-600 outline-none"
                   >

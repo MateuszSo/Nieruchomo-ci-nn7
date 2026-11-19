@@ -8,6 +8,10 @@
             <img
               src="<%= settings.logoImage === '/images/logo-nn7.svg' ? '/images/logo-nn7-light.svg' : settings.logoImage %>"
               alt="<%= settings.brandName || 'Logo' %>"
+              width="136"
+              height="50"
+              loading="lazy"
+              decoding="async"
               class="h-11 sm:h-12 w-auto max-w-[170px] sm:max-w-[210px] object-contain shrink-0 transition group-hover:opacity-90"
             >
           <% } else { %>
@@ -171,8 +175,10 @@
 
     <img
       id="lightboxImage"
-      src=""
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
       alt="Powiększone zdjęcie"
+      width="1200"
+      height="800"
       class="max-h-[78vh] max-w-[92vw] w-auto h-auto object-contain rounded-lg shadow-2xl transition duration-200"
     >
 
@@ -190,6 +196,6 @@
   <div id="lightboxThumbs" class="flex items-center justify-center gap-2 overflow-x-auto py-1 max-w-4xl mx-auto"></div>
 </div>
 
-<script src="/js/main.js"></script>
+<script src="/js/main.js?v=<%= typeof assetVersion !== 'undefined' ? assetVersion : '2.0' %>" defer></script>
 </body>
 </html>

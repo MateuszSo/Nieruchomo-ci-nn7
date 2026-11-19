@@ -1,15 +1,23 @@
-<%- include('../partials/head') %>
+<%
+  const badge = helpers.getStatusBadge(property.status);
+  const galleryImages = (property.images && property.images.length > 0) ? property.images : ['/images/demo/prop-1.svg'];
+  const mainImgSrcSet = helpers.getResponsiveSrcSet(galleryImages[0]);
+%>
+<%- include('../partials/head', {
+  preloadImage: galleryImages[0],
+  preloadImageSrcSet: mainImgSrcSet,
+  preloadImageSizes: '(max-width: 1023px) 94vw, 66vw'
+}) %>
 <%- include('../partials/navbar') %>
-<% const badge = helpers.getStatusBadge(property.status); %>
 
 <main class="flex-1 py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
   <!-- Breadcrumbs i przycisk edycji właściciela -->
   <div class="flex flex-wrap items-center justify-between gap-4 mb-6 text-xs text-slate-500">
-    <nav class="flex items-center gap-2">
-      <a href="/" class="hover:text-amber-600">Strona główna</a>
-      <span>/</span>
-      <a href="/nieruchomosci" class="hover:text-amber-600">Nieruchomości</a>
-      <span>/</span>
+    <nav aria-label="Ścieżka nawigacji" class="flex items-center gap-2">
+      <a href="/" class="py-1 hover:text-amber-700">Strona główna</a>
+      <span aria-hidden="true">/</span>
+      <a href="/nieruchomosci" class="py-1 hover:text-amber-700">Nieruchomości</a>
+      <span aria-hidden="true">/</span>
       <span class="text-slate-800 font-semibold truncate max-w-xs"><%= property.title %></span>
     </nav>
     <% if (helpers.canManage(property, currentUser)) { %>
@@ -39,8 +47,8 @@
           <%= property.title %>
         </h1>
 
-        <p class="text-sm text-slate-500 mt-2 flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <p class="text-sm text-slate-600 mt-2 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
           </svg>
@@ -49,12 +57,12 @@
       </div>
 
       <div class="lg:text-right border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100 shrink-0">
-        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Cena ofertowa</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Cena ofertowa</span>
         <strong class="font-serif font-bold text-3xl sm:text-4xl text-slate-900 block mt-0.5">
           <%= helpers.formatPrice(property.price, property.transactionType === 'wynajem' ? 'zł / mies.' : 'zł') %>
         </strong>
         <% if (property.pricePerM2 && property.transactionType !== 'wynajem') { %>
-          <span class="text-xs font-medium text-slate-500 mt-1 block">
+          <span class="text-xs font-medium text-slate-600 mt-1 block">
             <%= helpers.formatPrice(property.pricePerM2, 'zł / m²') %>
           </span>
         <% } %>
@@ -66,7 +74,6 @@
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     <div class="lg:col-span-8 space-y-8">
       <!-- Galeria zdjęć z pełnoekranowym podglądem (Lightbox) -->
-      <% const galleryImages = (property.images && property.images.length > 0) ? property.images : ['/images/demo/prop-1.svg']; %>
       <div
         class="bg-white rounded-3xl border border-slate-200 p-4 sm:p-5 shadow-sm"
         data-gallery-images="<%= JSON.stringify(galleryImages) %>"
@@ -75,7 +82,11 @@
           <img
             id="mainPropertyImage"
             src="<%= galleryImages[0] %>"
+            <% if (mainImgSrcSet) { %>srcset="<%= mainImgSrcSet %>" sizes="(max-width: 1023px) 94vw, 66vw"<% } %>
             alt="<%= property.title %><%= property.city ? ` – ${property.city}` : '' %>"
+            width="1280"
+            height="800"
+            fetchpriority="high"
             data-open-lightbox="0"
             class="w-full h-full object-cover cursor-zoom-in transition duration-300 group-hover:scale-[1.01]"
           >
@@ -106,7 +117,7 @@
             id="openLightboxBtn"
             class="absolute bottom-3 right-3 px-3.5 py-2 rounded-xl bg-slate-900/85 hover:bg-amber-600 text-white text-xs font-semibold backdrop-blur-sm shadow-lg flex items-center gap-2 transition"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
             </svg>
             <span>Pełny rozmiar (<span id="inlineGalleryCounter">1 / <%= galleryImages.length %></span>)</span>
@@ -120,9 +131,18 @@
                 type="button"
                 data-gallery-thumb="<%= imgUrl %>"
                 data-gallery-index="<%= idx %>"
+                aria-label="Pokaż zdjęcie <%= idx + 1 %> z <%= galleryImages.length %>"
                 class="aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-slate-200 focus:outline-none hover:opacity-90 transition <%= idx === 0 ? 'ring-2 ring-amber-500' : '' %>"
               >
-                <img src="<%= imgUrl %>" alt="<%= property.title %><%= property.city ? ` – ${property.city}` : '' %> (zdjęcie <%= idx + 1 %>)" class="w-full h-full object-cover">
+                <img
+                  src="<%= helpers.getSmallImage(imgUrl) %>"
+                  alt="<%= property.title %><%= property.city ? ` – ${property.city}` : '' %> (zdjęcie <%= idx + 1 %>)"
+                  width="200"
+                  height="125"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover"
+                >
               </button>
             <% }) %>
           </div>
@@ -134,19 +154,19 @@
         <h2 class="font-serif font-bold text-xl text-slate-900 mb-5">Specyfikacja nieruchomości</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-xs text-slate-400 block">Powierzchnia</span>
+            <span class="text-xs text-slate-500 block">Powierzchnia</span>
             <strong class="text-lg font-bold text-slate-900"><%= property.area %> m²</strong>
           </div>
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-xs text-slate-400 block">Liczba pokoi</span>
+            <span class="text-xs text-slate-500 block">Liczba pokoi</span>
             <strong class="text-lg font-bold text-slate-900"><%= property.rooms > 0 ? property.rooms : '-' %></strong>
           </div>
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-xs text-slate-400 block">Piętro</span>
+            <span class="text-xs text-slate-500 block">Piętro</span>
             <strong class="text-lg font-bold text-slate-900"><%= property.floor || '-' %></strong>
           </div>
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-xs text-slate-400 block">Rok budowy</span>
+            <span class="text-xs text-slate-500 block">Rok budowy</span>
             <strong class="text-lg font-bold text-slate-900"><%= property.buildYear || '-' %></strong>
           </div>
         </div>
@@ -154,7 +174,7 @@
         <!-- Atuty i udogodnienia -->
         <% if (property.amenities && property.amenities.length > 0) { %>
           <div class="mt-6 pt-6 border-t border-slate-100">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Udogodnienia i atuty oferty</h3>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Udogodnienia i atuty oferty</h3>
             <div class="flex flex-wrap gap-2">
               <% property.amenities.forEach(item => { %>
                 <span class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200/60 text-amber-900 text-xs font-semibold">
@@ -183,6 +203,10 @@
           <img
             src="<%= propAuthor.avatar || '/images/demo/agent-portrait.svg' %>"
             alt="<%= propAuthor.name %>"
+            width="64"
+            height="80"
+            loading="lazy"
+            decoding="async"
             class="w-16 h-20 rounded-2xl object-cover border border-amber-500/40 shrink-0"
           >
           <div>
@@ -190,12 +214,12 @@
             <h3 class="font-serif font-bold text-lg text-slate-900"><%= propAuthor.name %></h3>
             <p class="text-xs text-slate-500"><%= propAuthor.title %></p>
             <% if (propAuthor.phone) { %>
-              <a href="tel:<%= propAuthor.phone.replace(/\s+/g, '') %>" class="text-sm font-bold text-slate-900 hover:text-amber-600 block mt-1">
+              <a href="tel:<%= propAuthor.phone.replace(/\s+/g, '') %>" class="text-sm font-bold text-slate-900 hover:text-amber-700 inline-block py-1 mt-0.5">
                 <%= propAuthor.phone %>
               </a>
             <% } %>
             <% if (propAuthor.email) { %>
-              <a href="mailto:<%= propAuthor.email %>" class="text-xs text-amber-700 hover:underline block">
+              <a href="mailto:<%= propAuthor.email %>" class="text-xs text-amber-700 hover:underline block py-1">
                 <%= propAuthor.email %>
               </a>
             <% } %>
@@ -203,7 +227,7 @@
         </div>
 
         <h4 class="font-serif font-bold text-lg text-slate-900 mt-5 mb-1">Zapytaj o tę nieruchomość</h4>
-        <p class="text-xs text-slate-500 mb-4">Wiadomość trafi bezpośrednio do opiekuna oferty (<%= propAuthor.name %>).</p>
+        <p class="text-xs text-slate-600 mb-4">Wiadomość trafi bezpośrednio do opiekuna oferty (<%= propAuthor.name %>).</p>
 
         <form action="/kontakt" method="POST" class="space-y-3.5">
           <input type="hidden" name="agentId" value="<%= propAuthor.id %>">
@@ -213,7 +237,9 @@
           <input type="hidden" name="redirectUrl" value="/nieruchomosci/<%= property.slug %>">
 
           <div>
+            <label for="prop-inquiry-name" class="sr-only">Twoje imię i nazwisko</label>
             <input
+              id="prop-inquiry-name"
               type="text"
               name="name"
               required
@@ -222,7 +248,9 @@
             >
           </div>
           <div>
+            <label for="prop-inquiry-phone" class="sr-only">Numer telefonu</label>
             <input
+              id="prop-inquiry-phone"
               type="tel"
               name="phone"
               required
@@ -231,7 +259,9 @@
             >
           </div>
           <div>
+            <label for="prop-inquiry-email" class="sr-only">Adres e-mail (opcjonalnie)</label>
             <input
+              id="prop-inquiry-email"
               type="email"
               name="email"
               placeholder="Adres e-mail (opcjonalnie)"
@@ -239,7 +269,9 @@
             >
           </div>
           <div>
+            <label for="prop-inquiry-message" class="sr-only">Treść wiadomości</label>
             <textarea
+              id="prop-inquiry-message"
               name="message"
               rows="3"
               required
@@ -247,7 +279,7 @@
             >Dzień dobry, interesuje mnie oferta „<%= property.title %>”. Proszę o kontakt w sprawie prezentacji.</textarea>
           </div>
 
-          <label class="flex items-start gap-2 text-[11px] text-slate-500 leading-relaxed cursor-pointer">
+          <label class="flex items-start gap-2 text-[11px] text-slate-600 leading-relaxed cursor-pointer">
             <input
               type="checkbox"
               name="privacyAccepted"
@@ -280,5 +312,22 @@
     </section>
   <% } %>
 </main>
+
+<% // Upewnij się, że w JS zmiana slajdu w galerii nie jest blokowana przez stary srcset pierwszego zdjęcia %>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var mainImg = document.getElementById('mainPropertyImage');
+    if (mainImg) {
+      var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          if (m.attributeName === 'src' && mainImg.hasAttribute('srcset')) {
+            mainImg.removeAttribute('srcset');
+          }
+        });
+      });
+      observer.observe(mainImg, { attributes: true, attributeFilter: ['src'] });
+    }
+  });
+</script>
 
 <%- include('../partials/footer') %>

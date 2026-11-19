@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
+const path = require('path');
 const db = require('../config/db');
 const { requireAuth, requireAdmin, canManage } = require('../middleware/auth');
-const { upload, removeUploadedFile } = require('../config/upload');
+const { upload, saveCompanionThumb, removeUploadedFile, getOversizedUploads } = require('../config/upload');
 
 // ==================== LOGOWANIE / WYLOGOWANIE ====================
 router.get('/login', (req, res) => {
@@ -88,9 +89,47 @@ router.get('/', (req, res) => {
     activeTab: 'dashboard',
     stats,
     recentProperties: properties.slice(0, 5),
-    recentMessages: messages.slice(0, 5)
+    recentMessages: messages.slice(0, 5),
+    oversizedUploads: isAdmin ? getOversizedUploads(200 * 1024) : []
   });
 });
+
+// ==================== JEDNOKLIKNIĘCIOWA OPTYMALIZACJA CIĘŻKICH ZDJĘĆ (/admin/optymalizuj-zdjecie) ====================
+router.post(
+  '/optymalizuj-zdjecie',
+  requireAdmin,
+  upload.fields([
+    { name: 'optimizedFile', maxCount: 1 },
+    { name: 'thumbFile', maxCount: 1 }
+  ]),
+  (req, res) => {
+    const oldPath = String(req.body.oldPath || '').trim();
+    const mainFile = req.files?.optimizedFile?.[0];
+    const thumbFile = req.files?.thumbFile?.[0];
+
+    if (!oldPath.startsWith('/uploads/') || oldPath.includes('..') || !mainFile) {
+      if (mainFile) removeUploadedFile(`/uploads/${mainFile.filename}`);
+      if (thumbFile) removeUploadedFile(`/uploads/${thumbFile.filename}`);
+      return res.status(400).json({ ok: false, error: 'Nieprawidłowe dane pliku.' });
+    }
+
+    const newPublicPath = `/uploads/${mainFile.filename}`;
+    if (thumbFile) {
+      saveCompanionThumb(mainFile, thumbFile);
+    }
+
+    const updatedRefs = db.replaceUploadedImagePath(oldPath, newPublicPath);
+    removeUploadedFile(oldPath);
+
+    return res.json({
+      ok: true,
+      oldPath,
+      newPath: newPublicPath,
+      updatedRefs,
+      newSizeKB: Math.round(mainFile.size / 1024)
+    });
+  }
+);
 
 // ==================== MÓJ PROFIL (/admin/profil – dla Admina i Agenta) ====================
 router.get('/profil', (req, res) => {
@@ -318,9 +357,20 @@ router.get('/nieruchomosci/nowa', (req, res) => {
   });
 });
 
-router.post('/nieruchomosci/nowa', upload.array('images', 15), (req, res) => {
-  const isAdmin = req.session.user.role === 'admin';
-  const uploadedPaths = (req.files || []).map((f) => `/uploads/${f.filename}`);
+router.post(
+  '/nieruchomosci/nowa',
+  upload.fields([
+    { name: 'images', maxCount: 15 },
+    { name: 'images_thumb', maxCount: 15 }
+  ]),
+  (req, res) => {
+    const isAdmin = req.session.user.role === 'admin';
+    const mainFiles = req.files?.images || [];
+    const thumbFiles = req.files?.images_thumb || [];
+    mainFiles.forEach((f, idx) => {
+      if (thumbFiles[idx]) saveCompanionThumb(f, thumbFiles[idx]);
+    });
+    const uploadedPaths = mainFiles.map((f) => `/uploads/${f.filename}`);
   const customImageUrls = String(req.body.customImages || '')
     .split('\n')
     .map((s) => s.trim())
@@ -384,33 +434,44 @@ router.get('/nieruchomosci/:id/edytuj', (req, res) => {
   });
 });
 
-router.post('/nieruchomosci/:id/edytuj', upload.array('images', 15), (req, res) => {
-  const current = db.getPropertyById(req.params.id);
-  if (!current) {
-    req.session.flash = { type: 'error', message: 'Nie znaleziono wybranej nieruchomości.' };
-    return res.redirect('/admin/nieruchomosci');
-  }
-  if (!canManage(current, req.session.user)) {
-    req.session.flash = { type: 'error', message: 'Brak uprawnień – możesz edytować wyłącznie własne ogłoszenia.' };
-    return res.redirect('/admin/nieruchomosci');
-  }
-
-  const isAdmin = req.session.user.role === 'admin';
-
-  // Zachowane zdjęcia z formularza (checkboxy existingImages)
-  let keptImages = req.body.existingImages || [];
-  if (!Array.isArray(keptImages)) {
-    keptImages = [keptImages].filter(Boolean);
-  }
-
-  // Usuń z dysku zdjęcia, które właściciel odznaczył
-  (current.images || []).forEach((imgUrl) => {
-    if (!keptImages.includes(imgUrl)) {
-      removeUploadedFile(imgUrl);
+router.post(
+  '/nieruchomosci/:id/edytuj',
+  upload.fields([
+    { name: 'images', maxCount: 15 },
+    { name: 'images_thumb', maxCount: 15 }
+  ]),
+  (req, res) => {
+    const current = db.getPropertyById(req.params.id);
+    if (!current) {
+      req.session.flash = { type: 'error', message: 'Nie znaleziono wybranej nieruchomości.' };
+      return res.redirect('/admin/nieruchomosci');
     }
-  });
+    if (!canManage(current, req.session.user)) {
+      req.session.flash = { type: 'error', message: 'Brak uprawnień – możesz edytować wyłącznie własne ogłoszenia.' };
+      return res.redirect('/admin/nieruchomosci');
+    }
 
-  const uploadedPaths = (req.files || []).map((f) => `/uploads/${f.filename}`);
+    const isAdmin = req.session.user.role === 'admin';
+
+    // Zachowane zdjęcia z formularza (checkboxy existingImages)
+    let keptImages = req.body.existingImages || [];
+    if (!Array.isArray(keptImages)) {
+      keptImages = [keptImages].filter(Boolean);
+    }
+
+    // Usuń z dysku zdjęcia, które właściciel odznaczył
+    (current.images || []).forEach((imgUrl) => {
+      if (!keptImages.includes(imgUrl)) {
+        removeUploadedFile(imgUrl);
+      }
+    });
+
+    const mainFiles = req.files?.images || [];
+    const thumbFiles = req.files?.images_thumb || [];
+    mainFiles.forEach((f, idx) => {
+      if (thumbFiles[idx]) saveCompanionThumb(f, thumbFiles[idx]);
+    });
+    const uploadedPaths = mainFiles.map((f) => `/uploads/${f.filename}`);
   const customImageUrls = String(req.body.customImages || '')
     .split('\n')
     .map((s) => s.trim())
@@ -579,11 +640,22 @@ router.get('/blog/nowy', (req, res) => {
   });
 });
 
-router.post('/blog/nowy', upload.single('coverImageFile'), (req, res) => {
-  const isAdmin = req.session.user.role === 'admin';
-  const coverImage = req.file
-    ? `/uploads/${req.file.filename}`
-    : (req.body.coverImageUrl || '/images/demo/blog-cover.svg');
+router.post(
+  '/blog/nowy',
+  upload.fields([
+    { name: 'coverImageFile', maxCount: 1 },
+    { name: 'coverImageFile_thumb', maxCount: 1 }
+  ]),
+  (req, res) => {
+    const isAdmin = req.session.user.role === 'admin';
+    const mainCover = req.files?.coverImageFile?.[0];
+    const thumbCover = req.files?.coverImageFile_thumb?.[0];
+    if (mainCover && thumbCover) {
+      saveCompanionThumb(mainCover, thumbCover);
+    }
+    const coverImage = mainCover
+      ? `/uploads/${mainCover.filename}`
+      : (req.body.coverImageUrl || '/images/demo/blog-cover.svg');
 
   const authorId = isAdmin && req.body.authorId
     ? Number(req.body.authorId)
@@ -626,25 +698,34 @@ router.get('/blog/:id/edytuj', (req, res) => {
   });
 });
 
-router.post('/blog/:id/edytuj', upload.single('coverImageFile'), (req, res) => {
-  const current = db.getPostById(req.params.id);
-  if (!current) {
-    req.session.flash = { type: 'error', message: 'Nie znaleziono artykułu.' };
-    return res.redirect('/admin/blog');
-  }
-  if (!canManage(current, req.session.user)) {
-    req.session.flash = { type: 'error', message: 'Brak uprawnień – możesz edytować wyłącznie własne artykuły.' };
-    return res.redirect('/admin/blog');
-  }
+router.post(
+  '/blog/:id/edytuj',
+  upload.fields([
+    { name: 'coverImageFile', maxCount: 1 },
+    { name: 'coverImageFile_thumb', maxCount: 1 }
+  ]),
+  (req, res) => {
+    const current = db.getPostById(req.params.id);
+    if (!current) {
+      req.session.flash = { type: 'error', message: 'Nie znaleziono artykułu.' };
+      return res.redirect('/admin/blog');
+    }
+    if (!canManage(current, req.session.user)) {
+      req.session.flash = { type: 'error', message: 'Brak uprawnień – możesz edytować wyłącznie własne artykuły.' };
+      return res.redirect('/admin/blog');
+    }
 
-  const isAdmin = req.session.user.role === 'admin';
-  let coverImage = current.coverImage;
-  if (req.file) {
-    removeUploadedFile(current.coverImage);
-    coverImage = `/uploads/${req.file.filename}`;
-  } else if (req.body.coverImageUrl && req.body.coverImageUrl.trim()) {
-    coverImage = req.body.coverImageUrl.trim();
-  }
+    const isAdmin = req.session.user.role === 'admin';
+    let coverImage = current.coverImage;
+    const mainCover = req.files?.coverImageFile?.[0];
+    const thumbCover = req.files?.coverImageFile_thumb?.[0];
+    if (mainCover) {
+      removeUploadedFile(current.coverImage);
+      if (thumbCover) saveCompanionThumb(mainCover, thumbCover);
+      coverImage = `/uploads/${mainCover.filename}`;
+    } else if (req.body.coverImageUrl && req.body.coverImageUrl.trim()) {
+      coverImage = req.body.coverImageUrl.trim();
+    }
 
   const authorId = isAdmin && req.body.authorId
     ? Number(req.body.authorId)
@@ -702,6 +783,7 @@ router.post(
   upload.fields([
     { name: 'logoImageFile', maxCount: 1 },
     { name: 'heroImageFile', maxCount: 1 },
+    { name: 'heroImageFile_thumb', maxCount: 1 },
     { name: 'ogImageFile', maxCount: 1 }
   ]),
   (req, res) => {
@@ -720,7 +802,10 @@ router.post(
 
     if (req.files && req.files.heroImageFile && req.files.heroImageFile[0]) {
       removeUploadedFile(current.heroImage);
-      heroImage = `/uploads/${req.files.heroImageFile[0].filename}`;
+      const mainHero = req.files.heroImageFile[0];
+      const thumbHero = req.files.heroImageFile_thumb && req.files.heroImageFile_thumb[0];
+      if (thumbHero) saveCompanionThumb(mainHero, thumbHero);
+      heroImage = `/uploads/${mainHero.filename}`;
     }
 
     if (req.files && req.files.ogImageFile && req.files.ogImageFile[0]) {

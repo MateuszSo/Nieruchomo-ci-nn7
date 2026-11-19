@@ -10,6 +10,7 @@
     const resolvedOgType = typeof ogType !== 'undefined' && ogType ? ogType : 'website';
     const resolvedCanonical = typeof canonicalUrl !== 'undefined' ? canonicalUrl : '';
     const resolvedOgImg = typeof ogImage !== 'undefined' && ogImage ? ogImage : '/images/og-nn7.png';
+    const cssVer = typeof assetVersion !== 'undefined' ? assetVersion : '2.0';
   %>
   <title><%= resolvedTitle %></title>
   <meta name="description" content="<%= resolvedDesc %>">
@@ -49,60 +50,23 @@
     <% }) %>
   <% } %>
 
-  <!-- Czcionki Google: Plus Jakarta Sans & Playfair Display -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Preload kluczowych lokalnych czcionek WOFF2 -->
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <!-- Tailwind CSS (CDN z paletą dopasowaną do identyfikacji wizualnej NN7: granat #2c4c7e i złoto #caa23e) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-            serif: ['"Playfair Display"', 'Georgia', 'serif']
-          },
-          colors: {
-            slate: {
-              50: '#f5f7fb',
-              100: '#ebf0f8',
-              200: '#d7e1f0',
-              300: '#bccce3',
-              400: '#94accb',
-              500: '#5b7396',
-              600: '#42597a',
-              700: '#344f78',
-              800: '#2c4c7e',
-              900: '#223c66',
-              950: '#162846'
-            },
-            amber: {
-              50: '#fbf8ef',
-              100: '#f5edd6',
-              200: '#ead9a6',
-              300: '#dfc373',
-              400: '#d5b24d',
-              500: '#caa23e',
-              600: '#b58c28',
-              700: '#8f6d1b',
-              800: '#735716',
-              900: '#5e4713',
-              950: '#362809'
-            },
-            brand: {
-              dark: '#162846',
-              navy: '#2c4c7e',
-              gold: '#caa23e',
-              goldLight: '#dfc373',
-              cream: '#f5f7fb'
-            }
-          }
-        }
-      }
-    };
-  </script>
-  <link rel="stylesheet" href="/css/style.css">
+  <!-- Preload głównego obrazu LCP (np. Hero na stronie głównej lub zdjęcie oferty) -->
+  <% if (typeof preloadImage !== 'undefined' && preloadImage) { %>
+    <link
+      rel="preload"
+      as="image"
+      href="<%= preloadImage %>"
+      <% if (typeof preloadImageSrcSet !== 'undefined' && preloadImageSrcSet) { %>imagesrcset="<%= preloadImageSrcSet %>"<% } %>
+      <% if (typeof preloadImageSizes !== 'undefined' && preloadImageSizes) { %>imagesizes="<%= preloadImageSizes %>"<% } %>
+      fetchpriority="high"
+    >
+  <% } %>
+
+  <!-- Skompilowany i zminifikowany arkusz stylów Tailwind CSS + typografia NN7 -->
+  <link rel="stylesheet" href="/css/main.css?v=<%= cssVer %>">
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-amber-500 selection:text-white flex flex-col min-h-screen">

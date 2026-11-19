@@ -1225,8 +1225,64 @@ function deleteMessage(id) {
   return false;
 }
 
+/**
+ * Podmienia ścieżkę zoptymalizowanego pliku graficznego we wszystkich kolekcjach bazy danych
+ */
+function replaceUploadedImagePath(oldPath, newPath) {
+  if (!oldPath || !newPath || oldPath === newPath) return 0;
+  const db = getDb();
+  let replacements = 0;
+
+  (db.users || []).forEach((u) => {
+    if (u.avatar === oldPath) {
+      u.avatar = newPath;
+      replacements += 1;
+    }
+  });
+
+  if (db.settings) {
+    if (db.settings.logoImage === oldPath) {
+      db.settings.logoImage = newPath;
+      replacements += 1;
+    }
+    if (db.settings.heroImage === oldPath) {
+      db.settings.heroImage = newPath;
+      replacements += 1;
+    }
+    if (db.settings.seo && db.settings.seo.ogImage === oldPath) {
+      db.settings.seo.ogImage = newPath;
+      replacements += 1;
+    }
+  }
+
+  (db.properties || []).forEach((prop) => {
+    if (Array.isArray(prop.images)) {
+      prop.images = prop.images.map((img) => {
+        if (img === oldPath) {
+          replacements += 1;
+          return newPath;
+        }
+        return img;
+      });
+    }
+  });
+
+  (db.posts || []).forEach((post) => {
+    if (post.coverImage === oldPath) {
+      post.coverImage = newPath;
+      replacements += 1;
+    }
+  });
+
+  if (replacements > 0) {
+    saveDatabase(db);
+  }
+  return replacements;
+}
+
 module.exports = {
   initDatabase,
+  replaceUploadedImagePath,
   getUsers,
   findUserByUsername,
   findUserById,

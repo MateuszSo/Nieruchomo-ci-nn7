@@ -3,6 +3,33 @@
 <%- include('../partials/admin-nav') %>
 
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+  <% if (typeof oversizedUploads !== 'undefined' && oversizedUploads.length > 0) {
+    const totalOversizedMB = (oversizedUploads.reduce((sum, f) => sum + f.sizeBytes, 0) / (1024 * 1024)).toFixed(2);
+  %>
+    <!-- Alert optymalizacji ciężkich zdjęć dla Google PageSpeed -->
+    <div class="mb-8 p-5 rounded-2xl bg-amber-50 border border-amber-300 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900 text-[11px] font-bold uppercase tracking-wider">
+          Optymalizacja Google PageSpeed
+        </span>
+        <h2 class="font-serif font-bold text-lg text-slate-900">
+          Wykryto <%= oversizedUploads.length %> dużych zdjęć na serwerze (łącznie <%= totalOversizedMB %> MB)
+        </h2>
+        <p id="optimizeUploadsStatus" class="text-xs text-slate-700 leading-relaxed">
+          Niektóre zdjęcia (np. <%= oversizedUploads[0].filename %> – <%= oversizedUploads[0].sizeKB %> KB) nie są w pełni skompresowane i spowalniają ładowanie strony na telefonach. Kliknij przycisk obok, aby automatycznie zmniejszyć ich wagę i wygenerować wersje mobilne bez utraty jakości.
+        </p>
+      </div>
+      <button
+        type="button"
+        id="optimizeUploadsBtn"
+        data-oversized-uploads="<%= JSON.stringify(oversizedUploads) %>"
+        class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-amber-600 text-white text-xs sm:text-sm font-bold shadow shrink-0 transition"
+      >
+        ⚡ Optymalizuj wszystkie zdjęcia (<%= oversizedUploads.length %>)
+      </button>
+    </div>
+  <% } %>
+
   <!-- Statystyki w skrócie -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
     <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
@@ -162,4 +189,5 @@
   </div>
 </main>
 
+<script src="/js/admin.js?v=<%= typeof assetVersion !== 'undefined' ? assetVersion : '2.0' %>" defer></script>
 <%- include('../partials/footer') %>

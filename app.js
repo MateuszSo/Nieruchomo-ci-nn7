@@ -28,14 +28,33 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', 1);
 
-// Kompresja odpowiedzi HTTP oraz parsowanie formularzy
+// Kompresja odpowiedzi HTTP, nagłówki bezpieczeństwa oraz parsowanie formularzy
+app.disable('x-powered-by');
 app.use(compression());
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+  next();
+});
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 app.use(express.json({ limit: '15mb' }));
 
-// Pliki statyczne
+// Pliki statyczne z długim czasem przechowywania w pamięci podręcznej przeglądarki (PageSpeed Cache)
+const ASSET_VERSION = '2.0';
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads'), {
+  maxAge: '365d',
+  immutable: true
+}));
+app.use('/fonts', express.static(path.join(__dirname, 'public', 'fonts'), {
+  maxAge: '365d',
+  immutable: true
+}));
 app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0
+  maxAge: '30d'
 }));
 
 // Konfiguracja sesji (logowanie właściciela)
@@ -90,6 +109,7 @@ app.use((req, res, next) => {
   res.locals.unreadMessagesCount = activeUser ? db.getUnreadMessagesCount(activeUser) : 0;
   res.locals.helpers = helpers;
   res.locals.seo = seo;
+  res.locals.assetVersion = ASSET_VERSION;
   res.locals.getAuthor = db.getAuthorForResource;
 
   // Domyślne dane SEO / Open Graph dla każdego widoku
